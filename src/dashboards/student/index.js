@@ -7,6 +7,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import Navbar from "components/Navbar";
 import Drawer from "@material-ui/core/Drawer";
 import { withSize } from "react-sizeme";
+import ConferenceView from "components/ConferenceView";
 
 const Dashboard = ({ size }) => {
   const [page, setPage] = useState(0);
@@ -20,7 +21,7 @@ const Dashboard = ({ size }) => {
   ];
 
   return (
-    <div className="w-full h-full flex">
+    <>
       <Drawer anchor="left" open={menuOpened} onClose={() => setMenuOpened(false)}>
         <SideMenu
           page={page}
@@ -32,14 +33,26 @@ const Dashboard = ({ size }) => {
           height={size.height}
         ></SideMenu>
       </Drawer>
-      <Navbar openMenu={() => setMenuOpened(true)}></Navbar>
-      <div
-        className="h-full hidden lg:block"
-        style={{ boxShadow: "4px 0px 10px rgba(0,0,0,0.16)" }}
-      >
-        <SideMenu page={page} setPage={setPage} items={menuItems} height={size.height}></SideMenu>
+      <div className="w-full h-full flex flex-col">
+        <Navbar openMenu={() => setMenuOpened(true)}></Navbar>
+        <div className="flex-grow flex" style={{ height: 0 }}>
+          <div
+            className="h-full hidden lg:block"
+            style={{ boxShadow: "4px 0px 10px rgba(0,0,0,0.16)" }}
+          >
+            <SideMenu
+              page={page}
+              setPage={setPage}
+              items={menuItems}
+              height={size.height}
+            ></SideMenu>
+          </div>
+          <div className="flex-grow p-7 overflow-auto">
+            <ConferenceView></ConferenceView>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
