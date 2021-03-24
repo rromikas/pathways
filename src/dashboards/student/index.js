@@ -8,6 +8,52 @@ import Navbar from "components/Navbar";
 import Drawer from "@material-ui/core/Drawer";
 import { withSize } from "react-sizeme";
 import ConferenceView from "components/ConferenceView";
+import Person1 from "assets/person1.png";
+import Person2 from "assets/person2.png";
+import Person3 from "assets/person3.png";
+import Person4 from "assets/person4.png";
+
+const participants = [
+  { muted: false, photo: Person1 },
+  { muted: true, photo: Person4 },
+  { muted: false, photo: Person3 },
+  { muted: true, photo: Person1 },
+  { muted: true, photo: Person4 },
+  { muted: true, photo: Person4 },
+  { muted: true, photo: Person3 },
+  { muted: false, photo: Person1 },
+  { muted: false, photo: Person3 },
+  { muted: true, photo: Person4 },
+  { muted: true, photo: Person4 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person1 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person4 },
+  { muted: false, photo: Person4 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person1 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person1 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person4 },
+  { muted: false, photo: Person4 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person1 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person1 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person4 },
+  { muted: false, photo: Person4 },
+  { muted: false, photo: Person3 },
+  { muted: false, photo: Person1 },
+  { muted: false, photo: Person3 },
+];
+
+const me = { photo: Person2 };
+
+const speaker = { photo: Person1 };
 
 const Dashboard = ({ size }) => {
   const [page, setPage] = useState(0);
@@ -48,7 +94,7 @@ const Dashboard = ({ size }) => {
             ></SideMenu>
           </div>
           <div className="flex-grow p-7 overflow-auto">
-            <ConferenceView></ConferenceView>
+            <ConferenceView participants={participants} me={me} speaker={speaker}></ConferenceView>
           </div>
         </div>
       </div>

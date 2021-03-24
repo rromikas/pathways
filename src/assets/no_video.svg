@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32.776" height="32.776" viewBox="0 0 32.776 32.776">
+  <g id="Page-1" transform="translate(-154.709 -702.158)">
+    <g id="Icons-Communication" transform="translate(154.709 702.158)">
+      <g id="hangout-video-off" transform="translate(0 0)">
+        <path id="Shape" d="M184.364,706.84H165.322l6.243,6.243H175v3.434l.936.936,5.307-4.37v9.677L187.485,729V709.962a3.131,3.131,0,0,0-3.122-3.121Zm-27.626-4.682-2.029,2.029,3.121,3.122a3.021,3.021,0,0,0-1.561,2.653v18.73a3.131,3.131,0,0,0,3.122,3.122h22.943l3.122,3.121,2.029-2.029-30.748-30.747Zm5.775,10.925h1.092L175,724.477v1.093H162.513V713.083Z" transform="translate(-154.709 -702.158)" fill-rule="evenodd"/>
+      </g>
+    </g>
+  </g>
+</svg>

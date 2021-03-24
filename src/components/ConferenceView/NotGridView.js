@@ -4,6 +4,8 @@ import { ReactComponent as ArrowLeft } from "assets/arrow_left.svg";
 import { ReactComponent as ArrowRight } from "assets/arrow_right.svg";
 import BlueFill from "assets/blue_fill.png";
 import { withSize } from "react-sizeme";
+import ParticipantCard from "./ParticipantCard";
+import ActionsBar from "./ActionsBar";
 
 const BoxRuler = withSize()(({ size, setSize }) => {
   useEffect(() => {
@@ -13,7 +15,7 @@ const BoxRuler = withSize()(({ size, setSize }) => {
   return <div className="h-0 w-full"></div>;
 });
 
-const NotGridView = ({ participants, me, speaker }) => {
+const NotGridView = ({ participants, me, speaker, setIsGridView }) => {
   const [isGridMode, setIsGridMode] = useState(false);
   const [participantsBoxWidth, setParticipantsBoxWidth] = useState(0);
   const [participantsFrame, setParticipantsFrame] = useState(0);
@@ -42,12 +44,18 @@ const NotGridView = ({ participants, me, speaker }) => {
 
   const participantsArrForRender = [
     ...participantsInCurrentFrame,
-    ...new Array(fillsCount).fill(0).map((x) => ({ photo: BlueFill })),
+    ...new Array(fillsCount).fill(0).map((x) => ({ photo: BlueFill, filler: true })),
   ];
   return (
-    <div style={{ maxWidth: 800 }} className="flex flex-col bg-blue-400 rounded-xl overflow-hidden">
-      <div className="flex-grow flex justify-center items-center pt-6 px-6 relative">
-        <GridIcon className="absolute top-6 right-6 text-white fill-current hover:text-orange-400 active:text-orange-500 cursor-pointer"></GridIcon>
+    <div
+      style={{ maxWidth: 800 }}
+      className="flex flex-col bg-blue-400 rounded-xl overflow-hidden relative"
+    >
+      <div className="flex-grow flex justify-center items-center pt-6 px-6">
+        <GridIcon
+          onClick={() => setIsGridView(true)}
+          className="absolute top-6 right-6 text-white fill-current hover:text-orange-400 active:text-orange-500 cursor-pointer"
+        ></GridIcon>
         <div style={{ maxWidth: 383, width: "100%" }}>
           <div
             className="bg-center bg-cover"
@@ -66,17 +74,7 @@ const NotGridView = ({ participants, me, speaker }) => {
           }}
         ></BoxRuler>
         <div style={{ width: participantsBoxWidth / (participantsPerFrame + 1) }}>
-          <div className="p-2">
-            <div
-              className="bg-cover bg-center rounded-md"
-              style={{
-                width: "100%",
-                paddingTop: "100%",
-                backgroundImage: `url(${me.photo})`,
-                boxShadow: "inset 0px 0px 0px 5px #FBA56B",
-              }}
-            ></div>
-          </div>
+          <ParticipantCard participant={me} me></ParticipantCard>
         </div>
         <div className="col row no-gutters h-full items-center justify-center">
           {participantsArrForRender.map((x, i) => {
@@ -85,7 +83,7 @@ const NotGridView = ({ participants, me, speaker }) => {
                 {i === 0 && participantsFrame > 0 ? (
                   <div
                     onClick={() => setParticipantsFrame((prev) => prev - 1)}
-                    className="absolute h-full left-0 top-0 w-11 flex justify-center items-center"
+                    className="cursor-pointer absolute h-full left-0 top-0 w-11 z-10 flex justify-center items-center"
                   >
                     <ArrowLeft></ArrowLeft>
                   </div>
@@ -94,29 +92,20 @@ const NotGridView = ({ participants, me, speaker }) => {
                 participantsFrame < framesCount - 1 ? (
                   <div
                     onClick={() => setParticipantsFrame((prev) => prev + 1)}
-                    className="absolute h-full right-0 top-0 w-11 flex justify-center items-center"
+                    className="cursor-pointer absolute h-full right-0 top-0 w-11 z-10 flex justify-center items-center"
                   >
                     <ArrowRight></ArrowRight>
                   </div>
                 ) : (
                   ""
                 )}
-                <div className="p-2">
-                  <div
-                    key={`participant-photo-sm-${i}`}
-                    className="bg-cover bg-center rounded-md"
-                    style={{
-                      width: "100%",
-                      paddingTop: "100%",
-                      backgroundImage: `url(${x.photo})`,
-                    }}
-                  ></div>
-                </div>
+                <ParticipantCard participant={x}></ParticipantCard>
               </div>
             );
           })}
         </div>
       </div>
+      <ActionsBar></ActionsBar>
     </div>
   );
 };
