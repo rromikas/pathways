@@ -55,7 +55,7 @@ const NotGridView = ({ participants, me, speaker, setIsGridView }) => {
       <div className="flex-grow flex justify-center items-center pt-6 px-6">
         <GridIcon
           onClick={() => setIsGridView(true)}
-          className="absolute top-6 right-6 text-white fill-current hover:text-orange-400 active:text-orange-500 cursor-pointer"
+          className="absolute top-6 right-6 z-10 text-white fill-current hover:text-orange-400 active:text-orange-500 cursor-pointer"
         ></GridIcon>
         <FocusedParticipantCard participant={speaker}></FocusedParticipantCard>
       </div>
