@@ -1,5 +1,5 @@
-import { ReactComponent as SoundIcon } from "assets/sound.svg";
-import { ReactComponent as NoSoundIcon } from "assets/no_sound.svg";
+import VolumeOffIcon from "@material-ui/icons/VolumeOffRounded";
+import VolumeUpIcon from "@material-ui/icons/VolumeUpRounded";
 
 const ParticipantCard = ({ key = Date.now(), participant, me = false }) => {
   return (
@@ -7,8 +7,12 @@ const ParticipantCard = ({ key = Date.now(), participant, me = false }) => {
       <div className="relative">
         {/* Some cards are fillers that just fill the space. Don't care about it. */}
         {!participant.filler ? (
-          <div className="absolute bottom-2 right-2">
-            {participant.muted ? <NoSoundIcon></NoSoundIcon> : <SoundIcon></SoundIcon>}
+          <div className="absolute bottom-0 right-1 text-32px text-white">
+            {participant.muted ? (
+              <VolumeOffIcon fontSize="inherit"></VolumeOffIcon>
+            ) : (
+              <VolumeUpIcon fontSize="inherit"></VolumeUpIcon>
+            )}
           </div>
         ) : null}
         <div

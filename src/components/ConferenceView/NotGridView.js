@@ -5,6 +5,7 @@ import { ReactComponent as ArrowRight } from "assets/arrow_right.svg";
 import BlueFill from "assets/blue_fill.png";
 import { withSize } from "react-sizeme";
 import ParticipantCard from "./ParticipantCard";
+import FocusedParticipantCard from "./FocusedParticipantCard";
 import ActionsBar from "./ActionsBar";
 
 const BoxRuler = withSize()(({ size, setSize }) => {
@@ -56,16 +57,7 @@ const NotGridView = ({ participants, me, speaker, setIsGridView }) => {
           onClick={() => setIsGridView(true)}
           className="absolute top-6 right-6 text-white fill-current hover:text-orange-400 active:text-orange-500 cursor-pointer"
         ></GridIcon>
-        <div style={{ maxWidth: 383, width: "100%" }}>
-          <div
-            className="bg-center bg-cover"
-            style={{
-              backgroundImage: `url(${speaker.photo})`,
-              width: "100%",
-              paddingTop: "72%",
-            }}
-          ></div>
-        </div>
+        <FocusedParticipantCard participant={speaker}></FocusedParticipantCard>
       </div>
       <div className="row no-gutters p-3">
         <BoxRuler

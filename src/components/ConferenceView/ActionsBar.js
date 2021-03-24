@@ -1,8 +1,8 @@
 import { ReactComponent as PhoneIcon } from "assets/phone.svg";
 import { ReactComponent as VideoIcon } from "assets/video.svg";
 import { ReactComponent as NoVideoIcon } from "assets/no_video.svg";
-import VolumeOffIcon from "@material-ui/icons/VolumeOff";
-import VolumeUpIcon from "@material-ui/icons/VolumeUp";
+import VolumeOffIcon from "@material-ui/icons/VolumeOffRounded";
+import VolumeUpIcon from "@material-ui/icons/VolumeUpRounded";
 import { ReactComponent as ExpandIcon } from "assets/expand.svg";
 import { ReactComponent as ShareIcon } from "assets/share.svg";
 
