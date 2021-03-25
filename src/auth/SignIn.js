@@ -19,13 +19,16 @@ const SignIn = () => {
       <div className="md:col-6 lg:col-5 hidden bg-blue-100 md:block">
         <div className="px-7 pt-144px pb-144px flex justify-center items-center h-full">
           <div className="text-blue-400 text-center" style={{ maxWidth: 336 }}>
-            <div className="text-56px font-bold mb-9">Welcome!</div>
+            <div className="text-48px font-bold mb-9">Welcome!</div>
             <div className="text-20px mb-20">
               To keep connected with us please login with your personal info
             </div>
             <div className="px-4">
               <div className="mb-2">Don't have account?</div>
-              <ButtonBase className="rounded-full w-full bg-blue-400 hover:bg-blue-300 transition outline-none text-white h-48px text-20px">
+              <ButtonBase
+                onClick={() => history.push("/sign-up")}
+                className="rounded-full w-full bg-blue-400 hover:bg-blue-300 transition outline-none text-white h-48px text-20px"
+              >
                 Sign up
               </ButtonBase>
             </div>
@@ -61,7 +64,12 @@ const SignIn = () => {
               <div className="absolute text-gray-700 font-medium left-0 right-0 w-72px text-center mx-auto p-1 bg-white h-32px -bottom-16px">
                 Or
               </div>
-              <div className="cursor-pointer hover:underline text-blue-400">Forgot password?</div>
+              <div
+                className="cursor-pointer hover:underline text-blue-400"
+                onClick={() => history.push("/forgot-password")}
+              >
+                Forgot password?
+              </div>
             </div>
             <div className="flex items-center">
               <div className="mr-7 text-gray-550">Login with-</div>

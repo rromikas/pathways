@@ -2,13 +2,15 @@ import LogoSVG from "assets/logo.svg";
 
 const Logo = ({ onClick, className = "" }) => {
   return (
-    <img
-      alt="logo"
-      className={`${className} cursor-pointer`}
-      onClick={onClick}
-      src={LogoSVG}
-      width={140}
-    ></img>
+    <a href="/">
+      <img
+        alt="logo"
+        className={`${className} cursor-pointer`}
+        onClick={onClick}
+        src={LogoSVG}
+        width={140}
+      ></img>
+    </a>
   );
 };
 

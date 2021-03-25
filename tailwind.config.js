@@ -37,6 +37,7 @@ const sizes = {
   "192px": "192px",
   "224px": "224px", // ----
   "256px": "256px", // * 1.5
+  "372px": "372px",
   "512px": "512px",
   "1024px": "1024px",
   "1gd": "112px", // grid
@@ -92,6 +93,7 @@ module.exports = {
     extend: {
       spacing: sizes,
       fontSize: sizes,
+      maxWidth: sizes,
     },
     filter: {
       invert: "invert(0.7)",

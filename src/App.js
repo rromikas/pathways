@@ -6,6 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import SignIn from "auth/SignIn";
 import SignUp from "auth/SignUp";
+import ForgotPassword from "auth/ForgotPassword";
 const Dashboards = React.lazy(() => import("dashboards"));
 
 const mapp = (state, ...ownProps) => {
@@ -27,6 +28,9 @@ const App = connect(mapp)(({ tempUser }) => {
         <Switch>
           <Route path="/" exact>
             <Dashboards></Dashboards>
+          </Route>
+          <Route path="/forgot-password" exact>
+            <ForgotPassword></ForgotPassword>
           </Route>
           <Route path="/sign-in" exact>
             <SignIn></SignIn>
