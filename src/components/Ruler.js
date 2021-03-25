@@ -1,14 +1,12 @@
 import { withSize } from "react-sizeme";
 import { useEffect } from "react";
 
-const Ruler = withSize({ monitorHeight: true })(
-  ({ size, setSize, height = false, width = false }) => {
-    useEffect(() => {
-      setSize(size);
-    }, [size]);
+const Ruler = ({ size, setSize, height = false, width = false }) => {
+  useEffect(() => {
+    setSize(size);
+  }, [size, setSize]);
 
-    return <div className={`${width ? "w-full" : ""} ${height ? "h-full" : ""}`}></div>;
-  }
-);
+  return <div className={`${width ? "w-full" : ""} ${height ? "h-full" : ""}`}></div>;
+};
 
-export default Ruler;
+export default withSize({ monitorHeight: true })(Ruler);

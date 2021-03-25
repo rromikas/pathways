@@ -20,15 +20,29 @@ function tempuserReducer(state = null, action) {
   }
 }
 
+function usersReducer(state = {}, action) {
+  switch (action.type) {
+    case "SET_USERS":
+      return action.payload;
+    case "CREATE_USER":
+      return { ...state, [action.payload.id]: action.payload };
+    case "UPDATE_USER":
+      return { ...state, [action.payload.id]: { ...state[action.payload.id], ...action.payload } };
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   user: userReducer,
   tempUser: tempuserReducer,
+  users: usersReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "users"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

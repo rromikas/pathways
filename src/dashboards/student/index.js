@@ -4,7 +4,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import PersonIcon from "@material-ui/icons/Person";
 import EventsIcon from "@material-ui/icons/InsertInvitation";
 import SettingsIcon from "@material-ui/icons/Settings";
-import Navbar from "components/Navbar";
+import Navbar from "components/MenuNavbar";
 import Drawer from "@material-ui/core/Drawer";
 import { withSize } from "react-sizeme";
 import ConferenceView from "components/ConferenceView";

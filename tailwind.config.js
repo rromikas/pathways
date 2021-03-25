@@ -15,6 +15,7 @@ const sizes = {
   "12px": "12px",
   "14px": "14px",
   "16px": "16px", // 4
+  "18px": "18px",
   "20px": "20px",
   "24px": "24px",
   "28px": "28px",
@@ -126,7 +127,15 @@ module.exports = {
       current: "currentColor",
       black: colors.black,
       white: colors.white,
-      gray: { 400: "#F5F5F5", 500: "#DFDFDF", 550: "#B7B7B7", 600: "#AAAAAA", 700: "#808080" },
+      gray: {
+        400: "#F5F5F5",
+        401: "#EBEBEB",
+        500: "#DFDFDF",
+        550: "#B7B7B7",
+        600: "#AAAAAA",
+        700: "#808080",
+        800: "#747474",
+      },
       indigo: colors.indigo,
       yellow: colors.amber,
     },
@@ -134,7 +143,7 @@ module.exports = {
 
   variants: {
     extend: {
-      backgroundColor: ["active"],
+      backgroundColor: ["active", "focus"],
       textColor: ["active"],
     },
   },

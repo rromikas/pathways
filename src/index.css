@@ -19,3 +19,7 @@ body {
 .simplebar-scrollbar.simplebar-visible:before {
   opacity: 1 !important;
 }
+
+.tippy-popper {
+  max-width: 100% !important;
+}

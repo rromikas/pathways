@@ -10,6 +10,7 @@ import ActionsBar from "./ActionsBar";
 
 const BoxRuler = withSize()(({ size, setSize }) => {
   useEffect(() => {
+    console.log("Asd");
     setSize(size);
   }, [size]);
 
