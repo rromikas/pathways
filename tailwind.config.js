@@ -108,7 +108,7 @@ module.exports = {
         600: darken(0.2, orange),
       },
       blue: {
-        100: lighten(0.7, navyBlue),
+        100: "#E5F1FA",
         200: lighten(0.2, navyBlue),
         300: lighten(0.1, navyBlue),
         400: navyBlue,
@@ -124,7 +124,7 @@ module.exports = {
       current: "currentColor",
       black: colors.black,
       white: colors.white,
-      gray: colors.trueGray,
+      gray: { 400: "#F5F5F5", 500: "#DFDFDF", 550: "#B7B7B7", 600: "#AAAAAA", 700: "#808080" },
       indigo: colors.indigo,
       yellow: colors.amber,
     },
