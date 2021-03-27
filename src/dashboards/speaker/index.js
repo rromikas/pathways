@@ -7,13 +7,15 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import MenuNavbar from "components/MenuNavbar";
 import Drawer from "@material-ui/core/Drawer";
 import { withSize } from "react-sizeme";
-import ConferenceView from "components/ConferenceView";
-import { participants, me, speaker } from "data";
 import { connect } from "react-redux";
-import Profile from "./Profile";
 import Navbar from "components/DashboardNavbar";
+import Profile from "./Profile";
+import Dashboard from "./Dashboard";
+import Events from "./Events";
+import Settings from "./Settings";
+import { users } from "data";
 
-const Dashboard = ({ size, user }) => {
+const Root = ({ size, user }) => {
   const [page, setPage] = useState(0);
   const [menuOpened, setMenuOpened] = useState(false);
 
@@ -47,14 +49,25 @@ const Dashboard = ({ size, user }) => {
             <SideMenu
               page={page}
               setPage={setPage}
-              items={menuItems}
+              items={
+                user.profileFilled ? menuItems : menuItems.filter((x) => x.title === "Profile")
+              }
               height={size.height}
             ></SideMenu>
           </div>
           <div className="flex-grow p-12 overflow-auto">
             <Navbar></Navbar>
-            <Profile></Profile>
-            {/* <ConferenceView participants={participants} me={me} speaker={speaker}></ConferenceView> */}
+            {!user.profileFilled ? (
+              <Profile user={user}></Profile>
+            ) : page === 0 ? (
+              <Dashboard user={user}></Dashboard>
+            ) : page === 1 ? (
+              <Profile user={user}></Profile>
+            ) : page === 2 ? (
+              <Events></Events>
+            ) : (
+              <Settings></Settings>
+            )}
           </div>
         </div>
       </div>
@@ -63,7 +76,7 @@ const Dashboard = ({ size, user }) => {
 };
 
 const mapp = (state, ...ownProps) => {
-  return { user: state.tempUser, ...ownProps };
+  return { user: state.user, ...ownProps };
 };
 
-export default withSize({ monitorHeight: true })(connect(mapp)(Dashboard));
+export default withSize({ monitorHeight: true })(connect(mapp)(Root));

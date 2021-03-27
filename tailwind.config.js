@@ -150,6 +150,7 @@ module.exports = {
   plugins: [
     require("tailwindcss-debug-screens"),
     require("tailwindcss-filters"),
+    require("@tailwindcss/line-clamp"),
     require("tailwind-bootstrap-grid")({
       containerMaxWidths: { sm: "640px", md: "768px", lg: "1024px", xl: "1280px" },
     }),

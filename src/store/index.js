@@ -20,6 +20,17 @@ function tempuserReducer(state = null, action) {
   }
 }
 
+function notificationsReducer(state = [], action) {
+  switch (action.type) {
+    case "SET_NOTES":
+      return action.payload;
+    case "ADD_NOTE":
+      return [...state, action.payload];
+    default:
+      return state;
+  }
+}
+
 function usersReducer(state = {}, action) {
   switch (action.type) {
     case "SET_USERS":
@@ -37,6 +48,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   tempUser: tempuserReducer,
   users: usersReducer,
+  notes: notificationsReducer,
 });
 
 const persistConfig = {

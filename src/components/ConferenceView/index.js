@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import NotGridView from "./NotGridView";
 import GridView from "./GridView";
+import ParticipantPropType from "propTypes/Participant";
 
 const CallWindow = ({ participants, me, speaker }) => {
   const [isGridView, setIsGridView] = useState(false);
@@ -26,7 +27,5 @@ const CallWindow = ({ participants, me, speaker }) => {
 export default CallWindow;
 
 CallWindow.propTypes = {
-  participants: PropTypes.arrayOf(
-    PropTypes.shape({ photo: PropTypes.string, muted: PropTypes.bool })
-  ),
+  participants: PropTypes.arrayOf(ParticipantPropType),
 };

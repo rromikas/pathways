@@ -1,21 +1,28 @@
 import Select from "components/Select";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import Dropzone from "components/Dropzone";
 import Input from "components/Input";
 import Textarea from "components/Textarea";
 import Fill from "assets/blue_fill.png";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import { schoolTypes, jobTitles } from "data";
 
 const Label = ({ children, className = "" }) => {
   return <div className={"text-gray-800 mb-2 mt-3 " + className}>{children}</div>;
 };
 
-const Profile = () => {
+const Profile = ({ user }) => {
   const [image, setImage] = useState([]);
-  const { values, errors, handleChange } = useFormik({
-    initialValues: { typeOfSchool: "", jobTitle: "", fullName: "", school: "", about: "" },
+  const { values, errors, handleChange, setFieldValue } = useFormik({
+    initialValues: user,
   });
+
+  useEffect(() => {
+    if (user && user.image) {
+      setImage([user.image]);
+    }
+  }, [user]);
   return (
     <div className="p-12 rounded-xl" style={{ boxShadow: "0px 3px 8px 0px rgba(0,0,0,0.1)" }}>
       <div className="flex flex-wrap mb-28">
@@ -24,7 +31,7 @@ const Profile = () => {
             <div
               className="w-192px h-192px rounded-full bg-center bg-cover border-4 border-blue-400"
               style={{
-                backgroundImage: `url(${image.length ? URL.createObjectURL(image[0]) : Fill})`,
+                backgroundImage: `url(${image.length ? image[0] : Fill})`,
               }}
             ></div>
           </div>
@@ -51,7 +58,10 @@ const Profile = () => {
             </div>
           </div>
           <Label className="mt-5">Upload profile image (Recommended 60px*150px)</Label>
-          <Dropzone files={image} onFiles={(files) => setImage(files)}></Dropzone>
+          <Dropzone
+            files={image}
+            onFiles={(files) => setImage(files.map((x) => URL.createObjectURL(x)))}
+          ></Dropzone>
           <Label>Full name</Label>
           <Input
             type="text"
@@ -69,9 +79,17 @@ const Profile = () => {
             className="w-full"
           ></Input>
           <Label>Type of school</Label>
-          <Select items={["Romas", "Nerijus", "Justas"]} value={values.typeOfSchool}></Select>
+          <Select
+            items={schoolTypes}
+            value={values.schoolType}
+            setValue={(val) => setFieldValue("schoolType", val)}
+          ></Select>
           <Label>Job title</Label>
-          <Select items={["Romas", "Nerijus", "Justas"]} value={values.jobTitle}></Select>
+          <Select
+            items={jobTitles}
+            value={values.jobTitle}
+            setValue={(val) => setFieldValue("jobTitle", val)}
+          ></Select>
           <Label>Tell us about you</Label>
           <Textarea
             className="w-full"

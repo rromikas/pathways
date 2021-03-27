@@ -11,6 +11,11 @@ export const jobTitles = ["Teacher", "Lecturer", "Researcher", "Administrator"];
 const loremIpsum =
   "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.";
 
+const questionLorem =
+  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat?";
+
+export const questions = new Array(40).fill(questionLorem);
+
 export const users = {
   1: {
     id: 1,
@@ -25,6 +30,7 @@ export const users = {
     role: "speaker",
     email: "speaker@gmail.com",
     password: "speaker",
+    answers: null,
   },
   2: {
     id: 2,
@@ -39,6 +45,7 @@ export const users = {
     role: "student",
     email: "student@gmail.com",
     password: "student",
+    answers: null,
   },
   3: {
     id: 3,
@@ -47,6 +54,7 @@ export const users = {
     fullName: "Mister Josh",
     email: "admin@gmail.com",
     password: "admin",
+    answers: null,
   },
   4: {
     id: 4,
@@ -61,6 +69,7 @@ export const users = {
     role: "moderator",
     email: "moderator@gmail.com",
     password: "moderator",
+    answers: null,
   },
 };
 

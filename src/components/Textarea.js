@@ -4,8 +4,8 @@ const Textarea = ({ className = "", ...rest }) => {
       {...rest}
       spellCheck={false}
       className={
-        className +
-        " resize-none rounded-xl bg-gray-400 hover:bg-gray-401 transition outline-none p-7"
+        "resize-none rounded-xl bg-gray-400 hover:bg-gray-401 transition outline-none px-6 py-4 h-96px " +
+        className
       }
     ></textarea>
   );

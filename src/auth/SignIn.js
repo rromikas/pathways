@@ -13,15 +13,14 @@ import Modal from "@material-ui/core/Modal";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
 import { connect } from "react-redux";
+import { useNotify } from "notifications";
 
 const SignIn = connect((state, ...ownProps) => ({ users: state.users, ...ownProps }))(
   ({ users }) => {
     const history = useHistory();
+    const notify = useNotify();
     const [isSelectingProfile, setIsSelectingProfile] = useState(false);
-    const [error, setError] = useState("");
 
     const { values, errors, handleSubmit, handleChange, setValues } = useFormik({
       initialValues: { email: "", password: "" },
@@ -34,35 +33,13 @@ const SignIn = connect((state, ...ownProps) => ({ users: state.users, ...ownProp
           store.dispatch({ type: "SET_USER", payload: foundUser });
           history.push("/");
         } else {
-          setError("User doesn't exist");
+          notify("User doesn't exist");
         }
       },
     });
 
-    const handleSnackbarClose = () => setError("");
-
     return (
       <>
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          open={error}
-          autoHideDuration={6000}
-          onClose={handleSnackbarClose}
-          message={error}
-          action={
-            <IconButton
-              size="small"
-              aria-label="close"
-              color="inherit"
-              onClick={handleSnackbarClose}
-            >
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          }
-        />
         <Modal open={isSelectingProfile}>
           <div
             className="w-full h-full flex overflow-auto bg-black bg-opacity-5"
