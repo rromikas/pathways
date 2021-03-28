@@ -9,7 +9,7 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 
 const ActionsBar = ({ videoOff = false, volumeOff = false }) => {
   return (
-    <div className="flex flex-wrap items-center justify-center absolute left-0 right-0 bottom-0 p-5">
+    <div className="flex hidden flex-wrap items-center justify-center absolute left-0 right-0 bottom-0 p-5">
       <ButtonBase className="outline-none transform hover:-translate-y-1 mr-32px w-56px h-56px flex items-center justify-center rounded-full cursor-pointer bg-white transition">
         <ExpandIcon className="w-28px"></ExpandIcon>
       </ButtonBase>

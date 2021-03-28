@@ -1,16 +1,16 @@
 import { usePagination } from "@material-ui/lab/Pagination";
 import ButtonBase from "@material-ui/core/ButtonBase";
 
-const Pagination = ({ count }) => {
+const Pagination = ({ count, setPage }) => {
   const { items } = usePagination({
     count,
-    onChange: (a) => {
-      console.log("a", a);
+    onChange: (e, page) => {
+      setPage(page);
     },
   });
 
   return (
-    <div className="">
+    <div className="flex">
       {items.map(({ page, type, selected, ...item }, index) => {
         let children = null;
 
@@ -19,10 +19,9 @@ const Pagination = ({ count }) => {
         } else if (type === "page") {
           children = (
             <ButtonBase
-              className={`outline-none transition rounded-md ${
-                selected
-                  ? "bg-white border-1 border-blue-400 hover:bg-blue-400"
-                  : "bg-gray-400 hover:bg-gray-401"
+              classes={{ root: "border-r" }}
+              className={`outline-none mr-2 w-48px h-48px transition rounded-md ${
+                selected ? "bg-gray-500 hover:bg-gray-600" : "hover:bg-gray-400"
               }`}
               {...item}
             >
@@ -32,7 +31,9 @@ const Pagination = ({ count }) => {
         } else {
           children = (
             <ButtonBase
-              className="tranistion outline-none bg-orange-400 hover:bg-orange-500 rounded-md"
+              className={`${
+                type === "previous" ? "mr-2" : ""
+              } capitalize transition outline-none bg-blue-400 hover:bg-blue-300 rounded-md text-white h-48px px-7`}
               {...item}
             >
               {type}
@@ -40,7 +41,7 @@ const Pagination = ({ count }) => {
           );
         }
 
-        return <li key={index}>{children}</li>;
+        return <div key={index}>{children}</div>;
       })}
     </div>
   );

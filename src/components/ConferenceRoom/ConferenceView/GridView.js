@@ -11,6 +11,7 @@ const GridView = ({ participants, me, speaker, setIsGridView, size }) => {
   const [photoHeight, setPhotoHeight] = useState(0);
 
   const responsiveOptions = [
+    { colClass: "w-1/6", rowsCount: 3, itemsPerRow: 6 },
     { colClass: "w-1/5", rowsCount: 3, itemsPerRow: 5 },
     { colClass: "w-3/12", rowsCount: 3, itemsPerRow: 4 },
     { colClass: "w-4/12", rowsCount: 3, itemsPerRow: 3 },
@@ -20,17 +21,18 @@ const GridView = ({ participants, me, speaker, setIsGridView, size }) => {
 
   const getOption = () => {
     let option;
-
-    if (size.width > 700) {
+    if (size.width > 900) {
       option = 0;
-    } else if (size.width > 600) {
+    } else if (size.width > 700) {
       option = 1;
-    } else if (size.width > 400) {
+    } else if (size.width > 500) {
       option = 2;
-    } else if (size.width > 300) {
+    } else if (size.width > 400) {
       option = 3;
-    } else {
+    } else if (size.width > 300) {
       option = 4;
+    } else {
+      option = 5;
     }
     return responsiveOptions[option];
   };
@@ -51,8 +53,8 @@ const GridView = ({ participants, me, speaker, setIsGridView, size }) => {
 
   return (
     <div
-      style={{ maxWidth: 800, minHeight: photoHeight * currentOption.rowsCount + 24 }}
-      className="row no-gutters p-3 bg-blue-400 rounded-xl overflow-hidden content-start"
+      style={{ minHeight: photoHeight * currentOption.rowsCount + 16 }}
+      className="row no-gutters p-8px bg-blue-400 rounded-xl overflow-hidden content-start"
     >
       <MainViewIcon
         onClick={() => setIsGridView(false)}

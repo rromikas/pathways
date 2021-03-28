@@ -3,7 +3,7 @@ import VolumeUpIcon from "@material-ui/icons/VolumeUpRounded";
 
 const ParticipantCard = ({ key = Date.now(), participant, me = false }) => {
   return (
-    <div className="p-2">
+    <div className="p-8px">
       <div className="relative">
         {/* Some cards are fillers that just fill the space. Don't care about it. */}
         {!participant.filler ? (

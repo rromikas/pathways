@@ -7,7 +7,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import Navbar from "components/MenuNavbar";
 import Drawer from "@material-ui/core/Drawer";
 import { withSize } from "react-sizeme";
-import ConferenceView from "components/ConferenceView";
+import ConferenceView from "components/ConferenceRoom/ConferenceView";
 import Person1 from "assets/person1.png";
 import Person2 from "assets/person2.png";
 import Person3 from "assets/person3.png";

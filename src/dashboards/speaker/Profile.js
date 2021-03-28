@@ -5,6 +5,7 @@ import Dropzone from "components/Dropzone";
 import Input from "components/Input";
 import Textarea from "components/Textarea";
 import Fill from "assets/blue_fill.png";
+import Button from "components/Button";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import { schoolTypes, jobTitles } from "data";
 
@@ -49,12 +50,15 @@ const Profile = ({ user }) => {
           <div className="flex flex-wrap items-center">
             <div className="text-gray-800 mr-3 mb-3">Are you a</div>
             <div className="flex flex-wrap">
-              <ButtonBase className="h-48px mr-3 mb-3 w-192px border border-solid outline-none border-gray-800 rounded-lg">
+              <Button outlined className="mr-3 mb-3 w-192px rounded-lg">
                 Student
-              </ButtonBase>
-              <ButtonBase className="h-48px w-224px mb-3 transition bg-orange-400 hover:bg-orange-500 outline-none text-white rounded-lg">
+              </Button>
+              <Button
+                primary
+                className="h-48px w-224px mb-3 transition bg-orange-400 hover:bg-orange-500 outline-none text-white rounded-lg"
+              >
                 School Representative
-              </ButtonBase>
+              </Button>
             </div>
           </div>
           <Label className="mt-5">Upload profile image (Recommended 60px*150px)</Label>

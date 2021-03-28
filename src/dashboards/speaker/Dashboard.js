@@ -1,6 +1,9 @@
 import Questionnaire from "components/Questionnaire";
 import { questions } from "data";
 import { store } from "store";
+import EventsList from "components/EventsList";
+import { events } from "data";
+import Button from "components/Button";
 
 const Dashboard = ({ user }) => {
   const saveAnswers = (ans) => {
@@ -15,7 +18,7 @@ const Dashboard = ({ user }) => {
   };
 
   return user.questionnaireFilled ? (
-    <div></div>
+    <EventsList events={events} user={user}></EventsList>
   ) : (
     <Questionnaire
       questions={questions}

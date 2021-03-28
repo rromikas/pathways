@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const EventPropType = PropTypes.shape({
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  dateTime: PropTypes.instanceOf(Date).isRequired,
+  dateTime: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
 });
 

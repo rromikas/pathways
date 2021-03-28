@@ -10,6 +10,7 @@ const sizes = {
   "3px": "3px",
   "4px": "4px", // 2
   "6px": "6px",
+  "7px": "7px",
   "8px": "8px",
   "10px": "10px",
   "12px": "12px",
@@ -39,6 +40,8 @@ const sizes = {
   "224px": "224px", // ----
   "256px": "256px", // * 1.5
   "372px": "372px",
+  "400px": "400px",
+  "450px": "450px",
   "512px": "512px",
   "1024px": "1024px",
   "1gd": "112px", // grid
@@ -95,6 +98,11 @@ module.exports = {
       spacing: sizes,
       fontSize: sizes,
       maxWidth: sizes,
+      minWidth: sizes,
+      boxShadow: {
+        custom: "0px 3px 6px rgba(0, 0, 0, 0.16)",
+        "custom-sm": " 0px 3px 6px rgba(0, 0, 0, 0.05)",
+      },
     },
     filter: {
       invert: "invert(0.7)",
@@ -117,6 +125,7 @@ module.exports = {
         400: navyBlue,
         500: darken(0.1, navyBlue),
         600: darken(0.2, navyBlue),
+        0.86: "rgba(26, 58, 79, 0.86)",
       },
       red: {
         400: "#E51515",

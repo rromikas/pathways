@@ -3,6 +3,7 @@ import Person2 from "assets/person2.png";
 import Person3 from "assets/person3.png";
 import Person4 from "assets/person4.png";
 import Person5 from "assets/person5.png";
+import EventPoster from "assets/event_poster.png";
 
 export const schoolTypes = ["School", "Colledge", "University"];
 
@@ -15,6 +16,15 @@ const questionLorem =
   "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat?";
 
 export const questions = new Array(40).fill(questionLorem);
+
+const titleLorem = "Lorem ipsum dolor sit amet, consetetur";
+
+export const events = new Array(20).fill({
+  title: titleLorem,
+  description: loremIpsum,
+  dateTime: Date.now(),
+  image: EventPoster,
+});
 
 export const users = {
   1: {
@@ -114,3 +124,13 @@ export const participants = [
 export const me = { photo: Person2 };
 
 export const speaker = { photo: Person1 };
+
+console.log(+(Math.random() * 3).toFixed(0));
+export const messages = new Array(20).fill(0).map((x) => ({
+  author: {
+    image: [Person1, Person2, Person3, Person4][+(Math.random() * 3).toFixed(0)],
+    name: ["Jonathan", "Kevin", "Nataly", "Julia"][+(Math.random() * 3).toFixed(0)],
+  },
+  text: titleLorem,
+  createdAt: Date.now() - 1000,
+}));

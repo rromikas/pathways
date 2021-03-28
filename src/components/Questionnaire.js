@@ -92,7 +92,7 @@ const Questionnaire = ({ questions, questionsPerStep, onSave, initialAnswers }) 
           <Button
             onClick={() => setStep((prev) => prev - 1)}
             primary
-            className="mx-2 rounded-lg my-1"
+            className="mx-2 rounded-lg my-1 w-256px"
           >
             Previous
           </Button>
@@ -107,13 +107,13 @@ const Questionnaire = ({ questions, questionsPerStep, onSave, initialAnswers }) 
               }
             }}
             primary
-            className="mx-2 rounded-lg my-2"
+            className="mx-2 rounded-lg my-2 w-256px"
           >
             Next
           </Button>
         ) : null}
         <Button
-          className="mx-2 rounded-lg my-2"
+          className="mx-2 rounded-lg my-2 w-256px"
           onClick={() => {
             onSave(answers);
             notify("Saved");

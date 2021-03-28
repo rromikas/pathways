@@ -10,7 +10,6 @@ import ActionsBar from "./ActionsBar";
 
 const BoxRuler = withSize()(({ size, setSize }) => {
   useEffect(() => {
-    console.log("Asd");
     setSize(size);
   }, [size]);
 
@@ -18,12 +17,11 @@ const BoxRuler = withSize()(({ size, setSize }) => {
 });
 
 const NotGridView = ({ participants, me, speaker, setIsGridView }) => {
-  const [isGridMode, setIsGridMode] = useState(false);
   const [participantsBoxWidth, setParticipantsBoxWidth] = useState(0);
   const [participantsFrame, setParticipantsFrame] = useState(0);
 
   useEffect(() => {
-    let participantsPerFrame = Math.floor(participantsBoxWidth / 150);
+    let participantsPerFrame = Math.floor(participantsBoxWidth / 120);
     participantsPerFrame =
       participantsPerFrame > 0 ? participantsPerFrame - 1 : participantsPerFrame;
     if (participantsPerFrame * participantsFrame >= participants.length) {
@@ -31,7 +29,7 @@ const NotGridView = ({ participants, me, speaker, setIsGridView }) => {
     }
   }, [participantsBoxWidth]);
 
-  let participantsPerFrame = Math.floor(participantsBoxWidth / 150);
+  let participantsPerFrame = Math.floor(participantsBoxWidth / 120);
   participantsPerFrame = participantsPerFrame > 0 ? participantsPerFrame - 1 : participantsPerFrame;
 
   const participantsInCurrentFrame = participants.slice(
@@ -49,10 +47,7 @@ const NotGridView = ({ participants, me, speaker, setIsGridView }) => {
     ...new Array(fillsCount).fill(0).map((x) => ({ photo: BlueFill, filler: true })),
   ];
   return (
-    <div
-      style={{ maxWidth: 800 }}
-      className="flex flex-col bg-blue-400 rounded-xl overflow-hidden relative"
-    >
+    <div className="flex flex-col bg-blue-400 rounded-xl overflow-hidden relative">
       <div className="flex-grow flex justify-center items-center pt-6 px-6">
         <GridIcon
           onClick={() => setIsGridView(true)}
