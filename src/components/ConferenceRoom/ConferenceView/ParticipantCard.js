@@ -21,7 +21,7 @@ const ParticipantCard = ({ key = Date.now(), participant, me = false }) => {
           style={{
             width: "100%",
             paddingTop: "100%",
-            backgroundImage: `url(${participant.photo})`,
+            backgroundImage: `url(${participant.image})`,
             boxShadow: me ? "inset 0px 0px 0px 5px #FBA56B" : "none",
           }}
         ></div>

@@ -1,6 +1,13 @@
 import ButtonBase from "@material-ui/core/ButtonBase";
 
-const Button = ({ className, primary = false, outlined = false, floating = false, ...rest }) => {
+const Button = ({
+  className,
+  primary = false,
+  secondary = false,
+  outlined = false,
+  floating = false,
+  ...rest
+}) => {
   return (
     <ButtonBase
       {...rest}
@@ -11,6 +18,8 @@ const Button = ({ className, primary = false, outlined = false, floating = false
           ? "shadow-custom"
           : primary
           ? "bg-orange-400 hover:bg-orange-500 text-white"
+          : secondary
+          ? "bg-orange-300 hover:bg-orange-301 text-white"
           : "bg-blue-400 hover:bg-blue-300 text-white"
       } ${className}`}
     ></ButtonBase>

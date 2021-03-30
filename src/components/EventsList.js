@@ -1,15 +1,13 @@
 import PropTypes from "prop-types";
 import EventPropType from "propTypes/Event";
 import Pagination from "components/Pagination";
-import { useState } from "react";
-import Button from "components/Button";
-import { ReactComponent as InviteIcon } from "assets/invite.svg";
-import { ReactComponent as ShareIcon } from "assets/share.svg";
+import { useEffect, useState } from "react";
+
 import DateIcon from "@material-ui/icons/InsertInvitation";
 import TimeIcon from "@material-ui/icons/AccessTime";
 import moment from "moment";
 
-const Event = ({ event, mainButton, secondaryButtons }) => {
+const Event = ({ event, user, MainButton, SecondaryButtons }) => {
   return (
     <div className="flex flex-wrap xl:flex-nowrap py-7 border-b border-gray-600">
       <div className="flex flex-wrap sm:flex-nowrap">
@@ -35,34 +33,30 @@ const Event = ({ event, mainButton, secondaryButtons }) => {
           <div className="text-20px mb-4 line-clamp-1">{event.title}</div>
           <div className="line-clamp-3 text-blue-400 mb-4">{event.description}</div>
           <div>
-            <div className="flex flex-wrap">
-              <Button className="mr-4 my-1 px-7" outlined>
-                View More
-              </Button>
-              <Button className="mr-4 my-1 px-7" outlined>
-                <div className="flex items-center">
-                  <InviteIcon className="mr-4"></InviteIcon>
-                  <div>Invite moderator</div>
-                </div>
-              </Button>
-              <Button floating className="w-48px my-1 text-orange-400 fill-current">
-                <ShareIcon></ShareIcon>
-              </Button>
-            </div>
+            <SecondaryButtons user={user} event={event}></SecondaryButtons>
           </div>
         </div>
       </div>
       <div className="flex flex-grow sm:justify-end items-center py-3">
-        <Button className="w-auto px-7 text-20px" primary>
-          Accept event invite
-        </Button>
+        <MainButton user={user} event={event}></MainButton>
       </div>
     </div>
   );
 };
 
-const EventsList = ({ events, mainButton, secondaryButtons, eventsPerPage = 10 }) => {
+const EventsList = ({
+  events,
+  MainButton,
+  SecondaryButtons,
+  eventsPerPage = 10,
+  user,
+  scrollToTop = () => {},
+}) => {
   const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    scrollToTop();
+  }, [page]);
 
   return (
     <div>
@@ -70,8 +64,9 @@ const EventsList = ({ events, mainButton, secondaryButtons, eventsPerPage = 10 }
         <Event
           key={`event-${i}`}
           event={ev}
-          mainButton={mainButton}
-          secondaryButtons={secondaryButtons}
+          MainButton={MainButton}
+          user={user}
+          SecondaryButtons={SecondaryButtons}
         ></Event>
       ))}
       <div className="flex justify-end py-7">
@@ -88,4 +83,5 @@ export default EventsList;
 
 EventsList.propTypes = {
   events: PropTypes.arrayOf(EventPropType).isRequired,
+  user: PropTypes.object.isRequired,
 };

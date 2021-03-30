@@ -6,6 +6,7 @@ import { useState } from "react";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import { store } from "store";
 import { useHistory } from "react-router-dom";
+import { ReactComponent as SearchIcon } from "assets/search.svg";
 
 const DashboardNavbar = connect((state, ...ownProps) => ({ user: state.user, ...ownProps }))(
   ({ user }) => {
@@ -49,9 +50,14 @@ const DashboardNavbar = connect((state, ...ownProps) => ({ user: state.user, ...
             ))}
           </div>
         </Drawer>
-        <div className="flex justify-between items-center flex-wrap mb-2">
-          <div>
-            <input type="text"></input>
+        <div className="flex justify-between items-center flex-wrap mb-2 px-12 pt-9 pb-4">
+          <div className="flex-grow relative pr-5" style={{ maxWidth: 700 }}>
+            <SearchIcon className="absolute top-0 bottom-0 m-auto left-3 w-32px"></SearchIcon>
+            <input
+              spellCheck={false}
+              placeholder="Search an event"
+              className="bg-gray-400 hover:bg-gray-401 w-full transition outline-none border-none h-56px px-5 rounded-xl placeholder-gray-700 pl-68px"
+            ></input>
           </div>
           <div className="flex items-center">
             <div className="w-64px h-64px rounded-full bg-gray-400 flex items-center justify-center mr-4">

@@ -24,7 +24,7 @@ const Message = ({ message }) => {
 
 const Chat = ({ messages }) => {
   return (
-    <div className="overflow-hidden relative w-400px ml-5">
+    <div className="overflow-hidden relative w-372px ml-5">
       <SimpleBar className="absolute top-0 left-0 w-full h-full pr-3">
         {messages.map((x, i) => (
           <Message message={x} key={`message-${i}`}></Message>

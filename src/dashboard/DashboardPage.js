@@ -3,9 +3,10 @@ import { questions } from "data";
 import { store } from "store";
 import EventsList from "components/EventsList";
 import { events } from "data";
-import Button from "components/Button";
+import EventMainButton from "./EventMainButton";
+import EventSecondaryButtons from "./EventSecondaryButtons";
 
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user, scrollToTop }) => {
   const saveAnswers = (ans) => {
     store.dispatch({
       type: "UPDATE_USER",
@@ -17,8 +18,14 @@ const Dashboard = ({ user }) => {
     });
   };
 
-  return user.questionnaireFilled ? (
-    <EventsList events={events} user={user}></EventsList>
+  return user.questionnaireFilled || user.role === "admin" ? (
+    <EventsList
+      scrollToTop={scrollToTop}
+      events={events}
+      user={user}
+      MainButton={EventMainButton}
+      SecondaryButtons={EventSecondaryButtons}
+    ></EventsList>
   ) : (
     <Questionnaire
       questions={questions}

@@ -10,7 +10,7 @@ import ForgotPassword from "auth/ForgotPassword";
 import ScreenSizeBadge from "components/ScreenSizeBadge";
 import { users } from "data";
 import NotificationsProvider from "notifications";
-const Dashboards = React.lazy(() => import("dashboards"));
+const Dashboard = React.lazy(() => import("dashboard"));
 
 const map = (state, ...ownProps) => {
   return { user: state.user, ...ownProps };
@@ -48,7 +48,7 @@ const App = connect(map)(({ user }) => {
         <Suspense fallback="Loader">
           <Switch>
             <Route path="/" exact>
-              <Dashboards></Dashboards>
+              <Dashboard></Dashboard>
             </Route>
             <Route path="/forgot-password" exact>
               <ForgotPassword></ForgotPassword>

@@ -19,6 +19,8 @@ const Profile = ({ user }) => {
     initialValues: user,
   });
 
+  console.log("values", values);
+
   useEffect(() => {
     if (user && user.image) {
       setImage([user.image]);
@@ -36,7 +38,11 @@ const Profile = ({ user }) => {
               }}
             ></div>
           </div>
-          <div className="text-orange-400 text-24px font-medium mb-18px">
+          <div
+            className={`${
+              values.role !== "student" ? "text-orange-400" : "text-blue-400"
+            } text-24px font-medium mb-18px`}
+          >
             {values.fullName ? values.fullName : "Your name"}
           </div>
           <div className="text-18px mb-14px text-blue-400">Representing - {values.school}</div>
@@ -50,12 +56,18 @@ const Profile = ({ user }) => {
           <div className="flex flex-wrap items-center">
             <div className="text-gray-800 mr-3 mb-3">Are you a</div>
             <div className="flex flex-wrap">
-              <Button outlined className="mr-3 mb-3 w-192px rounded-lg">
+              <Button
+                onClick={() => setFieldValue("role", "student")}
+                outlined={values.role !== "student"}
+                className="mr-3 mb-3 w-192px rounded-lg"
+              >
                 Student
               </Button>
               <Button
-                primary
-                className="h-48px w-224px mb-3 transition bg-orange-400 hover:bg-orange-500 outline-none text-white rounded-lg"
+                onClick={() => setFieldValue("role", "speaker")}
+                primary={values.role !== "student"}
+                outlined={values.role === "student"}
+                className="w-224px rounded-lg"
               >
                 School Representative
               </Button>
@@ -63,6 +75,7 @@ const Profile = ({ user }) => {
           </div>
           <Label className="mt-5">Upload profile image (Recommended 60px*150px)</Label>
           <Dropzone
+            primary={values.role !== "student"}
             files={image}
             onFiles={(files) => setImage(files.map((x) => URL.createObjectURL(x)))}
           ></Dropzone>
@@ -73,29 +86,51 @@ const Profile = ({ user }) => {
             name="fullName"
             onChange={handleChange}
             className="w-full"
+            placeholder="Type your full name here"
           ></Input>
-          <Label>What school are you representing</Label>
+          <Label>
+            {values.role === "student" ? "School attending" : "What school are you representing"}
+          </Label>
           <Input
             type="text"
+            placeholder="Type school name"
             value={values.school}
             name="school"
             onChange={handleChange}
             className="w-full"
           ></Input>
-          <Label>Type of school</Label>
-          <Select
-            items={schoolTypes}
-            value={values.schoolType}
-            setValue={(val) => setFieldValue("schoolType", val)}
-          ></Select>
-          <Label>Job title</Label>
-          <Select
-            items={jobTitles}
-            value={values.jobTitle}
-            setValue={(val) => setFieldValue("jobTitle", val)}
-          ></Select>
+          {values.role !== "student" ? (
+            <>
+              <Label>Type of school</Label>
+              <Select
+                items={schoolTypes}
+                value={values.schoolType}
+                setValue={(val) => setFieldValue("schoolType", val)}
+              ></Select>
+              <Label>Job title</Label>
+              <Select
+                items={jobTitles}
+                value={values.jobTitle}
+                setValue={(val) => setFieldValue("jobTitle", val)}
+              ></Select>
+            </>
+          ) : (
+            <>
+              <Label>Current GPA</Label>
+              <Input
+                type="text"
+                value={values.gpa}
+                name="gpa"
+                placeholder="GPA"
+                onChange={handleChange}
+                className="w-full"
+              ></Input>
+            </>
+          )}
+
           <Label>Tell us about you</Label>
           <Textarea
+            placeholder="Write here"
             className="w-full"
             value={values.about}
             onChange={handleChange}
@@ -104,9 +139,9 @@ const Profile = ({ user }) => {
         </div>
       </div>
       <div className="flex justify-center">
-        <ButtonBase className="text-18px outline-none h-48px w-256px rounded-lg bg-orange-400 hover:bg-orange-500 text-white">
+        <Button primary={values.role !== "student"} className="text-18px w-256px rounded-lg">
           Save
-        </ButtonBase>
+        </Button>
       </div>
     </div>
   );

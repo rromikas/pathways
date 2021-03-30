@@ -114,6 +114,7 @@ module.exports = {
       green: "#4fff9e",
       orange: {
         300: "#FBA56B",
+        301: "#EC8743",
         400: orange,
         500: darken(0.1, orange),
         600: darken(0.2, orange),
@@ -137,6 +138,8 @@ module.exports = {
       black: colors.black,
       white: colors.white,
       gray: {
+        300: "#E5F1FA",
+        301: "#C7DDEE",
         400: "#F5F5F5",
         401: "#EBEBEB",
         500: "#DFDFDF",

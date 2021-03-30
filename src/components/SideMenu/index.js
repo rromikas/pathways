@@ -7,7 +7,7 @@ const SideMenu = ({ items, page, setPage, height }) => {
   return (
     <SimpleBar className="h-full" style={{ width: 330 }}>
       <div className="flex flex-col" style={{ minHeight: height }}>
-        <div className="pb-12 pt-9 pl-10 pr-12 flex flex-col text-lg">
+        <div className="py-12 pl-10 pr-12 flex flex-col text-lg">
           <Logo className="mb-16" onClick={() => setPage(0)}></Logo>
           <div>
             {items.map((x, i) => (

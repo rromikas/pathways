@@ -14,7 +14,7 @@ const FocusedParticipant = ({ participant }) => {
       <div
         className="bg-center bg-cover"
         style={{
-          backgroundImage: `url(${participant.photo})`,
+          backgroundImage: `url(${participant.image})`,
           width: "100%",
           paddingTop: "72%",
         }}

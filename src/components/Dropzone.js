@@ -3,7 +3,14 @@ import { useDropzone } from "react-dropzone";
 import { ReactComponent as UploadIcon } from "assets/upload.svg";
 import ButtonBase from "@material-ui/core/ButtonBase";
 
-const MyDropzone = ({ onFiles, files, accept = "", multiple = false, onClick = () => {} }) => {
+const MyDropzone = ({
+  onFiles,
+  files,
+  accept = "",
+  multiple = false,
+  primary = false,
+  onClick = () => {},
+}) => {
   const onDrop = useCallback((acceptedFiles) => {
     onFiles(acceptedFiles);
   }, []);
@@ -27,7 +34,11 @@ const MyDropzone = ({ onFiles, files, accept = "", multiple = false, onClick = (
         <div className="text-center text-gray-800 px-8 py-2">
           <div>Drag and Drop file</div>
           <div className="mb-1">Or</div>
-          <ButtonBase className="h-32px px-8 outline-none items-center bg-orange-400 hover:bg-orange-500 text-white rounded">
+          <ButtonBase
+            className={`h-32px px-8 outline-none items-center ${
+              primary ? "bg-orange-400 hover:bg-orange-500" : "bg-blue-400 hover:bg-blue-300"
+            }  text-white rounded`}
+          >
             <div className="leading-none">Browse file</div>
           </ButtonBase>
           <div className="text-blue-400 mt-3">

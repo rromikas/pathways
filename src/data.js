@@ -19,12 +19,20 @@ export const questions = new Array(40).fill(questionLorem);
 
 const titleLorem = "Lorem ipsum dolor sit amet, consetetur";
 
-export const events = new Array(20).fill({
-  title: titleLorem,
-  description: loremIpsum,
-  dateTime: Date.now(),
-  image: EventPoster,
-});
+const eventsLists = {
+  letInEvents: [2, 6, 9, 11, 14],
+  invitedEvents: [1, 4, 5],
+  requestedEvents: [2, 3, 6, 9, 11, 14, 15, 18],
+};
+
+export const events = new Array(20)
+  .fill({
+    title: titleLorem,
+    description: loremIpsum,
+    dateTime: Date.now(),
+    image: EventPoster,
+  })
+  .map((x, i) => ({ ...x, id: i }));
 
 export const users = {
   1: {
@@ -41,6 +49,7 @@ export const users = {
     email: "speaker@gmail.com",
     password: "speaker",
     answers: null,
+    ...eventsLists,
   },
   2: {
     id: 2,
@@ -56,6 +65,7 @@ export const users = {
     email: "student@gmail.com",
     password: "student",
     answers: null,
+    ...eventsLists,
   },
   3: {
     id: 3,
@@ -65,6 +75,7 @@ export const users = {
     email: "admin@gmail.com",
     password: "admin",
     answers: null,
+    ...eventsLists,
   },
   4: {
     id: 4,
@@ -80,50 +91,51 @@ export const users = {
     email: "moderator@gmail.com",
     password: "moderator",
     answers: null,
+    ...eventsLists,
   },
 };
 
 export const participants = [
-  { muted: false, photo: Person1 },
-  { muted: true, photo: Person4 },
-  { muted: false, photo: Person3 },
-  { muted: true, photo: Person1 },
-  { muted: true, photo: Person4 },
-  { muted: true, photo: Person4 },
-  { muted: true, photo: Person3 },
-  { muted: false, photo: Person1 },
-  { muted: false, photo: Person3 },
-  { muted: true, photo: Person4 },
-  { muted: true, photo: Person4 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person1 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person4 },
-  { muted: false, photo: Person4 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person1 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person1 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person4 },
-  { muted: false, photo: Person4 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person1 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person1 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person4 },
-  { muted: false, photo: Person4 },
-  { muted: false, photo: Person3 },
-  { muted: false, photo: Person1 },
-  { muted: false, photo: Person3 },
+  { muted: false, image: Person1 },
+  { muted: true, image: Person4 },
+  { muted: false, image: Person3 },
+  { muted: true, image: Person1 },
+  { muted: true, image: Person4 },
+  { muted: true, image: Person4 },
+  { muted: true, image: Person3 },
+  { muted: false, image: Person1 },
+  { muted: false, image: Person3 },
+  { muted: true, image: Person4 },
+  { muted: true, image: Person4 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person1 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person4 },
+  { muted: false, image: Person4 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person1 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person1 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person4 },
+  { muted: false, image: Person4 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person1 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person1 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person4 },
+  { muted: false, image: Person4 },
+  { muted: false, image: Person3 },
+  { muted: false, image: Person1 },
+  { muted: false, image: Person3 },
 ];
 
-export const me = { photo: Person2 };
+export const me = { image: Person2 };
 
-export const speaker = { photo: Person1 };
+export const speaker = { image: Person1 };
 
 console.log(+(Math.random() * 3).toFixed(0));
 export const messages = new Array(20).fill(0).map((x) => ({
