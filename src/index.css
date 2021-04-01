@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: gotham;
+  src: url(./fonts//GothamRounded-Book.otf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: gotham;
+  src: url(./fonts//GothamRounded-Medium.otf);
+  font-weight: 500;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -9,6 +21,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: gotham;
 }
 
 .simplebar-scrollbar::before {
