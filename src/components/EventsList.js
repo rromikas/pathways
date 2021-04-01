@@ -28,7 +28,7 @@ const Event = ({ event, user, MainButton, SecondaryButtons, goToEventPage, goToE
             </div>
           </div>
         </div>
-        <div className="max-w-512px mr-7 h-full flex flex-col">
+        <div className="max-w-512px mr-7 xl:h-full flex flex-col">
           <div className="text-20px mb-4 line-clamp-1">{event.title}</div>
           <div className="line-clamp-3 text-blue-400 mb-4">{event.description}</div>
           <div className="flex-grow items-end flex">
