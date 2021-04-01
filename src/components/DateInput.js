@@ -5,7 +5,7 @@ import moment from "moment";
 
 const DateInput = ({ value, setValue }) => {
   return (
-    <DayPicker setValue={(val) => setValue(val)}>
+    <DayPicker setValue={(val) => setValue(val)} value={value}>
       <div className="relative">
         <DateIcon className="absolute top-0 bottom-0 left-8px my-auto text-gray-600"></DateIcon>
         <Input

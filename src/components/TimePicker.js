@@ -18,10 +18,11 @@ const DayPickerComponent = ({ setValue, children, value }) => {
           >
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <StaticTimePicker
-                ampm={true}
+                ampm={false}
+                classes={{ Thumb: "bg-orange-400" }}
+                classes={{ meridiemButton: "bg-orange-400" }}
                 ampmInClock={true}
                 ToolbarComponent={(props) => {
-                  console.log(props);
                   return (
                     <div className="flex justify-between p-4">
                       <div className="font-bold text-24px cursor-pointer">

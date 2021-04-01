@@ -1,6 +1,5 @@
-import DayPicker from "@material-ui/lab/DayPicker";
-import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
-import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
+import DayPicker from "react-day-picker";
+import "react-day-picker/lib/style.css";
 import Modal from "@material-ui/core/Modal";
 import { useState } from "react";
 
@@ -12,16 +11,23 @@ const DayPickerComponent = ({ value, setValue, children }) => {
       <Modal open={open}>
         <div className="flex w-full h-full overflow-auto" onClick={() => setOpen(false)}>
           <div className="inline-block bg-white m-auto" onClick={(e) => e.stopPropagation()}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DayPicker
-                allowKeyboardControl={false}
-                date={value}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                  setOpen(false);
-                }}
-              />
-            </LocalizationProvider>
+            <style>{`.DayPicker-Day:hover {
+              background-color: #f05a28 !important;
+              color: white;
+            }`}</style>
+            <DayPicker
+              modifiersStyles={{
+                selected: {
+                  background: "#1A3A4F",
+                },
+                today: { color: "#f05a28" },
+              }}
+              selectedDays={[value]}
+              onDayClick={(newValue) => {
+                setValue(newValue);
+                setOpen(false);
+              }}
+            />
           </div>
         </div>
       </Modal>

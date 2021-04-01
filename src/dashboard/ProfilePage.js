@@ -19,8 +19,6 @@ const Profile = ({ user }) => {
     initialValues: user,
   });
 
-  console.log("values", values);
-
   useEffect(() => {
     if (user && user.image) {
       setImage([user.image]);

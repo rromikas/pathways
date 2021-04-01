@@ -2,10 +2,10 @@ import Button from "components/Button";
 import { ReactComponent as InviteIcon } from "assets/invite.svg";
 import { ReactComponent as ShareIcon } from "assets/share.svg";
 
-const SpeakerOrModeratorButtons = () => {
+const SpeakerOrModeratorButtons = ({ goToEventPage, event }) => {
   return (
     <div className="flex flex-wrap">
-      <Button className="mr-4 my-1 px-7" outlined>
+      <Button className="mr-4 my-1 px-7" outlined onClick={() => goToEventPage(event.id)}>
         View More
       </Button>
       <Button className="mr-4 my-1 px-7" outlined>
@@ -37,10 +37,10 @@ const AdminButtons = () => {
   );
 };
 
-const StudentButtons = () => {
+const StudentButtons = ({ goToEventPage, event }) => {
   return (
     <div className="flex flex-wrap">
-      <Button className="mr-4 my-1 px-7" outlined>
+      <Button className="mr-4 my-1 px-7" outlined onClick={() => goToEventPage(event.id)}>
         View More
       </Button>
       <Button floating className="w-48px my-1 text-orange-400 fill-current">
@@ -50,13 +50,13 @@ const StudentButtons = () => {
   );
 };
 
-const EventSecondaryButtons = ({ user }) => {
+const EventSecondaryButtons = ({ user, ...rest }) => {
   return ["speaker", "moderator"].includes(user.role) ? (
-    <SpeakerOrModeratorButtons></SpeakerOrModeratorButtons>
+    <SpeakerOrModeratorButtons {...rest}></SpeakerOrModeratorButtons>
   ) : user.role === "student" ? (
-    <StudentButtons></StudentButtons>
+    <StudentButtons {...rest}></StudentButtons>
   ) : user.role === "admin" ? (
-    <AdminButtons></AdminButtons>
+    <AdminButtons {...rest}></AdminButtons>
   ) : null;
 };
 

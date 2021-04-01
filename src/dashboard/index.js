@@ -8,10 +8,12 @@ import Navbar from "components/DashboardNavbar";
 import { getPages } from "./Pages";
 import { users } from "data";
 import SimpleBar from "simplebar-react";
+import { events as initialEvents } from "data";
 
 const Dashboard = ({ size, user }) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [menuOpened, setMenuOpened] = useState(false);
+  const [eventId, setEventId] = useState(1);
   const scrollContainer = useRef(null);
   const scrollToTop = () => {
     if (scrollContainer.current) {
@@ -24,8 +26,25 @@ const Dashboard = ({ size, user }) => {
     }
   };
 
+  const [events, setEvents] = useState(initialEvents);
+
   const pages = getPages(user);
   const PageComponent = pages[pageIndex].component;
+  const event = eventId > -1 ? events.find((x) => x.id === eventId) : null;
+
+  const goToCreateEventPage = () =>
+    setPageIndex(pages.findIndex((x) => x.title === "Create Event"));
+  const goToEventPage = (eventId) => {
+    setEventId(eventId);
+    setPageIndex(pages.findIndex((x) => x.title === "Event"));
+    scrollToTop();
+  };
+
+  const props = { user, events, scrollToTop, event, goToEventPage };
+  const pageSpecificProps = pages[pageIndex].props.reduce(
+    (a, b) => Object.assign({}, a, { [b]: props[b] }),
+    {}
+  );
 
   return (
     <>
@@ -36,7 +55,7 @@ const Dashboard = ({ size, user }) => {
             setPageIndex(index);
             setMenuOpened(false);
           }}
-          items={pages}
+          items={pages.filter((x) => !x.hiddenFromMenu)}
           height={size.height}
         ></SideMenu>
       </Drawer>
@@ -50,14 +69,14 @@ const Dashboard = ({ size, user }) => {
             <SideMenu
               page={pageIndex}
               setPage={setPageIndex}
-              items={pages}
+              items={pages.filter((x) => !x.hiddenFromMenu)}
               height={size.height}
             ></SideMenu>
           </div>
           <div className="flex-grow flex flex-col">
-            <Navbar></Navbar>
+            <Navbar goToCreateEventPage={goToCreateEventPage} user={user}></Navbar>
             <div ref={scrollContainer} className="flex-grow h-0 px-12 pb-12 overflow-auto">
-              <PageComponent user={user} scrollToTop={scrollToTop} />
+              <PageComponent {...pageSpecificProps} />
             </div>
           </div>
         </div>

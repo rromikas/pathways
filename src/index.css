@@ -21,7 +21,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: gotham;
+  font-family: gotham, sans-serif;
 }
 
 .simplebar-scrollbar::before {
@@ -44,4 +44,20 @@ body {
   border-right: 8px solid transparent;
   border-radius: 2px;
   border-top: 8px solid #f00;
+}
+
+.MuiClockPointer-thumb {
+  border: 16px solid #f05a28 !important;
+}
+
+.MuiClockPointer-root {
+  background-color: #f05a28 !important;
+}
+
+.MuiClockPointer-noPoint {
+  background-color: #f05a28 !important;
+}
+
+.MuiClock-pin {
+  background-color: #f05a28 !important;
 }

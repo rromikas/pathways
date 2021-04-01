@@ -2,12 +2,11 @@ import PropTypes from "prop-types";
 import EventPropType from "propTypes/Event";
 import Pagination from "components/Pagination";
 import { useEffect, useState } from "react";
-
 import DateIcon from "@material-ui/icons/InsertInvitation";
 import TimeIcon from "@material-ui/icons/AccessTime";
 import moment from "moment";
 
-const Event = ({ event, user, MainButton, SecondaryButtons }) => {
+const Event = ({ event, user, MainButton, SecondaryButtons, goToEventPage }) => {
   return (
     <div className="flex flex-wrap xl:flex-nowrap py-7 border-b border-gray-600">
       <div className="flex flex-wrap sm:flex-nowrap">
@@ -33,7 +32,11 @@ const Event = ({ event, user, MainButton, SecondaryButtons }) => {
           <div className="text-20px mb-4 line-clamp-1">{event.title}</div>
           <div className="line-clamp-3 text-blue-400 mb-4">{event.description}</div>
           <div>
-            <SecondaryButtons user={user} event={event}></SecondaryButtons>
+            <SecondaryButtons
+              user={user}
+              event={event}
+              goToEventPage={goToEventPage}
+            ></SecondaryButtons>
           </div>
         </div>
       </div>
@@ -51,6 +54,7 @@ const EventsList = ({
   eventsPerPage = 10,
   user,
   scrollToTop = () => {},
+  goToEventPage,
 }) => {
   const [page, setPage] = useState(0);
 
@@ -67,6 +71,7 @@ const EventsList = ({
           MainButton={MainButton}
           user={user}
           SecondaryButtons={SecondaryButtons}
+          goToEventPage={goToEventPage}
         ></Event>
       ))}
       <div className="flex justify-end py-7">

@@ -4,6 +4,7 @@ const NotificationsProvider = (props) => {
   return (
     <SnackbarProvider
       {...props}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       content={(key, message) => (
         <div id={key} className="bg-blue-400 text-white px-5 py-4 rounded-md w-256px shadow-md">
           {message}

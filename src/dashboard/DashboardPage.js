@@ -6,7 +6,7 @@ import { events } from "data";
 import EventMainButton from "./EventMainButton";
 import EventSecondaryButtons from "./EventSecondaryButtons";
 
-const Dashboard = ({ user, scrollToTop }) => {
+const Dashboard = ({ user, scrollToTop, events, goToEventPage }) => {
   const saveAnswers = (ans) => {
     store.dispatch({
       type: "UPDATE_USER",
@@ -20,6 +20,7 @@ const Dashboard = ({ user, scrollToTop }) => {
 
   return user.questionnaireFilled || user.role === "admin" ? (
     <EventsList
+      goToEventPage={goToEventPage}
       scrollToTop={scrollToTop}
       events={events}
       user={user}

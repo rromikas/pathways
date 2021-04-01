@@ -11,99 +11,144 @@ import { schoolTypes, jobTitles } from "data";
 import AddIcon from "@material-ui/icons/Add";
 import DateInput from "components/DateInput";
 import TimeInput from "components/TimeInput";
+import * as yup from "yup";
+import { useNotify } from "notifications";
 
-const Label = ({ children, className = "", first = false }) => {
+const Label = ({ children, className = "", first = false, error = "" }) => {
   return (
-    <div className={`text-gray-800 mb-2 ${!first ? "mt-3" : ""} text-left ` + className}>
-      {children}
+    <div className={`text-gray-800 mb-2 ${!first ? "mt-3" : ""} justify-between flex ` + className}>
+      <div>{children}</div>
+      <div className={`${error ? "text-red-400" : "text-transparent"}`}>{error}</div>
     </div>
   );
 };
 
-const CreateEventPage = ({ user }) => {
-  const [image, setImage] = useState([]);
-  const { values, errors, handleChange, setFieldValue } = useFormik({
-    initialValues: { time: null, date: null, description: "" },
+const CreateEventPage = ({ setEvents }) => {
+  const notify = useNotify();
+  const { values, errors, handleChange, setFieldValue, handleSubmit, submitCount } = useFormik({
+    initialValues: { time: null, date: null, image: null, description: "", title: "", details: [] },
+    validationSchema: yup.object().shape({
+      image: yup.mixed().required("Required"),
+      time: yup.date().typeError("Required"),
+      date: yup.date().typeError("Required"),
+      description: yup.string().required("Required"),
+      title: yup.string().required("Required"),
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, undefined, 2));
+    },
   });
 
-  const [timeslots, setTimeslots] = useState([]);
-
-  console.log("values", values);
-
   useEffect(() => {
-    if (user && user.image) {
-      setImage([user.image]);
+    if (submitCount > 0 && Object.keys(errors).length) {
+      notify("Fill required values");
     }
-  }, [user]);
+  }, [submitCount]);
+
   return (
     <div className="p-12 rounded-xl" style={{ boxShadow: "0px 3px 8px 0px rgba(0,0,0,0.1)" }}>
       <div className="flex flex-wrap mb-28">
         <div className="w-1/2 hidden md:block lg:hidden xl:block pr-12 border-r border-gray-500">
-          <Label first>Upload event image (Recommended 60px*150px)</Label>
-          <Dropzone files={image}></Dropzone>
+          <Label error={submitCount > 0 ? errors["image"] : ""}>
+            Upload event image (Recommended 60px*150px)
+          </Label>
+          <Dropzone
+            files={values.image ? [values.image] : []}
+            onFiles={(f) => setFieldValue("image", f[0])}
+          ></Dropzone>
           <div className="flex">
             <div className="w-1/2 pr-2">
-              <Label>Event time</Label>
+              <Label error={submitCount > 0 ? errors["time"] : ""}>Event time</Label>
               <TimeInput
                 value={values.time}
                 setValue={(val) => setFieldValue("time", val)}
               ></TimeInput>
             </div>
             <div className="w-1/2 pl-2">
-              <Label>Event date</Label>
+              <Label error={submitCount > 0 ? errors["date"] : ""}>Event date</Label>
               <DateInput
                 value={values.date}
-                setValue={(val) => setFieldValue("date", val)}
+                setValue={(val) => {
+                  setFieldValue("date", val);
+                }}
               ></DateInput>
             </div>
           </div>
-          <Label>Event description</Label>
-          <Textarea className="w-full" placeholder="Write here"></Textarea>
+          <Label error={submitCount > 0 ? errors["title"] : ""}>Event title</Label>
+          <Input
+            name="title"
+            onChange={handleChange}
+            value={values.title}
+            placeholder="Enter title"
+            className="w-full"
+          ></Input>
+          <Label error={submitCount > 0 ? errors["description"] : ""}>Event description</Label>
+          <Textarea
+            className="w-full"
+            placeholder="Write here"
+            value={values.description}
+            name="description"
+            onChange={handleChange}
+          ></Textarea>
           <div className="text-right">MAX 150 words</div>
         </div>
         <div className="xl:w-1/2 lg:w-full w-full md:w-1/2 md:pl-12 lg:pl-0 xl:pl-12">
           <div className="text-blue-400 mb-7">Event details</div>
-          {timeslots.map((x, i) => (
+          {values.details.map((x, i) => (
             <div key={`timeslot-${i}`} className="flex flex-wrap justify-end items-start mb-3">
               <div className="w-1/2 pr-2">
                 <TimeInput
                   value={x.time}
-                  setValue={(val) =>
-                    setTimeslots((prev) => {
-                      let arr = [...prev];
-                      arr[i].time = val;
-                      return arr;
-                    })
-                  }
+                  setValue={(val) => {
+                    let arr = [...values.details];
+                    arr[i].time = val;
+                    setFieldValue("details", arr);
+                  }}
                 ></TimeInput>
               </div>
               <div className="w-1/2 pl-2">
-                <Input className="w-full mb-2" placeholder="Topic"></Input>
-                {!("details" in x) ? (
+                <Input
+                  className="w-full mb-2"
+                  placeholder="Topic"
+                  value={x.topic}
+                  onChange={(e) => {
+                    let arr = [...values.details];
+                    arr[i].topic = e.target.value;
+                    setFieldValue("details", arr);
+                  }}
+                ></Input>
+                {!("description" in x) ? (
                   <div
                     className="flex items-center mb-2 cursor-pointer"
-                    onClick={() =>
-                      setTimeslots((prev) => {
-                        let arr = [...prev];
-                        arr[i].details = "";
-                        return arr;
-                      })
-                    }
+                    onClick={() => {
+                      let arr = [...values.details];
+                      arr[i].description = "";
+                      setFieldValue("details", arr);
+                    }}
                   >
                     <AddIcon className="mr-3"></AddIcon>
                     <div>Topic details</div>
                   </div>
                 ) : null}
               </div>
-              {"details" in x ? (
+              {"description" in x ? (
                 <div className="w-1/2 pl-2">
-                  <Textarea className="w-full" placeholder="Type your details"></Textarea>
+                  <Textarea
+                    className="w-full"
+                    placeholder="Type your details"
+                    value={x.description}
+                    onChange={(e) => {
+                      let arr = [...values.details];
+                      arr[i].description = e.target.value;
+                      setFieldValue("details", arr);
+                    }}
+                  ></Textarea>
                 </div>
               ) : null}
             </div>
           ))}
           <ButtonBase
-            onClick={() => setTimeslots((prev) => [...prev, { time: null, topic: "" }])}
+            onClick={() => setFieldValue("details", [...values.details, { time: null, topic: "" }])}
             className="h-48px bg-gray-400 hover:bg-gray-401 justify-start outline-none rounded-lg transition px-4 w-full"
           >
             <div className="flex items-center">
@@ -114,7 +159,11 @@ const CreateEventPage = ({ user }) => {
         </div>
       </div>
       <div className="flex justify-center">
-        <Button primary={values.role !== "student"} className="text-18px w-256px rounded-lg">
+        <Button
+          onClick={() => handleSubmit()}
+          primary={values.role !== "student"}
+          className="text-18px w-256px rounded-lg"
+        >
           Save
         </Button>
       </div>

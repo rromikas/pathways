@@ -7,13 +7,37 @@ import PersonIcon from "@material-ui/icons/Person";
 import EventsIcon from "@material-ui/icons/InsertInvitation";
 import SettingsIcon from "@material-ui/icons/Settings";
 import CraeteEventPage from "./CreateEventPage";
+import EventPage from "./EventPage";
 
 const pageOptions = [
-  { icon: DashboardIcon, title: "Dashboard", component: DashboardPage },
-  { icon: PersonIcon, title: "Profile", component: ProfilePage },
-  { icon: EventsIcon, title: "Events", component: EventsPage },
-  { icon: SettingsIcon, title: "Settings", component: SettingsPage },
-  { icon: SettingsIcon, title: "Create Event", hiddenFromMenu: true, component: CraeteEventPage },
+  {
+    icon: DashboardIcon,
+    title: "Dashboard",
+    component: DashboardPage,
+    props: ["events", "user", "scrollToTop", "goToEventPage"],
+  },
+  { icon: PersonIcon, title: "Profile", component: ProfilePage, props: ["user"] },
+  {
+    icon: EventsIcon,
+    title: "Events",
+    component: EventsPage,
+    props: ["events", "user", "scrollToTop", "goToEventPage"],
+  },
+  { icon: SettingsIcon, title: "Settings", component: SettingsPage, props: [] },
+  {
+    icon: SettingsIcon,
+    title: "Create Event",
+    hiddenFromMenu: false,
+    component: CraeteEventPage,
+    props: ["setEvents"],
+  },
+  {
+    icon: SettingsIcon,
+    title: "Event",
+    hiddenFromMenu: false,
+    component: EventPage,
+    props: ["event"],
+  },
 ];
 
 export const getPages = (user) => {

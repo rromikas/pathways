@@ -31,6 +31,29 @@ export const events = new Array(20)
     description: loremIpsum,
     dateTime: Date.now(),
     image: EventPoster,
+    details: [
+      { time: new Date(), topic: "Introduction", description: "" },
+      {
+        time: new Date(),
+        topic: "Speaker",
+        description: "Jonathan Doe\nJonathanDoe\nJonathanDoe\n",
+      },
+      {
+        time: new Date(),
+        topic: "Speaker",
+        description: "Jonathan Doe\nJonathanDoe\nJonathanDoe\n",
+      },
+      {
+        time: new Date(),
+        topic: "Speaker",
+        description: "Jonathan Doe\nJonathanDoe\nJonathanDoe\n",
+      },
+      {
+        time: new Date(),
+        topic: "Speaker",
+        description: "Jonathan Doe\nJonathanDoe\nJonathanDoe\n",
+      },
+    ],
   })
   .map((x, i) => ({ ...x, id: i }));
 

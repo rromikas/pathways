@@ -43,6 +43,7 @@ const sizes = {
   "400px": "400px",
   "450px": "450px",
   "512px": "512px",
+  "620px": "620px",
   "1024px": "1024px",
   "1gd": "112px", // grid
   "2gd": "224px", // 16 grid
