@@ -23,19 +23,27 @@ const Label = ({ children, className = "", first = false, error = "" }) => {
   );
 };
 
-const CreateEventPage = ({ setEvents }) => {
+const CreateEventPage = ({ onCreateEvent }) => {
   const notify = useNotify();
   const { values, errors, handleChange, setFieldValue, handleSubmit, submitCount } = useFormik({
-    initialValues: { time: null, date: null, image: null, description: "", title: "", details: [] },
+    initialValues: {
+      id: +(Math.random() * 1000).toFixed(0),
+      time: null,
+      date: null,
+      image: null,
+      description: "",
+      title: "",
+      details: [],
+    },
     validationSchema: yup.object().shape({
-      image: yup.mixed().required("Required"),
+      image: yup.string().required("Required"),
       time: yup.date().typeError("Required"),
       date: yup.date().typeError("Required"),
       description: yup.string().required("Required"),
       title: yup.string().required("Required"),
     }),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, undefined, 2));
+      onCreateEvent(values);
     },
   });
 
@@ -54,7 +62,7 @@ const CreateEventPage = ({ setEvents }) => {
           </Label>
           <Dropzone
             files={values.image ? [values.image] : []}
-            onFiles={(f) => setFieldValue("image", f[0])}
+            onFiles={(f) => setFieldValue("image", URL.createObjectURL(f[0]))}
           ></Dropzone>
           <div className="flex">
             <div className="w-1/2 pr-2">

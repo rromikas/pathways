@@ -6,7 +6,7 @@ import DateIcon from "@material-ui/icons/InsertInvitation";
 import TimeIcon from "@material-ui/icons/AccessTime";
 import moment from "moment";
 
-const Event = ({ event, user, MainButton, SecondaryButtons, goToEventPage }) => {
+const Event = ({ event, user, MainButton, SecondaryButtons, goToEventPage, goToEventRoom }) => {
   return (
     <div className="flex flex-wrap xl:flex-nowrap py-7 border-b border-gray-600">
       <div className="flex flex-wrap sm:flex-nowrap">
@@ -19,19 +19,19 @@ const Event = ({ event, user, MainButton, SecondaryButtons, goToEventPage }) => 
             <div className="text-white p-3">
               <div className="flex items-center mb-2">
                 <TimeIcon className="mr-3"></TimeIcon>
-                <div>{moment(new Date(event.dateTime)).format("hh:mm A")}</div>
+                <div>{moment(event.time).format("hh:mm A")}</div>
               </div>
               <div className="flex items-center">
                 <DateIcon className="mr-3"></DateIcon>
-                <div>{moment(new Date(event.dateTime)).format("DD/MM/YYYY")}</div>
+                <div>{moment(event.date).format("DD/MM/YYYY")}</div>
               </div>
             </div>
           </div>
         </div>
-        <div className="max-w-512px mr-7">
+        <div className="max-w-512px mr-7 h-full flex flex-col">
           <div className="text-20px mb-4 line-clamp-1">{event.title}</div>
           <div className="line-clamp-3 text-blue-400 mb-4">{event.description}</div>
-          <div>
+          <div className="flex-grow items-end flex">
             <SecondaryButtons
               user={user}
               event={event}
@@ -41,7 +41,7 @@ const Event = ({ event, user, MainButton, SecondaryButtons, goToEventPage }) => 
         </div>
       </div>
       <div className="flex flex-grow sm:justify-end items-center py-3">
-        <MainButton user={user} event={event}></MainButton>
+        <MainButton goToEventRoom={goToEventRoom} user={user} event={event}></MainButton>
       </div>
     </div>
   );
@@ -55,6 +55,7 @@ const EventsList = ({
   user,
   scrollToTop = () => {},
   goToEventPage,
+  goToEventRoom,
 }) => {
   const [page, setPage] = useState(0);
 
@@ -70,6 +71,7 @@ const EventsList = ({
           event={ev}
           MainButton={MainButton}
           user={user}
+          goToEventRoom={goToEventRoom}
           SecondaryButtons={SecondaryButtons}
           goToEventPage={goToEventPage}
         ></Event>

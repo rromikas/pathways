@@ -3,10 +3,9 @@ import TimeIcon from "@material-ui/icons/AccessTime";
 import moment from "moment";
 
 const EventPage = ({ event }) => {
-  console.log("e", event);
   return (
     <div className="flex flex-wrap justify-center p-12 m-auto">
-      <div className="w-1/2 border-r border-gray-500 pr-12">
+      <div className="xl:w-1/2 lg:w-full lg:mb-12 md:w-1/2 w-full mb-12 xl:border-r md:border-r border-gray-500 xl:pr-12 md:pr-12">
         <div className="flex justify-center mb-9">
           <div>
             <div
@@ -18,11 +17,11 @@ const EventPage = ({ event }) => {
         <div className="flex justify-center items-center mb-9">
           <div className="flex items-center mr-4">
             <TimeIcon className="mr-3 text-orange-400 fill-current"></TimeIcon>
-            <div>{moment(new Date(event.dateTime)).format("hh:mm A")}</div>
+            <div>{moment(new Date(event.time)).format("hh:mm A")}</div>
           </div>
           <div className="flex items-center">
             <DateIcon className="mr-3 text-orange-400 fill-current "></DateIcon>
-            <div>{moment(new Date(event.dateTime)).format("DD/MM/YYYY")}</div>
+            <div>{moment(new Date(event.date)).format("DD/MM/YYYY")}</div>
           </div>
         </div>
         <div className="text-center max-w-620px mx-auto">
@@ -30,7 +29,7 @@ const EventPage = ({ event }) => {
           <div>{event.description}</div>
         </div>
       </div>
-      <div className="w-1/2 pl-12 max-w-620px">
+      <div className="xl:w-1/2 lg:w-full md:w-1/2 w-full xl:pl-12 md:pl-12 max-w-620px">
         <div className="text-blue-400 mb-7">Event details</div>
         {event.details.map((x, i) => (
           <div key={`detail-${i}`} className="flex items-start mb-4 max-w-512px">

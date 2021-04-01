@@ -32,15 +32,19 @@ const Dashboard = ({ size, user }) => {
   const PageComponent = pages[pageIndex].component;
   const event = eventId > -1 ? events.find((x) => x.id === eventId) : null;
 
-  const goToCreateEventPage = () =>
-    setPageIndex(pages.findIndex((x) => x.title === "Create Event"));
   const goToEventPage = (eventId) => {
     setEventId(eventId);
     setPageIndex(pages.findIndex((x) => x.title === "Event"));
     scrollToTop();
   };
 
-  const props = { user, events, scrollToTop, event, goToEventPage };
+  const onCreateEvent = (ev) => {
+    setEvents((prev) => [ev, ...prev]);
+    setPageIndex(pages.findIndex((x) => x.title === "Events"));
+    scrollToTop();
+  };
+
+  const props = { user, events, scrollToTop, event, goToEventPage, setPageIndex, onCreateEvent };
   const pageSpecificProps = pages[pageIndex].props.reduce(
     (a, b) => Object.assign({}, a, { [b]: props[b] }),
     {}
@@ -74,7 +78,12 @@ const Dashboard = ({ size, user }) => {
             ></SideMenu>
           </div>
           <div className="flex-grow flex flex-col">
-            <Navbar goToCreateEventPage={goToCreateEventPage} user={user}></Navbar>
+            <Navbar
+              goToCreateEventPage={() =>
+                setPageIndex(pages.findIndex((x) => x.title === "Create Event"))
+              }
+              user={user}
+            ></Navbar>
             <div ref={scrollContainer} className="flex-grow h-0 px-12 pb-12 overflow-auto">
               <PageComponent {...pageSpecificProps} />
             </div>

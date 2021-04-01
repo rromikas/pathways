@@ -25,10 +25,14 @@ const StatusBar = ({ numberOfSteps, step }) => {
   );
 };
 
-const Questionnaire = ({ questions, questionsPerStep, onSave, initialAnswers }) => {
+const Questionnaire = ({ questions, questionsPerStep, onSave, initialAnswers, scrollToTop }) => {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState([]);
   const notify = useNotify();
+
+  useEffect(() => {
+    scrollToTop();
+  }, [step]);
 
   useEffect(() => {
     if (!answers.length) {

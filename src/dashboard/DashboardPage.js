@@ -16,6 +16,11 @@ const Dashboard = ({ user, scrollToTop, events, goToEventPage }) => {
         questionnaireFilled: ans.filter((x) => x).length === ans.length,
       },
     });
+
+    store.dispatch({
+      type: "SET_USER",
+      payload: { ...user, questionnaireFilled: ans.filter((x) => x).length === ans.length },
+    });
   };
 
   return user.questionnaireFilled || user.role === "admin" ? (
@@ -29,6 +34,7 @@ const Dashboard = ({ user, scrollToTop, events, goToEventPage }) => {
     ></EventsList>
   ) : (
     <Questionnaire
+      scrollToTop={scrollToTop}
       questions={questions}
       questionsPerStep={4}
       initialAnswers={user.answers}

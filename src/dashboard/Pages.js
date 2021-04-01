@@ -14,7 +14,7 @@ const pageOptions = [
     icon: DashboardIcon,
     title: "Dashboard",
     component: DashboardPage,
-    props: ["events", "user", "scrollToTop", "goToEventPage"],
+    props: ["events", "user", "scrollToTop", "goToEventPage", "goToEventRoom"],
   },
   { icon: PersonIcon, title: "Profile", component: ProfilePage, props: ["user"] },
   {
@@ -27,14 +27,14 @@ const pageOptions = [
   {
     icon: SettingsIcon,
     title: "Create Event",
-    hiddenFromMenu: false,
+    hiddenFromMenu: true,
     component: CraeteEventPage,
-    props: ["setEvents"],
+    props: ["onCreateEvent"],
   },
   {
     icon: SettingsIcon,
     title: "Event",
-    hiddenFromMenu: false,
+    hiddenFromMenu: true,
     component: EventPage,
     props: ["event"],
   },

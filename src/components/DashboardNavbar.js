@@ -52,7 +52,7 @@ const DashboardNavbar = ({ user, goToCreateEventPage }) => {
           ))}
         </div>
       </Drawer>
-      <div className="flex justify-between items-center flex-wrap mb-2 px-12 pt-9 pb-4">
+      <div className="flex justify-between items-center mb-2 px-12 pt-9 pb-4">
         <div className="flex-grow relative flex pr-5" style={{ maxWidth: 850 }}>
           <SearchIcon className="absolute top-0 bottom-0 m-auto left-3 w-24px"></SearchIcon>
           <Input
@@ -60,12 +60,14 @@ const DashboardNavbar = ({ user, goToCreateEventPage }) => {
             placeholder="Search an event"
             className="pl-68px w-full mr-3"
           ></Input>
-          <Button onClick={goToCreateEventPage}>
-            <div className="flex items-center text-18px whitespace-nowrap px-3">
-              <AddIcon className="mr-3 text-32px" fontSize="inherit"></AddIcon>
-              Create event
-            </div>
-          </Button>
+          {user.role === "admin" ? (
+            <Button onClick={goToCreateEventPage}>
+              <div className="flex items-center text-18px whitespace-nowrap px-3">
+                <AddIcon className="mr-3 text-32px" fontSize="inherit"></AddIcon>
+                Create event
+              </div>
+            </Button>
+          ) : null}
         </div>
         <div className="flex items-center">
           <div className="w-56px h-56px rounded-full bg-gray-400 flex items-center justify-center mr-4">

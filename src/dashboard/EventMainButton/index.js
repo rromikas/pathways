@@ -35,9 +35,9 @@ const SpeakerOrModeratorButtons = ({ event, user }) => {
   );
 };
 
-const AdminButtons = ({ user, event }) => {
+const AdminButtons = ({ user, event, goToEventRoom }) => {
   return (
-    <Button className={mainButtonClass} primary>
+    <Button onClick={() => goToEventRoom(event.id)} className={mainButtonClass} primary>
       <div className="flex items-center">
         <StartEventIcon className={iconClass}></StartEventIcon>
         <div className="leading-none">Start event</div>
@@ -64,13 +64,13 @@ const StudentButtons = ({ user, event }) => {
   );
 };
 
-const EventSecondaryButtons = ({ user, event }) => {
+const EventSecondaryButtons = ({ user, event, goToEventRoom }) => {
   return ["speaker", "moderators"].includes(user.role) ? (
     <SpeakerOrModeratorButtons user={user} event={event}></SpeakerOrModeratorButtons>
   ) : user.role === "student" ? (
     <StudentButtons user={user} event={event}></StudentButtons>
   ) : user.role === "admin" ? (
-    <AdminButtons user={user} event={event}></AdminButtons>
+    <AdminButtons user={user} event={event} goToEventRoom={goToEventRoom}></AdminButtons>
   ) : null;
 };
 

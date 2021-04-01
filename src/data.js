@@ -29,7 +29,8 @@ export const events = new Array(20)
   .fill({
     title: titleLorem,
     description: loremIpsum,
-    dateTime: Date.now(),
+    date: new Date(),
+    time: new Date(),
     image: EventPoster,
     details: [
       { time: new Date(), topic: "Introduction", description: "" },
@@ -55,7 +56,7 @@ export const events = new Array(20)
       },
     ],
   })
-  .map((x, i) => ({ ...x, id: i }));
+  .map((x, i) => ({ ...x, id: i + 1 }));
 
 export const users = {
   1: {
