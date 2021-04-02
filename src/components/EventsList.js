@@ -6,7 +6,16 @@ import DateIcon from "@material-ui/icons/InsertInvitation";
 import TimeIcon from "@material-ui/icons/AccessTime";
 import moment from "moment";
 
-const Event = ({ event, user, MainButton, SecondaryButtons, goToEventPage, goToEventRoom }) => {
+const Event = ({
+  event,
+  user,
+  MainButton,
+  SecondaryButtons,
+  goToEventPage,
+  goToEventRoom,
+  sendEventRequest,
+  acceptInvitation,
+}) => {
   return (
     <div className="flex flex-wrap xl:flex-nowrap py-7 border-b border-gray-600">
       <div className="flex flex-wrap sm:flex-nowrap">
@@ -41,7 +50,13 @@ const Event = ({ event, user, MainButton, SecondaryButtons, goToEventPage, goToE
         </div>
       </div>
       <div className="flex flex-grow sm:justify-end items-center py-3">
-        <MainButton goToEventRoom={goToEventRoom} user={user} event={event}></MainButton>
+        <MainButton
+          acceptInvitation={acceptInvitation}
+          goToEventRoom={goToEventRoom}
+          user={user}
+          event={event}
+          sendEventRequest={sendEventRequest}
+        ></MainButton>
       </div>
     </div>
   );
@@ -56,16 +71,21 @@ const EventsList = ({
   scrollToTop = () => {},
   goToEventPage,
   goToEventRoom,
+  filterFunction = (x) => true,
+  sendEventRequest,
+  acceptInvitation,
 }) => {
   const [page, setPage] = useState(0);
-
+  console.log("ac", acceptInvitation);
   useEffect(() => {
     scrollToTop();
   }, [page]);
 
+  const eventsArr = events.filter(filterFunction);
+
   return (
     <div>
-      {events.slice(page * eventsPerPage, page * eventsPerPage + eventsPerPage).map((ev, i) => (
+      {eventsArr.slice(page * eventsPerPage, page * eventsPerPage + eventsPerPage).map((ev, i) => (
         <Event
           key={`event-${i}`}
           event={ev}
@@ -74,11 +94,13 @@ const EventsList = ({
           goToEventRoom={goToEventRoom}
           SecondaryButtons={SecondaryButtons}
           goToEventPage={goToEventPage}
+          sendEventRequest={sendEventRequest}
+          acceptInvitation={acceptInvitation}
         ></Event>
       ))}
       <div className="flex justify-end py-7">
         <Pagination
-          count={Math.ceil(events.length / eventsPerPage)}
+          count={Math.ceil(eventsArr.length / eventsPerPage)}
           setPage={(nr) => setPage(nr - 1)}
         ></Pagination>
       </div>

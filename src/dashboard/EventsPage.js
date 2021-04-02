@@ -1,25 +1,20 @@
-import EventRoom from "components/EventRoom";
-import EventRoomBottom from "./EventRoomBottom";
 import EventsList from "components/EventsList";
-import { useState } from "react";
+
 import EventMainButton from "./EventMainButton";
 import EventSecondaryButtons from "./EventSecondaryButtons";
 
-const Events = ({ user, events, scrollToTop, goToEventPage }) => {
-  const [eventId, setEventId] = useState(null);
-  return eventId ? (
-    <EventRoom eventId={eventId} user={user}>
-      <EventRoomBottom role={user.role}></EventRoomBottom>
-    </EventRoom>
-  ) : (
+const Events = ({ user, events, scrollToTop, goToEventPage, goToEventRoom, sendEventRequest }) => {
+  return (
     <EventsList
-      goToEventRoom={(evId) => setEventId(evId)}
+      sendEventRequest={sendEventRequest}
+      goToEventRoom={goToEventRoom}
       goToEventPage={goToEventPage}
       scrollToTop={scrollToTop}
       events={events}
       user={user}
       MainButton={EventMainButton}
       SecondaryButtons={EventSecondaryButtons}
+      filterFunction={(x) => user.role === "admin" || user.letInEvents.includes(x.id)}
     ></EventsList>
   );
 };

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 const ParticipantPropType = PropTypes.shape({
-  photo: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
   muted: PropTypes.bool.isRequired,
 });
 

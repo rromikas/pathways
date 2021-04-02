@@ -8,20 +8,30 @@ import EventsIcon from "@material-ui/icons/InsertInvitation";
 import SettingsIcon from "@material-ui/icons/Settings";
 import CraeteEventPage from "./CreateEventPage";
 import EventPage from "./EventPage";
+import EventRoomPage from "./EventRoomPage";
 
 const pageOptions = [
   {
     icon: DashboardIcon,
     title: "Dashboard",
     component: DashboardPage,
-    props: ["events", "user", "scrollToTop", "goToEventPage", "goToEventRoom"],
+    props: [
+      "events",
+      "user",
+      "scrollToTop",
+      "goToEventPage",
+      "goToEventRoom",
+      "sendEventRequest",
+      "onSaveQuestionnaireAnswers",
+      "acceptInvitation",
+    ],
   },
   { icon: PersonIcon, title: "Profile", component: ProfilePage, props: ["user"] },
   {
     icon: EventsIcon,
     title: "Events",
     component: EventsPage,
-    props: ["events", "user", "scrollToTop", "goToEventPage"],
+    props: ["events", "user", "goToEventRoom", "goToEventPage", "scrollToTop", "sendEventRequest"],
   },
   { icon: SettingsIcon, title: "Settings", component: SettingsPage, props: [] },
   {
@@ -29,14 +39,22 @@ const pageOptions = [
     title: "Create Event",
     hiddenFromMenu: true,
     component: CraeteEventPage,
-    props: ["onCreateEvent"],
+    props: ["onCreateEvent", "scrollToTop"],
   },
   {
     icon: SettingsIcon,
     title: "Event",
     hiddenFromMenu: true,
     component: EventPage,
-    props: ["event"],
+    props: ["event", "scrollToTop"],
+  },
+
+  {
+    icon: SettingsIcon,
+    title: "Event Room",
+    hiddenFromMenu: true,
+    component: EventRoomPage,
+    props: ["event", "user", "scrollToTop"],
   },
 ];
 

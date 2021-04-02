@@ -4,7 +4,8 @@ const EventPropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  dateTime: PropTypes.number.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
+  time: PropTypes.instanceOf(Date).isRequired,
   image: PropTypes.string.isRequired,
 });
 

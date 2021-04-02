@@ -6,15 +6,20 @@ import { withSize } from "react-sizeme";
 import { connect } from "react-redux";
 import Navbar from "components/DashboardNavbar";
 import { getPages } from "./Pages";
-import { users } from "data";
+import { users as initialUsers } from "data";
 import SimpleBar from "simplebar-react";
-import { events as initialEvents } from "data";
 
-const Dashboard = ({ size, user }) => {
+const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [menuOpened, setMenuOpened] = useState(false);
   const [eventId, setEventId] = useState(1);
   const scrollContainer = useRef(null);
+
+  const user = userId > -1 ? users[userId] : null;
+  const pages = getPages(user);
+  const PageComponent = pages[pageIndex].component;
+  const event = eventId > -1 ? events.find((x) => x.id === eventId) : null;
+
   const scrollToTop = () => {
     if (scrollContainer.current) {
       try {
@@ -26,16 +31,14 @@ const Dashboard = ({ size, user }) => {
     }
   };
 
-  const [events, setEvents] = useState(initialEvents);
-
-  const pages = getPages(user);
-  const PageComponent = pages[pageIndex].component;
-  const event = eventId > -1 ? events.find((x) => x.id === eventId) : null;
-
-  const goToEventPage = (eventId) => {
-    setEventId(eventId);
+  const goToEventPage = (evId) => {
+    setEventId(evId);
     setPageIndex(pages.findIndex((x) => x.title === "Event"));
-    scrollToTop();
+  };
+
+  const goToEventRoom = (evId) => {
+    setEventId(evId);
+    setPageIndex(pages.findIndex((x) => x.title === "Event Room"));
   };
 
   const onCreateEvent = (ev) => {
@@ -44,7 +47,44 @@ const Dashboard = ({ size, user }) => {
     scrollToTop();
   };
 
-  const props = { user, events, scrollToTop, event, goToEventPage, setPageIndex, onCreateEvent };
+  const onSaveQuestionnaireAnswers = (answers) => {
+    setUsers((prev) => {
+      let usersObj = { ...prev };
+      usersObj[userId].answers = answers;
+      usersObj[userId].questionnaireFilled = !answers.filter((x) => !x).length ? true : false;
+      return usersObj;
+    });
+  };
+
+  const sendEventRequest = (evId) => {
+    setUsers((prev) => {
+      let usersObj = { ...prev };
+      usersObj[userId].requestedEvents.push(evId);
+      return usersObj;
+    });
+  };
+
+  const acceptInvitation = (evId) => {
+    setUsers((prev) => {
+      let usersObj = { ...prev };
+      usersObj[userId].letInEvents.push(evId);
+      return usersObj;
+    });
+  };
+
+  const props = {
+    user,
+    events,
+    scrollToTop,
+    event,
+    goToEventPage,
+    goToEventRoom,
+    sendEventRequest,
+    acceptInvitation,
+    users,
+    onCreateEvent,
+    onSaveQuestionnaireAnswers,
+  };
   const pageSpecificProps = pages[pageIndex].props.reduce(
     (a, b) => Object.assign({}, a, { [b]: props[b] }),
     {}
@@ -94,8 +134,4 @@ const Dashboard = ({ size, user }) => {
   );
 };
 
-const mapp = (state, ...ownProps) => {
-  return { user: state.user, ...ownProps };
-};
-
-export default withSize({ monitorHeight: true })(connect(mapp)(Dashboard));
+export default withSize({ monitorHeight: true })(Dashboard);

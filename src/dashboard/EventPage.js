@@ -1,8 +1,13 @@
 import DateIcon from "@material-ui/icons/InsertInvitation";
 import TimeIcon from "@material-ui/icons/AccessTime";
 import moment from "moment";
+import { useEffect } from "react";
 
-const EventPage = ({ event }) => {
+const EventPage = ({ event, scrollToTop }) => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
+
   return (
     <div className="flex flex-wrap justify-center p-12 m-auto">
       <div className="xl:w-1/2 lg:w-full lg:mb-12 md:w-1/2 w-full mb-12 xl:border-r md:border-r border-gray-500 xl:pr-12 md:pr-12">

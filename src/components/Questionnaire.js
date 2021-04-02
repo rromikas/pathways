@@ -52,7 +52,6 @@ const Questionnaire = ({ questions, questionsPerStep, onSave, initialAnswers, sc
           ind++;
         }
       })();
-      console.log(firstNotAnsweredIndex);
       setStep(Math.max(Math.ceil((firstNotAnsweredIndex + 1) / questionsPerStep) - 1, 0));
     }
   }, [initialAnswers]);

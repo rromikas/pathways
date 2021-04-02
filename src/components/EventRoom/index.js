@@ -1,8 +1,13 @@
 import ConferenceView from "./ConferenceView";
 import Chat from "./Chat";
-import { participants, me, speaker, messages } from "data";
+import { useEffect, useState } from "react";
 
-const ConferenceRoom = ({ roomId, user, children }) => {
+const ConferenceRoom = ({ user, participants, messages, children }) => {
+  const [speaker, setSpeaker] = useState(null);
+
+  useEffect(() => {
+    setSpeaker(participants[0]);
+  }, [participants]);
   return (
     <div>
       <div className="flex">
