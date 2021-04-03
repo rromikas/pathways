@@ -119,6 +119,7 @@ const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
           </div>
           <div className="flex-grow flex flex-col">
             <Navbar
+              page={pages[pageIndex]}
               goToCreateEventPage={() =>
                 setPageIndex(pages.findIndex((x) => x.title === "Create Event"))
               }

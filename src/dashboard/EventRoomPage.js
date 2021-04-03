@@ -8,8 +8,19 @@ const EventRoomPage = ({ event, user, scrollToTop }) => {
     scrollToTop();
   }, []);
   return (
-    <EventRoom user={user} participants={participants} messages={messages}>
-      <EventRoomBottom role={user.role} participants={participants} event={event}></EventRoomBottom>
+    <EventRoom
+      user={user}
+      participants={participants}
+      messages={messages}
+      event={event}
+      prepareTitlePosition={user.role === "student" ? "bottom" : "top"}
+      prepareTitle={
+        user.role === "student"
+          ? "Please select your speaker or school representative"
+          : "Students are joining!"
+      }
+    >
+      <EventRoomBottom user={user} participants={participants} event={event}></EventRoomBottom>
     </EventRoom>
   );
 };

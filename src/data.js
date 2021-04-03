@@ -4,6 +4,7 @@ import Person3 from "assets/person3.png";
 import Person4 from "assets/person4.png";
 import Person5 from "assets/person5.png";
 import EventPoster from "assets/event_poster.png";
+import moment from "moment";
 
 export const schoolTypes = ["School", "Colledge", "University"];
 
@@ -30,7 +31,7 @@ export const events = new Array(20)
     title: titleLorem,
     description: loremIpsum,
     date: new Date(),
-    time: new Date(),
+    time: moment().add(1, "minutes").toDate(),
     image: EventPoster,
     details: [
       { time: new Date(), topic: "Introduction", description: "" },
@@ -119,43 +120,14 @@ export const users = {
   },
 };
 
-export const participants = [
-  { muted: false, image: Person1 },
-  { muted: true, image: Person4 },
-  { muted: false, image: Person3 },
-  { muted: true, image: Person1 },
-  { muted: true, image: Person4 },
-  { muted: true, image: Person4 },
-  { muted: true, image: Person3 },
-  { muted: false, image: Person1 },
-  { muted: false, image: Person3 },
-  { muted: true, image: Person4 },
-  { muted: true, image: Person4 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person1 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person4 },
-  { muted: false, image: Person4 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person1 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person1 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person4 },
-  { muted: false, image: Person4 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person1 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person1 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person4 },
-  { muted: false, image: Person4 },
-  { muted: false, image: Person3 },
-  { muted: false, image: Person1 },
-  { muted: false, image: Person3 },
-];
+export const participants = new Array(30).fill(0).map((_) => ({
+  role: ["student", "admin", "speaker", "moderator"][+(Math.random() * 3).toFixed(0)],
+  muted: [true, false][+(Math.random() * 2).toFixed(0)],
+  image: [Person1, Person2, Person3, Person4, Person5][+(Math.random() * 4).toFixed(0)],
+  fullName: ["Farah Faraclas", "Harry Kane", "Michaell Harrington", "Bryan Cranston", "John Smith"][
+    +(Math.random() * 4).toFixed(0)
+  ],
+}));
 
 export const me = { image: Person2 };
 

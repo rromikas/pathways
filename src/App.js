@@ -10,6 +10,7 @@ import ForgotPassword from "auth/ForgotPassword";
 import ScreenSizeBadge from "components/ScreenSizeBadge";
 import { users as initialUsers, events as initialEvents } from "data";
 import NotificationsProvider from "notifications";
+import Loader from "components/Loader";
 const Dashboard = React.lazy(() => import("dashboard"));
 
 const App = () => {
@@ -28,7 +29,7 @@ const App = () => {
     <NotificationsProvider>
       <div className="fixed left-0 top-0 w-full h-full">
         <ScreenSizeBadge></ScreenSizeBadge>
-        <Suspense fallback="Loader">
+        <Suspense fallback={<Loader></Loader>}>
           <Switch>
             <Route path="/" exact>
               <Dashboard

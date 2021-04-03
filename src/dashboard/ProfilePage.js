@@ -101,12 +101,14 @@ const Profile = ({ user }) => {
             <>
               <Label>Type of school</Label>
               <Select
+                primary={values.role !== "student"}
                 items={schoolTypes}
                 value={values.schoolType}
                 setValue={(val) => setFieldValue("schoolType", val)}
               ></Select>
               <Label>Job title</Label>
               <Select
+                primary={values.role !== "student"}
                 items={jobTitles}
                 value={values.jobTitle}
                 setValue={(val) => setFieldValue("jobTitle", val)}

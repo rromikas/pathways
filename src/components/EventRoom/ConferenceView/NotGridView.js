@@ -7,6 +7,7 @@ import { withSize } from "react-sizeme";
 import ParticipantCard from "./ParticipantCard";
 import FocusedParticipantCard from "./FocusedParticipantCard";
 import ActionsBar from "./ActionsBar";
+import PrepareScreen from "./PrepareScreen";
 
 const BoxRuler = withSize()(({ size, setSize }) => {
   useEffect(() => {
@@ -16,7 +17,17 @@ const BoxRuler = withSize()(({ size, setSize }) => {
   return <div className="h-0 w-full"></div>;
 });
 
-const NotGridView = ({ participants, me, speaker, setIsGridView }) => {
+const NotGridView = ({
+  participants,
+  me,
+  speaker,
+  setIsGridView,
+  time,
+  event,
+  prepareTitle,
+  prepareTitlePosition,
+  stopTimer,
+}) => {
   const [participantsBoxWidth, setParticipantsBoxWidth] = useState(0);
   const [participantsFrame, setParticipantsFrame] = useState(0);
 
@@ -48,6 +59,13 @@ const NotGridView = ({ participants, me, speaker, setIsGridView }) => {
   ];
   return (
     <div className="flex flex-col bg-blue-400 rounded-xl overflow-hidden relative">
+      <PrepareScreen
+        stopTimer={stopTimer}
+        time={time}
+        event={event}
+        title={prepareTitle}
+        position={prepareTitlePosition}
+      ></PrepareScreen>
       <div className="flex-grow flex justify-center items-center pt-6 px-6">
         <GridIcon
           onClick={() => setIsGridView(true)}

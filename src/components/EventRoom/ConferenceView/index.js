@@ -3,29 +3,35 @@ import PropTypes from "prop-types";
 import NotGridView from "./NotGridView";
 import GridView from "./GridView";
 import ParticipantPropType from "propTypes/Participant";
+import useTime from "hooks/useTime";
 
-const CallWindow = ({ participants, me, speaker }) => {
+const ConferenceView = ({
+  participants,
+  me,
+  speaker,
+  event,
+  prepareTitle,
+  prepareTitlePosition,
+}) => {
   const [isGridView, setIsGridView] = useState(false);
+  const { time, stopTimer } = useTime();
+  const props = {
+    prepareTitle,
+    prepareTitlePosition,
+    time,
+    event,
+    participants,
+    me,
+    speaker,
+    setIsGridView,
+    stopTimer,
+  };
 
-  return !isGridView ? (
-    <NotGridView
-      participants={participants}
-      me={me}
-      speaker={speaker}
-      setIsGridView={setIsGridView}
-    ></NotGridView>
-  ) : (
-    <GridView
-      setIsGridView={setIsGridView}
-      participants={participants}
-      me={me}
-      speaker={speaker}
-    ></GridView>
-  );
+  return !isGridView ? <NotGridView {...props}></NotGridView> : <GridView {...props}></GridView>;
 };
 
-export default CallWindow;
+export default ConferenceView;
 
-CallWindow.propTypes = {
+ConferenceView.propTypes = {
   participants: PropTypes.arrayOf(ParticipantPropType),
 };

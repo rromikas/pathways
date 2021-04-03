@@ -11,7 +11,7 @@ import Button from "components/Button";
 import AddIcon from "@material-ui/icons/Add";
 import Input from "components/Input";
 
-const DashboardNavbar = ({ user, goToCreateEventPage }) => {
+const DashboardNavbar = ({ user, goToCreateEventPage, page }) => {
   const [openUserOptions, setOpenUserOptions] = useState(false);
   const history = useHistory();
   const userOptions = [
@@ -53,22 +53,26 @@ const DashboardNavbar = ({ user, goToCreateEventPage }) => {
         </div>
       </Drawer>
       <div className="flex justify-between items-center mb-2 px-12 pt-9 pb-4">
-        <div className="flex-grow relative flex pr-5" style={{ maxWidth: 850 }}>
-          <SearchIcon className="absolute top-0 bottom-0 m-auto left-3 w-24px"></SearchIcon>
-          <Input
-            spellCheck={false}
-            placeholder="Search an event"
-            className="pl-68px w-full mr-3"
-          ></Input>
-          {user.role === "admin" ? (
-            <Button onClick={goToCreateEventPage}>
-              <div className="flex items-center text-18px whitespace-nowrap px-3">
-                <AddIcon className="mr-3 text-32px" fontSize="inherit"></AddIcon>
-                Create event
-              </div>
-            </Button>
-          ) : null}
-        </div>
+        {page.title !== "Event Room" ? (
+          <div className="flex-grow relative flex pr-5" style={{ maxWidth: 850 }}>
+            <SearchIcon className="absolute top-0 bottom-0 m-auto left-3 w-24px"></SearchIcon>
+            <Input
+              spellCheck={false}
+              placeholder="Search an event"
+              className="pl-68px w-full mr-3"
+            ></Input>
+            {user.role === "admin" ? (
+              <Button onClick={goToCreateEventPage}>
+                <div className="flex items-center text-18px whitespace-nowrap px-3">
+                  <AddIcon className="mr-3 text-32px" fontSize="inherit"></AddIcon>
+                  Create event
+                </div>
+              </Button>
+            ) : null}
+          </div>
+        ) : (
+          <div></div>
+        )}
         <div className="flex items-center">
           <div className="w-56px h-56px rounded-full bg-gray-400 flex items-center justify-center mr-4">
             <BellIcon></BellIcon>

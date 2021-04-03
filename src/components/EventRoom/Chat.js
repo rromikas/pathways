@@ -22,9 +22,15 @@ const Message = ({ message }) => {
   );
 };
 
-const Chat = ({ messages }) => {
+const Chat = ({ messages, activeView }) => {
+  console.log("chat active view", activeView);
   return (
-    <div className="overflow-hidden relative w-372px ml-5">
+    <div
+      className={`${
+        activeView !== "Chat" ? "hidden" : "block w-full"
+      } overflow-hidden relative xl:w-372px ml-5 flex-shrink-0 xl:block`}
+      style={{ minHeight: 370 }}
+    >
       <SimpleBar className="absolute top-0 left-0 w-full h-full pr-3">
         {messages.map((x, i) => (
           <Message message={x} key={`message-${i}`}></Message>
