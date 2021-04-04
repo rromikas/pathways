@@ -3,7 +3,7 @@ import moment from "moment";
 
 const EventDuration = ({ event, endDate }) => {
   const startTime = moment(
-    moment(event.date).format("YYYY-MM-DD") + " " + moment(event.time).format("hh:mm:ss")
+    moment(event.date).format("YYYY-MM-DD") + " " + moment(event.time).format("HH:mm:ss")
   );
 
   const [endTime, setEndTime] = useState(moment(new Date()));
@@ -12,7 +12,7 @@ const EventDuration = ({ event, endDate }) => {
   useEffect(() => {
     if (!endDate) {
       timeoutRef.current = setTimeout(() => {
-        setEndTime(moment(new Date()));
+        setEndTime(moment());
       }, 1000);
     } else {
       setEndTime(moment(endDate));
@@ -24,7 +24,9 @@ const EventDuration = ({ event, endDate }) => {
   }, [endTime]);
 
   const duration = moment.duration(endTime.diff(startTime));
-  return moment.utc(duration.asMilliseconds()).format("hh:mm:ss");
+  return endTime.toDate() < startTime.toDate()
+    ? "Event not started"
+    : moment.utc(duration.asMilliseconds()).format("HH:mm:ss");
 };
 
 export default EventDuration;

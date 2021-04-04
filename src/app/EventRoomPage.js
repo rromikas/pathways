@@ -1,18 +1,17 @@
 import EventRoom from "components/EventRoom";
 import EventRoomBottom from "./EventRoomBottom";
 import { useState, useEffect } from "react";
-import { participants, messages } from "data";
+import { participants } from "data";
 
-const EventRoomPage = ({ event, user, scrollToTop, goToAnalyticsPage }) => {
+const EventRoomPage = ({ scrollToTop, ...rest }) => {
   useEffect(() => {
     scrollToTop();
   }, []);
+  const user = rest.user;
   return (
     <EventRoom
-      user={user}
+      {...rest}
       participants={participants}
-      messages={messages}
-      event={event}
       prepareTitlePosition={user.role === "student" ? "bottom" : "top"}
       prepareTitle={
         user.role === "student"
@@ -20,12 +19,7 @@ const EventRoomPage = ({ event, user, scrollToTop, goToAnalyticsPage }) => {
           : "Students are joining!"
       }
     >
-      <EventRoomBottom
-        user={user}
-        participants={participants}
-        event={event}
-        goToAnalyticsPage={goToAnalyticsPage}
-      ></EventRoomBottom>
+      <EventRoomBottom participants={participants} {...rest}></EventRoomBottom>
     </EventRoom>
   );
 };

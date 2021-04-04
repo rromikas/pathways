@@ -13,16 +13,43 @@ import { ReactComponent as WhatsappIcon } from "assets/share_whatsapp.svg";
 import { ReactComponent as TwitterIcon } from "assets/share_twitter.svg";
 import { ReactComponent as LinkedinIcon } from "assets/share_linkedin.svg";
 import { Tooltip } from "react-tippy";
+import { participants } from "data";
 
-const SendMessageButton = () => {
+const Cell = ({ title, value, actionTitle = "", actionFn = () => {} }) => {
+  return (
+    <div className="flex items-center mb-7 mr-7">
+      <div className="w-224px">{title}:</div>
+      <div className="w-96px">{value}</div>
+      <div className="text-orange-400 cursor-pointer select-none" onClick={actionFn}>
+        {actionTitle}
+      </div>
+    </div>
+  );
+};
+
+const SendMessageWidget = ({ value, setValue, onSubmit }) => {
+  const finalSubmit = () => {
+    if (value) {
+      onSubmit(value);
+      setValue("");
+    }
+  };
   return (
     <div className="h-56px rounded-lg border border-blue-400 flex items-center px-6">
       <input
+        value={value}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            finalSubmit();
+          }
+        }}
+        onChange={(e) => setValue(e.target.value)}
         placeholder="Say something to people"
         type="text"
-        className="outline-none text-blue-400 border-none bg-transparent placeholder-blue-400 h-full flex-grow"
+        spellCheck={false}
+        className="outline-none text-blue-400 border-none bg-transparent placeholder-blue-400 h-full flex-grow pr-3 overflow-ellipsis"
       ></input>
-      <SendIcon></SendIcon>
+      <SendIcon className="cursor-pointer" onClick={finalSubmit}></SendIcon>
     </div>
   );
 };
@@ -63,33 +90,146 @@ const ShareButton = () => {
   );
 };
 
-const AdminBottom = () => {
+const AdminBottom = ({
+  setShowParticipants,
+  participants,
+  goToAnalyticsPage,
+  event,
+  sendMessage,
+}) => {
+  const [message, setMessage] = useState("");
   return (
-    <div className="flex">
-      <div className="flex flex-grow flex-wrap items-center justify-between pt-10 pb-8 border-b border-gray-500">
-        <Button secondary className="w-372px mr-5 mb-3">
-          <div className="flex items-center">
-            <BreakoutSessionIcon className="mr-3 w-24px"></BreakoutSessionIcon>
-            <div className="leading-none">Start breakout session</div>
-          </div>
-        </Button>
-        <Button primary className="w-372px mb-3">
-          <div className="flex items-center">
-            <TurnOffIcon className="mr-3 w-24px"></TurnOffIcon>
-            <div className="leading-none">Stop session</div>
-          </div>
-        </Button>
+    <div>
+      <div className="flex py-7 border-b border-gray-700 mb-7">
+        <div className="flex flex-grow flex-wrap items-center justify-between">
+          <Button secondary className="w-372px mr-5 mb-3">
+            <div className="flex items-center">
+              <BreakoutSessionIcon className="mr-3 w-24px"></BreakoutSessionIcon>
+              <div className="leading-none">Start breakout session</div>
+            </div>
+          </Button>
+          <Button primary className="w-372px mb-3">
+            <div className="flex items-center">
+              <TurnOffIcon className="mr-3 w-24px"></TurnOffIcon>
+              <div className="leading-none">Stop session</div>
+            </div>
+          </Button>
+        </div>
+        <div className="max-w-372px w-full flex-shrink-0 ml-5 hidden xl:block"></div>
       </div>
-      <div className="max-w-372px w-full flex-shrink-0 ml-5 hidden xl:block"></div>
+      <div className="flex flex-wrap">
+        <div className="flex flex-wrap flex-grow mb-7">
+          <div className="mr-12">
+            <Cell
+              value={participants.length}
+              title="Participants"
+              actionFn={() => setShowParticipants(true)}
+              actionTitle="View"
+            ></Cell>
+            <Cell
+              value={participants.filter((x) => x.role === "speaker").length}
+              title="Schools/speakers"
+            ></Cell>
+            <Cell
+              value={<EventDuration event={event}></EventDuration>}
+              title="Event duration"
+            ></Cell>
+          </div>
+          <div>
+            <Cell title="Breakout rooms" value={10}></Cell>
+            <ButtonBase
+              onClick={() => goToAnalyticsPage(event)}
+              className="outline-none h-40px transition rounded-lg text-white px-12 bg-orange-300 hover:bg-orange-301"
+            >
+              Analytics
+            </ButtonBase>
+          </div>
+        </div>
+        <div className="max-w-372px w-full flex-shrink-0">
+          <SendMessageWidget
+            value={message}
+            setValue={setMessage}
+            onSubmit={sendMessage}
+          ></SendMessageWidget>
+        </div>
+      </div>
     </div>
   );
 };
 
-const ModeratorBottom = () => {
-  return <div></div>;
+const ModeratorBottom = ({
+  participants,
+  setShowParticipants,
+  event,
+  goToAnalyticsPage,
+  sendMessage,
+}) => {
+  const [message, setMessage] = useState("");
+
+  return (
+    <div>
+      <div className="flex py-7 border-b border-gray-700 mb-7">
+        <div className="flex flex-wrap justify-between flex-grow">
+          <Button secondary className="w-372px mr-5 mb-3">
+            Assign moderator
+          </Button>
+          <Button primary className="w-372px mb-3">
+            <div className="flex items-center">
+              <div className="leading-none">Leave session</div>
+            </div>
+          </Button>
+        </div>
+        <div className="max-w-372px w-full flex-shrink-0 ml-5 hidden xl:block"></div>
+      </div>
+      <div className="flex flex-wrap">
+        <div className="flex flex-wrap flex-grow mb-7">
+          <div className="mr-12">
+            <Cell
+              value={participants.length}
+              title="Participants"
+              actionFn={() => setShowParticipants(true)}
+              actionTitle="View"
+            ></Cell>
+            <Cell
+              value={participants.filter((x) => x.role === "speaker").length}
+              title="Schools/speakers"
+            ></Cell>
+            <Cell
+              value={<EventDuration event={event}></EventDuration>}
+              title="Event duration"
+            ></Cell>
+          </div>
+          <div>
+            <Cell title="Breakout rooms" value={10}></Cell>
+            <ButtonBase
+              onClick={() => goToAnalyticsPage(event)}
+              className="outline-none h-40px transition rounded-lg text-white px-12 bg-orange-300 hover:bg-orange-301"
+            >
+              Analytics
+            </ButtonBase>
+          </div>
+        </div>
+        <div className="max-w-372px w-full flex-shrink-0">
+          <SendMessageWidget
+            value={message}
+            setValue={setMessage}
+            onSubmit={sendMessage}
+          ></SendMessageWidget>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-const SpeakerBottom = ({ event, participants, setShowParticipants, user, goToAnalyticsPage }) => {
+const SpeakerBottom = ({
+  event,
+  participants,
+  setShowParticipants,
+  user,
+  goToAnalyticsPage,
+  sendMessage,
+}) => {
+  const [message, setMessage] = useState("");
   return (
     <div>
       <div className="flex border-b border-gray-500 mb-6">
@@ -144,14 +284,19 @@ const SpeakerBottom = ({ event, participants, setShowParticipants, user, goToAna
           </div>
         </div>
         <div className="xl:max-w-372px w-full xl:ml-5 max-w-full">
-          <SendMessageButton></SendMessageButton>
+          <SendMessageWidget
+            value={message}
+            setValue={setMessage}
+            sendMessage={sendMessage}
+          ></SendMessageWidget>
         </div>
       </div>
     </div>
   );
 };
 
-const StudentBottom = ({ event, participants, setShowParticipants }) => {
+const StudentBottom = ({ event, participants, setShowParticipants, sendMessage }) => {
+  const [message, setMessage] = useState("");
   return (
     <div>
       <div className="flex border-b border-gray-500 mb-7">
@@ -182,7 +327,11 @@ const StudentBottom = ({ event, participants, setShowParticipants }) => {
       </div>
       <div className="flex">
         <div className="flex-grow">
-          <SendMessageButton></SendMessageButton>
+          <SendMessageWidget
+            value={message}
+            setValue={setMessage}
+            onSubmit={sendMessage}
+          ></SendMessageWidget>
         </div>
         <div className="max-w-372px w-full flex-shrink-0 ml-5 hidden xl:block"></div>
       </div>

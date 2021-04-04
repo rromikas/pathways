@@ -2,15 +2,7 @@ import { useState } from "react";
 import Switch from "components/Switch";
 import Button from "components/Button";
 
-const Settings = () => {
-  const [settings, setSettings] = useState([
-    { title: "Lorem ipsum dolor sit", enabled: false },
-    { title: "Lorem ipsum dolor sit", enabled: false },
-    { title: "Lorem ipsum dolor sit", enabled: false },
-    { title: "Lorem ipsum dolor sit", enabled: false },
-    { title: "Lorem ipsum dolor sit", enabled: false },
-  ]);
-
+const Settings = ({ settings, setSettings }) => {
   return (
     <div className="w-full h-full flex">
       <div className="m-auto shadow-custom max-w-512px w-full p-8 rounded-lg">

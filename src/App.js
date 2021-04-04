@@ -8,7 +8,12 @@ import SignIn from "auth/SignIn";
 import SignUp from "auth/SignUp";
 import ForgotPassword from "auth/ForgotPassword";
 import ScreenSizeBadge from "components/ScreenSizeBadge";
-import { users as initialUsers, events as initialEvents } from "data";
+import {
+  users as initialUsers,
+  events as initialEvents,
+  messages as initialMessages,
+  settings as initialSettings,
+} from "data";
 import NotificationsProvider from "notifications";
 import Loader from "components/Loader";
 const Dashboard = React.lazy(() => import("app/index.js"));
@@ -18,6 +23,8 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState(initialUsers);
   const [events, setEvents] = useState(initialEvents);
+  const [messages, setMessages] = useState(initialMessages);
+  const [settings, setSettings] = useState(initialSettings);
 
   useEffect(() => {
     if (!user) {
@@ -38,6 +45,10 @@ const App = () => {
                 setUsers={setUsers}
                 events={events}
                 setEvents={setEvents}
+                messages={messages}
+                setMessages={setMessages}
+                settings={settings}
+                setSettings={setSettings}
               ></Dashboard>
             </Route>
             <Route path="/forgot-password" exact>

@@ -27,6 +27,14 @@ const eventsLists = {
   requestedEvents: [2, 3, 6, 9, 11, 14, 15, 18],
 };
 
+export const settings = [
+  { title: "Lorem ipsum dolor sit", enabled: false },
+  { title: "Lorem ipsum dolor sit", enabled: false },
+  { title: "Lorem ipsum dolor sit", enabled: false },
+  { title: "Lorem ipsum dolor sit", enabled: false },
+  { title: "Lorem ipsum dolor sit", enabled: false },
+];
+
 export const events = new Array(20)
   .fill({
     title: titleLorem,
@@ -141,9 +149,11 @@ export const me = { image: Person2 };
 export const speaker = { image: Person1 };
 
 export const messages = new Array(20).fill(0).map((x) => ({
-  author: {
+  user: {
     image: [Person1, Person2, Person3, Person4][+(Math.random() * 3).toFixed(0)],
-    name: ["Jonathan", "Kevin", "Nataly", "Julia"][+(Math.random() * 3).toFixed(0)],
+    fullName: ["Jonathan Arshavin", "Kevin Dupunk", "Nataly Katler", "Julia Silver"][
+      +(Math.random() * 3).toFixed(0)
+    ],
   },
   text: titleLorem,
   createdAt: Date.now() - 1000,

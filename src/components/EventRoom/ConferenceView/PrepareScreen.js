@@ -2,13 +2,16 @@ import moment from "moment";
 
 const PrepareScreen = ({ time, stopTimer, event, title, position = "top" }) => {
   const startTime = moment(
-    moment(event.date).format("YYYY-MM-DD") + " " + moment(event.time).format("hh:mm:ss")
+    moment(event.date).format("YYYY-MM-DD") + " " + moment(event.time).format("HH:mm:ss")
   );
 
   const nowTime = moment(time);
 
   const duration = moment.duration(startTime.diff(nowTime));
   const secondsLeft = duration.asSeconds();
+
+  console.log("seconds left", secondsLeft);
+
   if (secondsLeft < -3) {
     stopTimer();
   }

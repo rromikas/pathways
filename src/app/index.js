@@ -6,7 +6,18 @@ import { withSize } from "react-sizeme";
 import Navbar from "components/DashboardNavbar";
 import { getPages } from "./Pages";
 
-const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
+const Dashboard = ({
+  size,
+  userId,
+  users,
+  setUsers,
+  events,
+  setEvents,
+  messages,
+  setMessages,
+  settings,
+  setSettings,
+}) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [menuOpened, setMenuOpened] = useState(false);
   const [eventId, setEventId] = useState(1);
@@ -44,6 +55,10 @@ const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
 
   const goToAnalyticsPage = (ev) => {
     setPageIndexByTitle("Analytics");
+  };
+
+  const sendMessage = (text) => {
+    setMessages((prev) => [...prev, { user, text, createdAt: Date.now() }]);
   };
 
   const onCreateEvent = (ev) => {
@@ -90,6 +105,10 @@ const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
     onCreateEvent,
     onSaveQuestionnaireAnswers,
     goToAnalyticsPage,
+    sendMessage,
+    messages,
+    settings,
+    setSettings,
   };
   const pageSpecificProps = pages[pageIndex].props.reduce(
     (a, b) => Object.assign({}, a, { [b]: props[b] }),

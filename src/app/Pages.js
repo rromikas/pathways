@@ -34,7 +34,12 @@ const pageOptions = [
     component: EventsPage,
     props: ["events", "user", "goToEventRoom", "goToEventPage", "scrollToTop", "sendEventRequest"],
   },
-  { icon: SettingsIcon, title: "Settings", component: SettingsPage, props: [] },
+  {
+    icon: SettingsIcon,
+    title: "Settings",
+    component: SettingsPage,
+    props: ["settings", "setSettings"],
+  },
   {
     icon: SettingsIcon,
     title: "Create Event",
@@ -55,7 +60,7 @@ const pageOptions = [
     title: "Event Room",
     hiddenFromMenu: true,
     component: EventRoomPage,
-    props: ["event", "user", "scrollToTop", "goToAnalyticsPage"],
+    props: ["event", "user", "scrollToTop", "goToAnalyticsPage", "sendMessage", "messages"],
   },
   {
     icon: SettingsIcon,

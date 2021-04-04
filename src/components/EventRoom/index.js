@@ -17,6 +17,8 @@ const ConferenceRoom = ({
   const [showParticipants, setShowParticipants] = useState(false);
   const [activeView, setActiveView] = useState("Conference"); // on small screens toolbar will appear to select view
 
+  console.log("event time", event.time);
+
   useEffect(() => {
     setSpeaker(participants[0]);
   }, [participants]);
@@ -30,7 +32,11 @@ const ConferenceRoom = ({
   return (
     <div>
       <div className="flex">
-        <div className={`flex-grow ${activeView === "Conference" ? "block" : "hidden"} xl:block`}>
+        <div
+          className={`flex-grow ${
+            activeView === "Conference" ? "block" : "hidden"
+          } xl:block xl:mr-2`}
+        >
           <ConferenceView
             prepareTitle={prepareTitle}
             prepareTitlePosition={prepareTitlePosition}

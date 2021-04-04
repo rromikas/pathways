@@ -15,14 +15,10 @@ const ConferenceView = (props) => {
     stopTimer,
   };
 
-  return (
-    <div className="mr-2">
-      {!isGridView ? (
-        <NotGridView {...extendedProps}></NotGridView>
-      ) : (
-        <GridView {...extendedProps}></GridView>
-      )}
-    </div>
+  return !isGridView ? (
+    <NotGridView {...extendedProps}></NotGridView>
+  ) : (
+    <GridView {...extendedProps}></GridView>
   );
 };
 
