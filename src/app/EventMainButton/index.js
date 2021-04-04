@@ -84,7 +84,7 @@ const StudentButtons = ({ user, event, goToEventRoom, sendEventRequest }) => {
 };
 
 const EventMainButton = (props) => {
-  return ["speaker", "moderators"].includes(props.user.role) ? (
+  return ["speaker", "moderator"].includes(props.user.role) ? (
     <SpeakerOrModeratorButtons {...props}></SpeakerOrModeratorButtons>
   ) : props.user.role === "student" ? (
     <StudentButtons {...props}></StudentButtons>

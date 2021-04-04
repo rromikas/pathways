@@ -3,11 +3,8 @@ import { useState, useRef } from "react";
 import MenuNavbar from "components/MenuNavbar";
 import Drawer from "@material-ui/core/Drawer";
 import { withSize } from "react-sizeme";
-import { connect } from "react-redux";
 import Navbar from "components/DashboardNavbar";
 import { getPages } from "./Pages";
-import { users as initialUsers } from "data";
-import SimpleBar from "simplebar-react";
 
 const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
   const [pageIndex, setPageIndex] = useState(0);
@@ -31,14 +28,22 @@ const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
     }
   };
 
+  const setPageIndexByTitle = (title) => {
+    return setPageIndex(pages.findIndex((x) => x.title === title));
+  };
+
   const goToEventPage = (evId) => {
     setEventId(evId);
-    setPageIndex(pages.findIndex((x) => x.title === "Event"));
+    setPageIndexByTitle("Event");
   };
 
   const goToEventRoom = (evId) => {
     setEventId(evId);
-    setPageIndex(pages.findIndex((x) => x.title === "Event Room"));
+    setPageIndexByTitle("Event Room");
+  };
+
+  const goToAnalyticsPage = (ev) => {
+    setPageIndexByTitle("Analytics");
   };
 
   const onCreateEvent = (ev) => {
@@ -84,6 +89,7 @@ const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
     users,
     onCreateEvent,
     onSaveQuestionnaireAnswers,
+    goToAnalyticsPage,
   };
   const pageSpecificProps = pages[pageIndex].props.reduce(
     (a, b) => Object.assign({}, a, { [b]: props[b] }),
@@ -94,9 +100,9 @@ const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
     <>
       <Drawer anchor="left" open={menuOpened} onClose={() => setMenuOpened(false)}>
         <SideMenu
-          page={pageIndex}
-          setPage={(index) => {
-            setPageIndex(index);
+          page={pages[pageIndex].title}
+          setPage={(title) => {
+            setPageIndexByTitle(title);
             setMenuOpened(false);
           }}
           items={pages.filter((x) => !x.hiddenFromMenu)}
@@ -111,13 +117,13 @@ const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
             style={{ boxShadow: "4px 0px 10px rgba(0,0,0,0.16)" }}
           >
             <SideMenu
-              page={pageIndex}
-              setPage={setPageIndex}
+              page={pages[pageIndex].title}
+              setPage={setPageIndexByTitle}
               items={pages.filter((x) => !x.hiddenFromMenu)}
               height={size.height}
             ></SideMenu>
           </div>
-          <div className="flex-grow flex flex-col">
+          <div ref={scrollContainer} className="h-full overflow-auto px-7 sm:px-12 pb-12 flex-grow">
             <Navbar
               page={pages[pageIndex]}
               goToCreateEventPage={() =>
@@ -125,9 +131,7 @@ const Dashboard = ({ size, userId, users, setUsers, events, setEvents }) => {
               }
               user={user}
             ></Navbar>
-            <div ref={scrollContainer} className="flex-grow h-0 px-12 pb-12 overflow-auto">
-              <PageComponent {...pageSpecificProps} />
-            </div>
+            <PageComponent {...pageSpecificProps} />
           </div>
         </div>
       </div>

@@ -7,8 +7,11 @@ const Navbar = ({ openMenu }) => {
       className="w-full lg:hidden flex justify-between p-7 self-start"
       style={{ boxShadow: "0px 4px 10px rgba(0,0,0,0.16)" }}
     >
-      <Logo></Logo>
-      <div style={{ height: 98, width: 98 }} className="flex items-center justify-center">
+      <div className="w-80px">
+        <Logo></Logo>
+      </div>
+
+      <div style={{ height: 60, width: 60 }} className="flex items-center justify-center">
         <MenuIcon onClick={openMenu} className="text-4xl cursor-pointer"></MenuIcon>
       </div>
     </div>

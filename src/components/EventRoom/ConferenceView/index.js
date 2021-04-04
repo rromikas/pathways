@@ -5,29 +5,25 @@ import GridView from "./GridView";
 import ParticipantPropType from "propTypes/Participant";
 import useTime from "hooks/useTime";
 
-const ConferenceView = ({
-  participants,
-  me,
-  speaker,
-  event,
-  prepareTitle,
-  prepareTitlePosition,
-}) => {
+const ConferenceView = (props) => {
   const [isGridView, setIsGridView] = useState(false);
   const { time, stopTimer } = useTime();
-  const props = {
-    prepareTitle,
-    prepareTitlePosition,
+  const extendedProps = {
+    ...props,
     time,
-    event,
-    participants,
-    me,
-    speaker,
     setIsGridView,
     stopTimer,
   };
 
-  return !isGridView ? <NotGridView {...props}></NotGridView> : <GridView {...props}></GridView>;
+  return (
+    <div className="mr-2">
+      {!isGridView ? (
+        <NotGridView {...extendedProps}></NotGridView>
+      ) : (
+        <GridView {...extendedProps}></GridView>
+      )}
+    </div>
+  );
 };
 
 export default ConferenceView;

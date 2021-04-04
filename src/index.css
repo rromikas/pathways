@@ -4,18 +4,22 @@
 
 @font-face {
   font-family: gotham;
-  src: url(./fonts//GothamRounded-Book.otf);
+  src: url(./assets/fonts//GothamRounded-Book.otf);
   font-weight: 400;
 }
 
 @font-face {
   font-family: gotham;
-  src: url(./fonts//GothamRounded-Medium.otf);
+  src: url(./assets/fonts//GothamRounded-Medium.otf);
   font-weight: 500;
 }
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  overflow: hidden;
 }
 
 body {

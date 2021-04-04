@@ -11,7 +11,7 @@ import ScreenSizeBadge from "components/ScreenSizeBadge";
 import { users as initialUsers, events as initialEvents } from "data";
 import NotificationsProvider from "notifications";
 import Loader from "components/Loader";
-const Dashboard = React.lazy(() => import("dashboard"));
+const Dashboard = React.lazy(() => import("app/index.js"));
 
 const App = () => {
   const history = useHistory();

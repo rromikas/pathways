@@ -12,11 +12,11 @@ const Message = ({ message }) => {
       <div>
         <div className="flex items-end mb-1">
           <div className="mr-5 text-blue-400 leading-none">{message.author.name}</div>
-          <div className="text-10px leading-none">
+          <div className="text-12px text-gray-700 leading-none">
             {moment(new Date(message.createdAt)).fromNow()}
           </div>
         </div>
-        <div className="text-12px">{message.text}</div>
+        <div className="text-14px">{message.text}</div>
       </div>
     </div>
   );

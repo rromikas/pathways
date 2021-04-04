@@ -3,7 +3,7 @@ import EventRoomBottom from "./EventRoomBottom";
 import { useState, useEffect } from "react";
 import { participants, messages } from "data";
 
-const EventRoomPage = ({ event, user, scrollToTop }) => {
+const EventRoomPage = ({ event, user, scrollToTop, goToAnalyticsPage }) => {
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -20,7 +20,12 @@ const EventRoomPage = ({ event, user, scrollToTop }) => {
           : "Students are joining!"
       }
     >
-      <EventRoomBottom user={user} participants={participants} event={event}></EventRoomBottom>
+      <EventRoomBottom
+        user={user}
+        participants={participants}
+        event={event}
+        goToAnalyticsPage={goToAnalyticsPage}
+      ></EventRoomBottom>
     </EventRoom>
   );
 };

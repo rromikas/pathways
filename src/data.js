@@ -3,6 +3,7 @@ import Person2 from "assets/person2.png";
 import Person3 from "assets/person3.png";
 import Person4 from "assets/person4.png";
 import Person5 from "assets/person5.png";
+import Person6 from "assets/person6.png";
 import EventPoster from "assets/event_poster.png";
 import moment from "moment";
 
@@ -120,10 +121,16 @@ export const users = {
   },
 };
 
+export const analyticsData = new Array(9).fill(0).map((_, i) => ({
+  label: `0${i + 1}`.slice(-2),
+  a: +(Math.random() * 250).toFixed(0),
+  b: +(Math.random() * 200).toFixed(0),
+}));
+
 export const participants = new Array(30).fill(0).map((_) => ({
   role: ["student", "admin", "speaker", "moderator"][+(Math.random() * 3).toFixed(0)],
   muted: [true, false][+(Math.random() * 2).toFixed(0)],
-  image: [Person1, Person2, Person3, Person4, Person5][+(Math.random() * 4).toFixed(0)],
+  image: [Person1, Person2, Person3, Person4, Person5, Person6][+(Math.random() * 5).toFixed(0)],
   fullName: ["Farah Faraclas", "Harry Kane", "Michaell Harrington", "Bryan Cranston", "John Smith"][
     +(Math.random() * 4).toFixed(0)
   ],
@@ -133,7 +140,6 @@ export const me = { image: Person2 };
 
 export const speaker = { image: Person1 };
 
-console.log(+(Math.random() * 3).toFixed(0));
 export const messages = new Array(20).fill(0).map((x) => ({
   author: {
     image: [Person1, Person2, Person3, Person4][+(Math.random() * 3).toFixed(0)],

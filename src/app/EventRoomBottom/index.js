@@ -89,7 +89,7 @@ const ModeratorBottom = () => {
   return <div></div>;
 };
 
-const SpeakerBottom = ({ event, participants, setShowParticipants, user }) => {
+const SpeakerBottom = ({ event, participants, setShowParticipants, user, goToAnalyticsPage }) => {
   return (
     <div>
       <div className="flex border-b border-gray-500 mb-6">
@@ -127,7 +127,10 @@ const SpeakerBottom = ({ event, participants, setShowParticipants, user }) => {
           </div>
 
           <div className="mr-7">
-            <ButtonBase className="outline-none h-40px transition rounded-lg text-white px-12 bg-orange-300 hover:bg-orange-301">
+            <ButtonBase
+              onClick={() => goToAnalyticsPage(event)}
+              className="outline-none h-40px transition rounded-lg text-white px-12 bg-orange-300 hover:bg-orange-301"
+            >
               Analytics
             </ButtonBase>
           </div>

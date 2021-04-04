@@ -2,7 +2,6 @@ import Questionnaire from "components/Questionnaire";
 import { questions } from "data";
 import { store } from "store";
 import EventsList from "components/EventsList";
-import { events } from "data";
 import EventMainButton from "./EventMainButton";
 import EventSecondaryButtons from "./EventSecondaryButtons";
 

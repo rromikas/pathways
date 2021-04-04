@@ -7,8 +7,8 @@ const SelectComponent = ({
   primary = false,
   outlined = false,
   defaultValue = "",
+  dark = false,
 }) => {
-  console.log("Seva", value);
   const customStyles = {
     menuList: (provided, state) => ({
       ...provided,
@@ -33,9 +33,9 @@ const SelectComponent = ({
     }),
     control: () => ({
       width: "100%",
-      color: outlined ? "white" : "inherit",
+      color: outlined ? (dark ? "#1A3A4F" : "white") : "inherit",
       background: outlined ? "transparent" : "#F5F5F5",
-      border: outlined ? "1px solid white" : "none",
+      border: outlined ? (dark ? "1px solid #1A3A4F" : "1px solid white") : "none",
       display: "flex",
       padding: "0 14px",
       borderRadius: 13,
@@ -43,16 +43,21 @@ const SelectComponent = ({
       cursor: "pointer",
     }),
     placeholder: () => ({
-      color: outlined ? "white" : "black",
+      color: outlined ? (dark ? "#1A3A4F" : "white") : "black",
     }),
     dropdownIndicator: () => ({
-      color: "white",
+      color: dark ? "#1A3A4F" : "white",
     }),
     singleValue: (provided, state) => {
       const opacity = state.isDisabled ? 0.5 : 1;
       const transition = "opacity 300ms";
 
-      return { ...provided, opacity, transition, color: outlined ? "white" : "inherit" };
+      return {
+        ...provided,
+        opacity,
+        transition,
+        color: outlined ? (dark ? "#1A3A4F" : "white") : "inherit",
+      };
     },
   };
 

@@ -14,9 +14,9 @@ const SideMenu = ({ items, page, setPage, height }) => {
               <ButtonBase
                 key={`sideMenu-item-${i}`}
                 className={`w-full flex justify-start items-center mb-5 outline-none rounded-xl transition-colors duration-200 ease-in-out cursor-pointer px-4 py-5 ${
-                  page === i ? "bg-blue-400 text-white" : "text-blue-400 hover:bg-blue-100"
+                  page === x.title ? "bg-blue-400 text-white" : "text-blue-400 hover:bg-blue-100"
                 }`}
-                onClick={() => setPage(i)}
+                onClick={() => setPage(x.title)}
               >
                 <x.icon className="mr-7 text-3xl" fontSize="inherit"></x.icon>
                 <div className="leading-none">{x.title}</div>

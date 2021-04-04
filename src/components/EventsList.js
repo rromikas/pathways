@@ -66,19 +66,7 @@ const Event = ({
   );
 };
 
-const EventsList = ({
-  events,
-  MainButton,
-  SecondaryButtons,
-  eventsPerPage = 10,
-  user,
-  scrollToTop = () => {},
-  goToEventPage,
-  goToEventRoom,
-  filterFunction = (x) => true,
-  sendEventRequest,
-  acceptInvitation,
-}) => {
+const EventsList = ({ events, scrollToTop, filterFunction, eventsPerPage = 20, ...rest }) => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -90,17 +78,7 @@ const EventsList = ({
   return (
     <Flipper flipKey={eventsArr.length}>
       {eventsArr.slice(page * eventsPerPage, page * eventsPerPage + eventsPerPage).map((ev, i) => (
-        <Event
-          key={`event-${i}`}
-          event={ev}
-          MainButton={MainButton}
-          user={user}
-          goToEventRoom={goToEventRoom}
-          SecondaryButtons={SecondaryButtons}
-          goToEventPage={goToEventPage}
-          sendEventRequest={sendEventRequest}
-          acceptInvitation={acceptInvitation}
-        ></Event>
+        <Event key={`event-${i}`} event={ev} {...rest}></Event>
       ))}
       <div className="flex justify-end py-7">
         <Pagination

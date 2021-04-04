@@ -9,6 +9,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import CraeteEventPage from "./CreateEventPage";
 import EventPage from "./EventPage";
 import EventRoomPage from "./EventRoomPage";
+import AnalyticsPage from "./AnalyticsPage";
 
 const pageOptions = [
   {
@@ -54,6 +55,13 @@ const pageOptions = [
     title: "Event Room",
     hiddenFromMenu: true,
     component: EventRoomPage,
+    props: ["event", "user", "scrollToTop", "goToAnalyticsPage"],
+  },
+  {
+    icon: SettingsIcon,
+    title: "Analytics",
+    hiddenFromMenu: true,
+    component: AnalyticsPage,
     props: ["event", "user", "scrollToTop"],
   },
 ];
