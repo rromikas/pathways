@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 const useTime = () => {
   const timeoutRef = useRef(null);
-  const [stopped, setStopped] = useState();
+  const [stopped, setStopped] = useState(false);
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const useTime = () => {
     };
   }, [time]);
 
-  return { time, stopTimer: () => setStopped(true) };
+  return { time, stopTimer: () => (!stopped ? setStopped(true) : {}) };
 };
 
 export default useTime;

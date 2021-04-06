@@ -5,8 +5,18 @@ import { ReactComponent as ArrowRight } from "assets/arrow_right.svg";
 import { withSize } from "react-sizeme";
 import Ruler from "components/Ruler";
 import ParticipantCard from "./ParticipantCard";
+import PrepareScreen from "./PrepareScreen";
 
-const GridView = ({ participants, me, speaker, setIsGridView, size }) => {
+const GridView = ({
+  participants,
+  me,
+  speaker,
+  setIsGridView,
+  size,
+  secondsLeft,
+  prepareTitle,
+  prepareTitlePosition,
+}) => {
   const [participantsFrame, setParticipantsFrame] = useState(0);
   const [photoHeight, setPhotoHeight] = useState(0);
 
@@ -54,8 +64,13 @@ const GridView = ({ participants, me, speaker, setIsGridView, size }) => {
   return (
     <div
       style={{ minHeight: photoHeight * currentOption.rowsCount + 16 }}
-      className="row no-gutters p-8px bg-blue-400 rounded-xl overflow-hidden content-start"
+      className="row no-gutters p-8px bg-blue-400 rounded-xl overflow-hidden content-start relative"
     >
+      <PrepareScreen
+        secondsLeft={secondsLeft}
+        title={prepareTitle}
+        position={prepareTitlePosition}
+      ></PrepareScreen>
       <MainViewIcon
         onClick={() => setIsGridView(false)}
         className="z-10 absolute top-6 right-6 text-white fill-current hover:text-orange-400 active:text-orange-500 cursor-pointer"

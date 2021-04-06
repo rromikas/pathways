@@ -25,6 +25,7 @@ const App = () => {
   const [events, setEvents] = useState(initialEvents);
   const [messages, setMessages] = useState(initialMessages);
   const [settings, setSettings] = useState(initialSettings);
+  const [breakoutRooms, setBreakoutRooms] = useState([]);
 
   useEffect(() => {
     if (!user) {
@@ -49,6 +50,8 @@ const App = () => {
                 setMessages={setMessages}
                 settings={settings}
                 setSettings={setSettings}
+                breakoutRooms={breakoutRooms}
+                setBreakoutRooms={setBreakoutRooms}
               ></Dashboard>
             </Route>
             <Route path="/forgot-password" exact>

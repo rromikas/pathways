@@ -22,11 +22,9 @@ const NotGridView = ({
   me,
   speaker,
   setIsGridView,
-  time,
-  event,
+  secondsLeft,
   prepareTitle,
   prepareTitlePosition,
-  stopTimer,
 }) => {
   const [participantsBoxWidth, setParticipantsBoxWidth] = useState(0);
   const [participantsFrame, setParticipantsFrame] = useState(0);
@@ -60,9 +58,7 @@ const NotGridView = ({
   return (
     <div className="flex flex-col bg-blue-400 rounded-xl overflow-hidden relative">
       <PrepareScreen
-        stopTimer={stopTimer}
-        time={time}
-        event={event}
+        secondsLeft={secondsLeft}
         title={prepareTitle}
         position={prepareTitlePosition}
       ></PrepareScreen>

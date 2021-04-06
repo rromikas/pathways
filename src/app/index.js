@@ -5,6 +5,8 @@ import Drawer from "@material-ui/core/Drawer";
 import { withSize } from "react-sizeme";
 import Navbar from "components/DashboardNavbar";
 import { getPages } from "./Pages";
+import { participants } from "data";
+import { useNotify } from "notifications";
 
 const Dashboard = ({
   size,
@@ -17,11 +19,14 @@ const Dashboard = ({
   setMessages,
   settings,
   setSettings,
+  breakoutRooms,
+  setBreakoutRooms,
 }) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [menuOpened, setMenuOpened] = useState(false);
   const [eventId, setEventId] = useState(1);
   const scrollContainer = useRef(null);
+  const notify = useNotify();
 
   const user = userId > -1 ? users[userId] : null;
   const pages = getPages(user);
@@ -92,6 +97,62 @@ const Dashboard = ({
     });
   };
 
+  const selectSpeaker = (id) => {
+    setUsers((prev) => {
+      let usersObj = { ...prev };
+      usersObj[userId].selectedSpeaker = id;
+      return usersObj;
+    });
+  };
+
+  const createBreakoutRooms = (speakers, numberOfRooms) => {
+    const rooms = [];
+    let ind;
+    speakers.forEach((x, i) => {
+      ind = i % numberOfRooms;
+      if (ind < rooms.length) {
+        rooms[ind].participants.push(x);
+      } else {
+        rooms.push({
+          participants: [participants.find((p) => p.id === x)],
+          title: "Breakout Room " + (i + 1),
+          id: i + 1,
+          moderator: null,
+        });
+      }
+    });
+
+    while (rooms.length < numberOfRooms) {
+      const myIndex = ++ind;
+      rooms.push({
+        participants: [],
+        title: "Breakout Room " + (myIndex + 1),
+        id: myIndex + 1,
+        moderator: null,
+      });
+    }
+
+    setBreakoutRooms(rooms);
+    notify(rooms.length + "  breakout rooms created");
+  };
+
+  const closeBreakoutRooms = () => {
+    setBreakoutRooms([]);
+    notify("Breakout groups closed");
+  };
+
+  const setModerator = (modId, roomId) => {
+    setBreakoutRooms((prev) => {
+      let arr = [...prev];
+      const ind = arr.findIndex((x) => x.id === roomId);
+      if (ind >= 0) {
+        arr[ind].moderator = modId;
+      }
+      return arr;
+    });
+    notify("Moderator set");
+  };
+
   const props = {
     user,
     events,
@@ -109,6 +170,11 @@ const Dashboard = ({
     messages,
     settings,
     setSettings,
+    selectSpeaker,
+    createBreakoutRooms,
+    breakoutRooms,
+    closeBreakoutRooms,
+    setModerator,
   };
   const pageSpecificProps = pages[pageIndex].props.reduce(
     (a, b) => Object.assign({}, a, { [b]: props[b] }),

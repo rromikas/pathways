@@ -44,7 +44,7 @@ const SignIn = ({ users, setUser }) => {
           onClick={() => setIsSelectingProfile(false)}
         >
           <div
-            className="max-w-6gd w-full bg-white rounded-xl p-12 m-auto"
+            className="max-w-6gd w-full bg-white rounded-xl p-7 sm:p-12 m-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="text-20px font-bold mb-5">Select pre-made profile</div>
@@ -60,7 +60,7 @@ const SignIn = ({ users, setUser }) => {
                       className="p-7 cursor-pointer hover:bg-gray-401 rounded-xl bg-gray-400 w-full h-full flex items-center"
                     >
                       <div
-                        className="w-68px h-68px bg-center bg-cover mr-4 rounded-lg"
+                        className="w-68px h-68px bg-center bg-cover mr-4 rounded-lg flex-shrink-0"
                         style={{ backgroundImage: `url(${x.image})` }}
                       ></div>
                       <div className="capitalize">

@@ -48,7 +48,7 @@ const Chat = ({ messages, activeView }) => {
     <div
       className={`${
         activeView !== "Chat" ? "hidden" : "block w-full"
-      } overflow-hidden relative xl:w-372px ml-5 flex-shrink-0 xl:block`}
+      } overflow-hidden relative xl:w-372px flex-shrink-0 xl:block`}
       style={{ minHeight: 370 }}
     >
       <SimpleBar ref={container} className="absolute top-0 left-0 w-full h-full pr-3">

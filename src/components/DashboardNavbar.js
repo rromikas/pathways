@@ -52,17 +52,20 @@ const DashboardNavbar = ({ user, goToCreateEventPage, page }) => {
           ))}
         </div>
       </Drawer>
-      <div className="flex justify-between items-center mb-2 pt-9 pb-4">
+      <div className="flex flex-wrap sm:flex-nowrap justify-between items-center pt-9 pb-4">
         {page.title !== "Event Room" ? (
-          <div className="flex-grow relative flex pr-5" style={{ maxWidth: 850 }}>
-            <SearchIcon className="absolute top-0 bottom-0 m-auto left-3 w-32px"></SearchIcon>
-            <input
-              spellCheck={false}
-              placeholder="Search an event"
-              className="pl-68px transition w-full mr-3 bg-gray-400 hover:bg-gray-401 focus:bg-blue-100 rounded-md h-56px placeholder-blue-400 outline-none"
-            ></input>
+          <div className="flex-grow flex-wrap sm:flex-nowrap flex pr-5" style={{ maxWidth: 850 }}>
+            <div className="flex-grow flex relative mb-3">
+              <SearchIcon className="absolute top-0 bottom-0 m-auto left-3 w-32px"></SearchIcon>
+              <input
+                spellCheck={false}
+                placeholder="Search an event"
+                className="pl-68px transition w-full mr-3 bg-gray-400 hover:bg-gray-401 focus:bg-blue-100 rounded-md h-56px placeholder-blue-400 outline-none"
+              ></input>
+            </div>
+
             {user.role === "admin" ? (
-              <Button className="h-56px" onClick={goToCreateEventPage}>
+              <Button className="h-56px mb-3" onClick={goToCreateEventPage}>
                 <div className="flex items-center text-18px whitespace-nowrap px-3">
                   <AddIcon className="mr-3 text-32px" fontSize="inherit"></AddIcon>
                   Create event
@@ -73,7 +76,7 @@ const DashboardNavbar = ({ user, goToCreateEventPage, page }) => {
         ) : (
           <div></div>
         )}
-        <div className="flex items-center">
+        <div className="flex items-center mb-3">
           <div className="w-56px h-56px rounded-full bg-gray-400 flex items-center justify-center mr-4">
             <BellIcon></BellIcon>
           </div>

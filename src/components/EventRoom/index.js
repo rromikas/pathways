@@ -3,6 +3,8 @@ import Chat from "./Chat";
 import React, { useEffect, useState } from "react";
 import Participants from "./Participants";
 import Toolbar from "./Toolbar";
+import useTime from "hooks/useTime";
+import moment from "moment";
 
 const ConferenceRoom = ({
   user,
@@ -12,20 +14,40 @@ const ConferenceRoom = ({
   event,
   prepareTitle,
   prepareTitlePosition,
+  speaker,
+  breakoutRooms,
 }) => {
-  const [speaker, setSpeaker] = useState(null);
   const [showParticipants, setShowParticipants] = useState(false);
   const [activeView, setActiveView] = useState("Conference"); // on small screens toolbar will appear to select view
 
-  console.log("event time", event.time);
+  const { time, stopTimer } = useTime();
+  const startTime = moment(
+    moment(event.date).format("YYYY-MM-DD") + " " + moment(event.time).format("HH:mm:ss")
+  );
+  const nowTime = moment(time);
+  const duration = moment.duration(startTime.diff(nowTime));
+  const secondsLeft = duration.asSeconds();
 
-  useEffect(() => {
-    setSpeaker(participants[0]);
-  }, [participants]);
+  if (secondsLeft < -3) {
+    stopTimer();
+  }
+
+  const [breakoutRoomId, setBreakoutRoomId] = useState(null);
+
+  const finalParticipants = breakoutRoomId
+    ? breakoutRooms.find((x) => x.id === breakoutRoomId).participants
+    : participants;
 
   const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, { setShowParticipants, activeView });
+      return React.cloneElement(child, {
+        setShowParticipants,
+        activeView,
+        isTimeToSelectSpeaker: !user.selectedSpeaker && secondsLeft <= 60,
+        setBreakoutRoomId,
+        breakoutRoomId,
+        participants,
+      });
     }
     return child;
   });
@@ -35,15 +57,16 @@ const ConferenceRoom = ({
         <div
           className={`flex-grow ${
             activeView === "Conference" ? "block" : "hidden"
-          } xl:block xl:mr-2`}
+          } xl:block xl:mr-4`}
         >
           <ConferenceView
             prepareTitle={prepareTitle}
             prepareTitlePosition={prepareTitlePosition}
-            participants={participants}
+            participants={finalParticipants}
             me={user}
             speaker={speaker}
             activeView={activeView}
+            secondsLeft={secondsLeft}
             event={event}
           ></ConferenceView>
         </div>

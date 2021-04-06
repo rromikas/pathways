@@ -66,7 +66,7 @@ const Event = ({
   );
 };
 
-const EventsList = ({ events, scrollToTop, filterFunction, eventsPerPage = 20, ...rest }) => {
+const EventsList = ({ events, scrollToTop, filterFunction, eventsPerPage = 10, ...rest }) => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {

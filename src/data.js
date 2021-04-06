@@ -73,6 +73,7 @@ export const users = {
     id: 1,
     profileFilled: true,
     questionnaireFilled: true,
+    selectedSpeaker: null,
     fullName: "Silva Mayer",
     school: "San Francisco School",
     schoolType: "School",
@@ -89,6 +90,7 @@ export const users = {
     id: 2,
     profileFilled: true,
     questionnaireFilled: false,
+    selectedSpeaker: null,
     fullName: "Maria Doe",
     school: "St. Thomas Preparatory School",
     schoolType: null,
@@ -105,6 +107,7 @@ export const users = {
     id: 3,
     role: "admin",
     image: Person5,
+    selectedSpeaker: null,
     fullName: "Mister Josh",
     email: "admin@gmail.com",
     password: "admin",
@@ -115,6 +118,7 @@ export const users = {
     id: 4,
     profileFilled: false,
     questionnaireFilled: false,
+    selectedSpeaker: null,
     fullName: "John Mayer",
     school: "Michigan University",
     schoolType: "University",
@@ -135,13 +139,16 @@ export const analyticsData = new Array(9).fill(0).map((_, i) => ({
   b: +(Math.random() * 200).toFixed(0),
 }));
 
-export const participants = new Array(30).fill(0).map((_) => ({
+export const participants = new Array(30).fill(0).map((_, i) => ({
+  id: i + 1,
   role: ["student", "admin", "speaker", "moderator"][+(Math.random() * 3).toFixed(0)],
   muted: [true, false][+(Math.random() * 2).toFixed(0)],
   image: [Person1, Person2, Person3, Person4, Person5, Person6][+(Math.random() * 5).toFixed(0)],
   fullName: ["Farah Faraclas", "Harry Kane", "Michaell Harrington", "Bryan Cranston", "John Smith"][
     +(Math.random() * 4).toFixed(0)
   ],
+  school: "St. Thomas Preparatory School",
+  job: "Lecturer",
 }));
 
 export const me = { image: Person2 };

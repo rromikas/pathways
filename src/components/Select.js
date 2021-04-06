@@ -38,7 +38,7 @@ const SelectComponent = ({
       border: outlined ? (dark ? "1px solid #1A3A4F" : "1px solid white") : "none",
       display: "flex",
       padding: "0 14px",
-      borderRadius: 13,
+      borderRadius: 7,
       height: 48,
       cursor: "pointer",
     }),
