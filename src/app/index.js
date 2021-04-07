@@ -4,13 +4,16 @@ import MenuNavbar from "components/MenuNavbar";
 import Drawer from "@material-ui/core/Drawer";
 import { withSize } from "react-sizeme";
 import Navbar from "components/DashboardNavbar";
-import { getPages } from "./Pages";
 import { participants } from "data";
 import { useNotify } from "notifications";
+import { Routes } from "./Routes";
+import { Route, useHistory } from "react-router-dom";
+import { MenuItems } from "./MenuItems";
 
 const Dashboard = ({
   size,
   userId,
+  logout,
   users,
   setUsers,
   events,
@@ -22,16 +25,12 @@ const Dashboard = ({
   breakoutRooms,
   setBreakoutRooms,
 }) => {
-  const [pageIndex, setPageIndex] = useState(0);
+  const history = useHistory();
   const [menuOpened, setMenuOpened] = useState(false);
-  const [eventId, setEventId] = useState(1);
   const scrollContainer = useRef(null);
   const notify = useNotify();
 
   const user = userId > -1 ? users[userId] : null;
-  const pages = getPages(user);
-  const PageComponent = pages[pageIndex].component;
-  const event = eventId > -1 ? events.find((x) => x.id === eventId) : null;
 
   const scrollToTop = () => {
     if (scrollContainer.current) {
@@ -44,32 +43,13 @@ const Dashboard = ({
     }
   };
 
-  const setPageIndexByTitle = (title) => {
-    return setPageIndex(pages.findIndex((x) => x.title === title));
-  };
-
-  const goToEventPage = (evId) => {
-    setEventId(evId);
-    setPageIndexByTitle("Event");
-  };
-
-  const goToEventRoom = (evId) => {
-    setEventId(evId);
-    setPageIndexByTitle("Event Room");
-  };
-
-  const goToAnalyticsPage = (ev) => {
-    setPageIndexByTitle("Analytics");
-  };
-
   const sendMessage = (text) => {
     setMessages((prev) => [...prev, { user, text, createdAt: Date.now() }]);
   };
 
   const onCreateEvent = (ev) => {
     setEvents((prev) => [ev, ...prev]);
-    setPageIndex(pages.findIndex((x) => x.title === "Events"));
-    scrollToTop();
+    history.push("/events");
   };
 
   const onSaveQuestionnaireAnswers = (answers) => {
@@ -157,15 +137,11 @@ const Dashboard = ({
     user,
     events,
     scrollToTop,
-    event,
-    goToEventPage,
-    goToEventRoom,
     sendEventRequest,
     acceptInvitation,
     users,
     onCreateEvent,
     onSaveQuestionnaireAnswers,
-    goToAnalyticsPage,
     sendMessage,
     messages,
     settings,
@@ -176,21 +152,12 @@ const Dashboard = ({
     closeBreakoutRooms,
     setModerator,
   };
-  const pageSpecificProps = pages[pageIndex].props.reduce(
-    (a, b) => Object.assign({}, a, { [b]: props[b] }),
-    {}
-  );
 
   return (
     <>
       <Drawer anchor="left" open={menuOpened} onClose={() => setMenuOpened(false)}>
         <SideMenu
-          page={pages[pageIndex].title}
-          setPage={(title) => {
-            setPageIndexByTitle(title);
-            setMenuOpened(false);
-          }}
-          items={pages.filter((x) => !x.hiddenFromMenu)}
+          items={MenuItems.filter((x) => !x.hiddenFromMenu)}
           height={size.height}
         ></SideMenu>
       </Drawer>
@@ -202,21 +169,25 @@ const Dashboard = ({
             style={{ boxShadow: "4px 0px 10px rgba(0,0,0,0.16)" }}
           >
             <SideMenu
-              page={pages[pageIndex].title}
-              setPage={setPageIndexByTitle}
-              items={pages.filter((x) => !x.hiddenFromMenu)}
+              items={MenuItems.filter((x) => !x.hiddenFromMenu)}
               height={size.height}
             ></SideMenu>
           </div>
-          <div ref={scrollContainer} className="h-full overflow-auto px-7 sm:px-12 pb-12 flex-grow">
-            <Navbar
-              page={pages[pageIndex]}
-              goToCreateEventPage={() =>
-                setPageIndex(pages.findIndex((x) => x.title === "Create Event"))
-              }
-              user={user}
-            ></Navbar>
-            <PageComponent {...pageSpecificProps} />
+          <div
+            ref={scrollContainer}
+            className="h-full overflow-auto px-7 sm:px-12 pb-12 flex-grow flex flex-col"
+          >
+            <Navbar user={user} logout={logout}></Navbar>
+            <div className="flex-grow">
+              {Routes.map((x, i) => (
+                <Route
+                  key={`route-${i}`}
+                  exact
+                  path={x.pathname}
+                  render={(routeProps) => <x.component {...props} {...routeProps}></x.component>}
+                ></Route>
+              ))}
+            </div>
           </div>
         </div>
       </div>

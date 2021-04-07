@@ -4,12 +4,18 @@ import { ReactComponent as ShareIcon } from "assets/share.svg";
 import ConfirmInvite from "components/ConfirmInvite";
 import { useNotify } from "notifications";
 import ShareButton from "components/ShareButton";
+import { useHistory } from "react-router-dom";
 
-const SpeakerOrModeratorButtons = ({ goToEventPage, event }) => {
+const SpeakerOrModeratorButtons = ({ event }) => {
   const notify = useNotify();
+  const history = useHistory();
   return (
     <div className="flex flex-wrap items-center">
-      <Button className="mr-4 my-1 px-7" outlined onClick={() => goToEventPage(event.id)}>
+      <Button
+        className="mr-4 my-1 px-7"
+        outlined
+        onClick={() => history.push("/events/" + event.id)}
+      >
         View More
       </Button>
       <Button
@@ -22,13 +28,14 @@ const SpeakerOrModeratorButtons = ({ goToEventPage, event }) => {
           <div>Invite moderator</div>
         </div>
       </Button>
-      <ShareButton className="my-1"></ShareButton>
+      <ShareButton className="my-1" event={event}></ShareButton>
     </div>
   );
 };
 
 const AdminButtons = ({ event }) => {
   const notify = useNotify();
+
   return (
     <div className="flex flex-wrap">
       <Button
@@ -41,18 +48,23 @@ const AdminButtons = ({ event }) => {
           <div>Invite school/speaker</div>
         </div>
       </Button>
-      <ShareButton className="my-1"></ShareButton>
+      <ShareButton className="my-1" event={event}></ShareButton>
     </div>
   );
 };
 
-const StudentButtons = ({ goToEventPage, event }) => {
+const StudentButtons = ({ event }) => {
+  const history = useHistory();
   return (
     <div className="flex flex-wrap items-center">
-      <Button className="mr-4 my-1 px-7" outlined onClick={() => goToEventPage(event.id)}>
+      <Button
+        className="mr-4 my-1 px-7"
+        outlined
+        onClick={() => history.push("/events/" + event.id)}
+      >
         View More
       </Button>
-      <ShareButton className="my-1"></ShareButton>
+      <ShareButton className="my-1" event={event}></ShareButton>
     </div>
   );
 };

@@ -7,10 +7,35 @@ import { ReactComponent as ShareIcon } from "assets/share.svg";
 import { Tooltip } from "react-tippy";
 import { useState } from "react";
 import Button from "components/Button";
+import {
+  FacebookShareButton,
+  InstapaperShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
 
-const socNetworks = [FacebookIcon, InstagramIcon, WhatsappIcon, TwitterIcon, LinkedinIcon];
-const ShareButton = ({ className = "" }) => {
+console.log(window.location.origin);
+
+const ShareButton = ({ className = "", event }) => {
   const [open, setOpen] = useState(false);
+
+  const socNetworks = [
+    {
+      button: FacebookShareButton,
+      icon: FacebookIcon,
+      props: {
+        quote: "Event starts soon. Come here.",
+        url: `${window.location.origin}/${event.id}`,
+      },
+    },
+    { button: InstapaperShareButton, icon: InstagramIcon },
+    { button: WhatsappShareButton, icon: WhatsappIcon },
+    { button: TwitterShareButton, icon: TwitterIcon },
+    { button: LinkedinShareButton, icon: LinkedinIcon },
+    ,
+    ,
+  ];
 
   return (
     <div>
@@ -20,12 +45,12 @@ const ShareButton = ({ className = "" }) => {
         html={
           <div className="flex bg-white rounded-md p-4 shadow-custom m-3">
             {socNetworks.map((x, i) => {
-              const Icon = x;
+              const Icon = x.icon;
+              const SocialButton = x.button;
               return (
-                <Icon
-                  className="transform hover:scale-110 transition mr-3 cursor-pointer"
-                  key={`socNetwork-icon-${i}`}
-                ></Icon>
+                <SocialButton key={`socNetwork-icon-${i}`} {...x.props} className="h-48px w-48px">
+                  <Icon className="transform hover:scale-110 transition"></Icon>
+                </SocialButton>
               );
             })}
           </div>

@@ -3,19 +3,18 @@ import { ReactComponent as RequestEventIcon } from "assets/request_event.svg";
 import { ReactComponent as JoinEventIcon } from "assets/join_event.svg";
 import { ReactComponent as StartEventIcon } from "assets/start_event.svg";
 import ConfirmRSVP from "components/ConfirmRSVP";
+import { useHistory } from "react-router-dom";
 
 const mainButtonClass = "w-192px text-20px";
 const iconClass = "mr-4 w-32px h-32px";
 
-const SpeakerOrModeratorButtons = ({
-  event,
-  user,
-  goToEventRoom,
-  sendEventRequest,
-  acceptInvitation,
-}) => {
+const SpeakerOrModeratorButtons = ({ event, user, sendEventRequest, acceptInvitation }) => {
+  const history = useHistory();
   return user.letInEvents.includes(event.id) ? (
-    <Button className={mainButtonClass} onClick={() => goToEventRoom(event.id)}>
+    <Button
+      className={mainButtonClass}
+      onClick={() => history.push("/events/" + event.id + "/live")}
+    >
       <div className="flex items-center">
         <JoinEventIcon className={iconClass}></JoinEventIcon>
         <div className="leading-none">Join event</div>
@@ -51,9 +50,14 @@ const SpeakerOrModeratorButtons = ({
   );
 };
 
-const AdminButtons = ({ user, event, goToEventRoom }) => {
+const AdminButtons = ({ event }) => {
+  const history = useHistory();
   return (
-    <Button onClick={() => goToEventRoom(event.id)} className={mainButtonClass} primary>
+    <Button
+      onClick={() => history.push("/events/" + event.id + "/live")}
+      className={mainButtonClass}
+      primary
+    >
       <div className="flex items-center">
         <StartEventIcon className={iconClass}></StartEventIcon>
         <div className="leading-none">Start event</div>
@@ -62,9 +66,14 @@ const AdminButtons = ({ user, event, goToEventRoom }) => {
   );
 };
 
-const StudentButtons = ({ user, event, goToEventRoom, sendEventRequest }) => {
+const StudentButtons = ({ user, event, sendEventRequest }) => {
+  const history = useHistory();
   return user.letInEvents.includes(event.id) ? (
-    <Button className={mainButtonClass} primary onClick={() => goToEventRoom(event.id)}>
+    <Button
+      className={mainButtonClass}
+      primary
+      onClick={() => history.push("/events/" + event.id + "/live")}
+    >
       <div className="flex items-center">
         <JoinEventIcon className={iconClass}></JoinEventIcon>
         <div className="leading-none">Join event</div>

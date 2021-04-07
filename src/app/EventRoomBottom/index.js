@@ -16,12 +16,14 @@ import Collapse from "@material-ui/core/Collapse";
 import Simplebar from "simplebar-react";
 import ArrowDown from "@material-ui/icons/KeyboardArrowDown";
 import { TrainRounded } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const BreakoutSessionButtonWithTooltip = ({ participants, onSubmit }) => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [assignSpeakersOpen, setAssignSpeakersOpen] = useState(false);
   const [numberOfRooms, setNumberOfRooms] = useState(0);
   const [speakers, setSpeakers] = useState([]);
+
   return (
     <>
       <SelectModal
@@ -576,7 +578,7 @@ const StudentBottom = ({
                 </div>
               </div>
             </div>
-            <ShareButton></ShareButton>
+            <ShareButton event={event}></ShareButton>
           </div>
         )}
 

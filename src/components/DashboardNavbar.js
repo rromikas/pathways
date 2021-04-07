@@ -5,20 +5,22 @@ import Drawer from "@material-ui/core/Drawer";
 import { useState } from "react";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import { store } from "store";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "assets/search.svg";
 import Button from "components/Button";
 import AddIcon from "@material-ui/icons/Add";
 import Input from "components/Input";
+import BlueFill from "assets/blue_fill.png";
 
-const DashboardNavbar = ({ user, goToCreateEventPage, page }) => {
+const DashboardNavbar = ({ user, logout }) => {
   const [openUserOptions, setOpenUserOptions] = useState(false);
   const history = useHistory();
+  const location = useLocation();
   const userOptions = [
     {
       title: "Logout",
       action: () => {
-        store.dispatch({ type: "SET_USER", payload: null });
+        logout();
         history.push("/sign-in");
       },
     },
@@ -38,7 +40,7 @@ const DashboardNavbar = ({ user, goToCreateEventPage, page }) => {
             </div>
             <div
               className="w-56px h-56px rounded-full bg-center bg-cover border-4 mr-3 border-blue-400"
-              style={{ backgroundImage: `url(${user.image})` }}
+              style={{ backgroundImage: `url(${user ? user.image : BlueFill})` }}
             ></div>
           </div>
           {userOptions.map((x, i) => (
@@ -53,7 +55,7 @@ const DashboardNavbar = ({ user, goToCreateEventPage, page }) => {
         </div>
       </Drawer>
       <div className="flex flex-wrap sm:flex-nowrap justify-between items-center pt-9 pb-4">
-        {page.title !== "Event Room" ? (
+        {/^\/events.*live$/.test(location.pathname) ? (
           <div className="flex-grow flex-wrap sm:flex-nowrap flex pr-5" style={{ maxWidth: 850 }}>
             <div className="flex-grow flex relative mb-3">
               <SearchIcon className="absolute top-0 bottom-0 m-auto left-3 w-32px"></SearchIcon>
@@ -65,7 +67,7 @@ const DashboardNavbar = ({ user, goToCreateEventPage, page }) => {
             </div>
 
             {user.role === "admin" ? (
-              <Button className="h-56px mb-3" onClick={goToCreateEventPage}>
+              <Button className="h-56px mb-3" onClick={() => history.push("/events/new")}>
                 <div className="flex items-center text-18px whitespace-nowrap px-3">
                   <AddIcon className="mr-3 text-32px" fontSize="inherit"></AddIcon>
                   Create event
@@ -82,7 +84,7 @@ const DashboardNavbar = ({ user, goToCreateEventPage, page }) => {
           </div>
           <div
             className="w-56px h-56px rounded-full bg-center bg-cover border-4 mr-3 border-blue-400"
-            style={{ backgroundImage: `url(${user.image})` }}
+            style={{ backgroundImage: `url(${user ? user.image : BlueFill})` }}
           ></div>
           <MoreVertIcon
             onClick={() => setOpenUserOptions(true)}

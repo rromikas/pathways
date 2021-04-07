@@ -3,11 +3,15 @@ import EventRoomBottom from "./EventRoomBottom";
 import { useEffect } from "react";
 import { participants } from "data";
 
-const EventRoomPage = ({ scrollToTop, ...rest }) => {
+const EventRoomPage = ({ scrollToTop, events, ...rest }) => {
   useEffect(() => {
     scrollToTop();
   }, []);
+
   const user = rest.user;
+  const eventId = rest.match.params.id;
+
+  const event = events.find((x) => +x.id === +eventId);
 
   const getSpeaker = () => {
     switch (user.role) {
@@ -25,6 +29,7 @@ const EventRoomPage = ({ scrollToTop, ...rest }) => {
   return (
     <EventRoom
       {...rest}
+      event={event}
       speaker={getSpeaker()}
       participants={participants}
       prepareTitlePosition={user.role === "student" ? "bottom" : "top"}
@@ -34,7 +39,7 @@ const EventRoomPage = ({ scrollToTop, ...rest }) => {
           : "Students are joining!"
       }
     >
-      <EventRoomBottom {...rest}></EventRoomBottom>
+      <EventRoomBottom event={event} {...rest}></EventRoomBottom>
     </EventRoom>
   );
 };

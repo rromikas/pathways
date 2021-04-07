@@ -56,7 +56,7 @@ const CreateEventPage = ({ onCreateEvent }) => {
   return (
     <div className="p-12 rounded-xl" style={{ boxShadow: "0px 3px 8px 0px rgba(0,0,0,0.1)" }}>
       <div className="flex flex-wrap mb-28">
-        <div className="w-1/2 hidden md:block lg:hidden xl:block pr-12 border-r border-gray-500">
+        <div className="xl:w-1/2 lg:w-full w-full md:w-1/2 md:pr-12 lg:pr-0 xl:pr-12 md:border-r lg:border-0 xl:border-r border-gray-500">
           <Label error={submitCount > 0 ? errors["image"] : ""}>
             Upload event image (Recommended 60px*150px)
           </Label>

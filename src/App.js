@@ -1,8 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
 import "simplebar/dist/simplebar.min.css";
-import { store, persistor } from "store";
-import { Provider, connect } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import SignIn from "auth/SignIn";
 import SignUp from "auth/SignUp";
@@ -16,7 +13,9 @@ import {
 } from "data";
 import NotificationsProvider from "notifications";
 import Loader from "components/Loader";
-const Dashboard = React.lazy(() => import("app/index.js"));
+import Dashboard from "app/index";
+import { ErrorBoundary } from "react-error-boundary";
+import Logo from "components/Logo";
 
 const App = () => {
   const history = useHistory();
@@ -27,57 +26,57 @@ const App = () => {
   const [settings, setSettings] = useState(initialSettings);
   const [breakoutRooms, setBreakoutRooms] = useState([]);
 
-  useEffect(() => {
-    if (!user) {
-      history.push("sign-in");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     history.push("/sign-in");
+  //   }
+  // }, [user]);
 
   return (
-    <NotificationsProvider>
-      <div className="fixed left-0 top-0 w-full h-full">
-        <ScreenSizeBadge></ScreenSizeBadge>
-        <Suspense fallback={<Loader></Loader>}>
-          <Switch>
-            <Route path="/" exact>
-              <Dashboard
-                users={users}
-                userId={user ? user.id : -1}
-                setUsers={setUsers}
-                events={events}
-                setEvents={setEvents}
-                messages={messages}
-                setMessages={setMessages}
-                settings={settings}
-                setSettings={setSettings}
-                breakoutRooms={breakoutRooms}
-                setBreakoutRooms={setBreakoutRooms}
-              ></Dashboard>
-            </Route>
-            <Route path="/forgot-password" exact>
-              <ForgotPassword></ForgotPassword>
-            </Route>
-            <Route path="/sign-in" exact>
-              <SignIn setUser={setUser} users={users}></SignIn>
-            </Route>
-            <Route path="/sign-up" exact>
-              <SignUp setUsers={setUsers}></SignUp>
-            </Route>
-          </Switch>
-        </Suspense>
-      </div>
-    </NotificationsProvider>
+    <ErrorBoundary
+      onReset={() => console.log("needed reset")}
+      FallbackComponent={
+        <div className="w-full h-full bg-white flex overflow-auto fixed left-0 top-0 z-50">
+          <Logo className="m-auto"></Logo>
+        </div>
+      }
+    >
+      <NotificationsProvider>
+        <div className="fixed left-0 top-0 w-full h-full">
+          <ScreenSizeBadge></ScreenSizeBadge>
+          <Suspense fallback={<Loader></Loader>}>
+            <Switch>
+              {user ? (
+                <Dashboard
+                  users={users}
+                  userId={user ? user.id : -1}
+                  logout={() => setUser(null)}
+                  setUsers={setUsers}
+                  events={events}
+                  setEvents={setEvents}
+                  messages={messages}
+                  setMessages={setMessages}
+                  settings={settings}
+                  setSettings={setSettings}
+                  breakoutRooms={breakoutRooms}
+                  setBreakoutRooms={setBreakoutRooms}
+                ></Dashboard>
+              ) : null}
+              <Route path="/forgot-password" exact>
+                <ForgotPassword></ForgotPassword>
+              </Route>
+              <Route path="/sign-in" exact>
+                <SignIn setUser={setUser} users={users}></SignIn>
+              </Route>
+              <Route path="/sign-up" exact>
+                <SignUp setUsers={setUsers}></SignUp>
+              </Route>
+            </Switch>
+          </Suspense>
+        </div>
+      </NotificationsProvider>
+    </ErrorBoundary>
   );
 };
 
-const connectedApp = () => {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <App></App>
-      </PersistGate>
-    </Provider>
-  );
-};
-
-export default connectedApp;
+export default App;

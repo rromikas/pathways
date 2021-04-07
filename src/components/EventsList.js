@@ -5,18 +5,15 @@ import { useEffect, useState } from "react";
 import DateIcon from "@material-ui/icons/InsertInvitation";
 import TimeIcon from "@material-ui/icons/AccessTime";
 import moment from "moment";
-import { Flipper, Flipped, spring } from "react-flip-toolkit";
+import { Flipper, Flipped } from "react-flip-toolkit";
 
 const Event = ({
   event,
   user,
   MainButton,
   SecondaryButtons,
-  goToEventPage,
-  goToEventRoom,
   sendEventRequest,
   acceptInvitation,
-  index,
 }) => {
   return (
     <Flipped flipId={`event-${event.id}`}>
@@ -44,18 +41,13 @@ const Event = ({
             <div className="text-20px mb-4 line-clamp-1">{event.title}</div>
             <div className="line-clamp-3 text-blue-400 mb-4">{event.description}</div>
             <div className="flex-grow items-end flex">
-              <SecondaryButtons
-                user={user}
-                event={event}
-                goToEventPage={goToEventPage}
-              ></SecondaryButtons>
+              <SecondaryButtons user={user} event={event}></SecondaryButtons>
             </div>
           </div>
         </div>
         <div className="flex flex-grow sm:justify-end items-center py-3">
           <MainButton
             acceptInvitation={acceptInvitation}
-            goToEventRoom={goToEventRoom}
             user={user}
             event={event}
             sendEventRequest={sendEventRequest}

@@ -2,21 +2,27 @@ import Logo from "components/Logo";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import SimpleBar from "simplebar-react";
 import BooksImage from "assets/books.svg";
+import { useHistory, useLocation } from "react-router-dom";
 
-const SideMenu = ({ items, page, setPage, height }) => {
+const SideMenu = ({ items, height }) => {
+  const history = useHistory();
+  const location = useLocation();
+
   return (
     <SimpleBar className="h-full" style={{ width: 330 }}>
       <div className="flex flex-col" style={{ minHeight: height }}>
         <div className="pb-12 pt-9 pl-10 pr-12 flex flex-col text-lg">
-          <Logo className="mb-16" onClick={() => setPage(0)}></Logo>
+          <Logo className="mb-16" onClick={() => history.push("/")}></Logo>
           <div>
             {items.map((x, i) => (
               <ButtonBase
                 key={`sideMenu-item-${i}`}
                 className={`w-full flex justify-start items-center mb-5 outline-none rounded-xl transition-colors duration-200 ease-in-out cursor-pointer px-4 py-5 ${
-                  page === x.title ? "bg-blue-400 text-white" : "text-blue-400 hover:bg-blue-100"
+                  location.pathname === x.pathname
+                    ? "bg-blue-400 text-white"
+                    : "text-blue-400 hover:bg-blue-100"
                 }`}
-                onClick={() => setPage(x.title)}
+                onClick={() => history.push(x.pathname)}
               >
                 <x.icon className="mr-7 text-3xl" fontSize="inherit"></x.icon>
                 <div className="leading-none">{x.title}</div>
