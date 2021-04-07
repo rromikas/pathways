@@ -1,7 +1,10 @@
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import PersonIcon from "@material-ui/icons/Person";
-import EventsIcon from "@material-ui/icons/InsertInvitation";
-import SettingsIcon from "@material-ui/icons/Settings";
+// import DashboardIcon from "@material-ui/icons/Dashboard";
+import { ReactComponent as ProfileIcon } from "assets/profile.svg";
+// import EventsIcon from "@material-ui/icons/InsertInvitation";
+// import SettingsIcon from "@material-ui/icons/Settings";
+import { ReactComponent as SettingsIcon } from "assets/settings.svg";
+import { ReactComponent as EventsIcon } from "assets/events.svg";
+import { ReactComponent as DashboardIcon } from "assets/dashboard.svg";
 
 export const MenuItems = [
   {
@@ -9,7 +12,7 @@ export const MenuItems = [
     title: "Dashboard",
     pathname: "/",
   },
-  { icon: PersonIcon, title: "Profile", pathname: "/profile" },
+  { icon: ProfileIcon, title: "Profile", pathname: "/profile" },
   {
     icon: EventsIcon,
     title: "Events",

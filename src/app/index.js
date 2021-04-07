@@ -157,6 +157,7 @@ const Dashboard = ({
     <>
       <Drawer anchor="left" open={menuOpened} onClose={() => setMenuOpened(false)}>
         <SideMenu
+          onClose={() => setMenuOpened(false)}
           items={MenuItems.filter((x) => !x.hiddenFromMenu)}
           height={size.height}
         ></SideMenu>

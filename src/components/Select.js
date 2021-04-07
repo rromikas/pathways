@@ -8,6 +8,7 @@ const SelectComponent = ({
   outlined = false,
   defaultValue = "",
   dark = false,
+  small = false,
 }) => {
   const customStyles = {
     menuList: (provided, state) => ({
@@ -37,9 +38,9 @@ const SelectComponent = ({
       background: outlined ? "transparent" : "#F5F5F5",
       border: outlined ? (dark ? "1px solid #1A3A4F" : "1px solid white") : "none",
       display: "flex",
-      padding: "0 14px",
+      padding: small ? "0 5px" : "0 14px",
       borderRadius: 7,
-      height: 48,
+      height: small ? 36 : 48,
       cursor: "pointer",
     }),
     placeholder: () => ({

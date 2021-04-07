@@ -58,14 +58,23 @@ const Event = ({
   );
 };
 
-const EventsList = ({ events, scrollToTop, filterFunction, eventsPerPage = 10, ...rest }) => {
+const EventsList = ({
+  events,
+  scrollToTop,
+  filterFunction,
+  eventsPerPage = 10,
+  sortFunction = (a, b) => 1,
+  ...rest
+}) => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
     scrollToTop();
   }, [page]);
 
-  const eventsArr = events.filter(filterFunction);
+  console.log("sort functuon", sortFunction);
+
+  const eventsArr = events.filter(filterFunction).sort(sortFunction);
 
   return (
     <Flipper flipKey={eventsArr.length}>

@@ -89,7 +89,7 @@ export const users = {
   2: {
     id: 2,
     profileFilled: true,
-    questionnaireFilled: false,
+    questionnaireFilled: true,
     selectedSpeaker: null,
     fullName: "Maria Doe",
     school: "St. Thomas Preparatory School",

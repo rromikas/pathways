@@ -4,7 +4,7 @@ import SimpleBar from "simplebar-react";
 import BooksImage from "assets/books.svg";
 import { useHistory, useLocation } from "react-router-dom";
 
-const SideMenu = ({ items, height }) => {
+const SideMenu = ({ items, height, onClose = () => {} }) => {
   const history = useHistory();
   const location = useLocation();
 
@@ -12,7 +12,13 @@ const SideMenu = ({ items, height }) => {
     <SimpleBar className="h-full" style={{ width: 330 }}>
       <div className="flex flex-col" style={{ minHeight: height }}>
         <div className="pb-12 pt-9 pl-10 pr-12 flex flex-col text-lg">
-          <Logo className="mb-16" onClick={() => history.push("/")}></Logo>
+          <Logo
+            className="mb-16"
+            onClick={() => {
+              history.push("/");
+              onClose();
+            }}
+          ></Logo>
           <div>
             {items.map((x, i) => (
               <ButtonBase
@@ -22,9 +28,17 @@ const SideMenu = ({ items, height }) => {
                     ? "bg-blue-400 text-white"
                     : "text-blue-400 hover:bg-blue-100"
                 }`}
-                onClick={() => history.push(x.pathname)}
+                onClick={() => {
+                  history.push(x.pathname);
+                  onClose();
+                }}
               >
-                <x.icon className="mr-7 text-3xl" fontSize="inherit"></x.icon>
+                <x.icon
+                  className={`mr-7 text-3xl ${
+                    location.pathname === x.pathname ? "text-white" : ""
+                  } fill-current`}
+                  fontSize="inherit"
+                ></x.icon>
                 <div className="leading-none">{x.title}</div>
               </ButtonBase>
             ))}
