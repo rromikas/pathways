@@ -1,5 +1,5 @@
 import SideMenu from "components/SideMenu";
-import { useState, useRef } from "react";
+import { useState, useRef, Suspense } from "react";
 import MenuNavbar from "components/MenuNavbar";
 import Drawer from "@material-ui/core/Drawer";
 import { withSize } from "react-sizeme";
@@ -9,6 +9,7 @@ import { useNotify } from "notifications";
 import { Routes } from "./Routes";
 import { Route, useHistory } from "react-router-dom";
 import { MenuItems } from "./MenuItems";
+import Loader from "components/RelativeLoader";
 
 const Dashboard = ({
   size,
@@ -180,14 +181,16 @@ const Dashboard = ({
           >
             <Navbar user={user} logout={logout}></Navbar>
             <div className="flex-grow">
-              {Routes.map((x, i) => (
-                <Route
-                  key={`route-${i}`}
-                  exact
-                  path={x.pathname}
-                  render={(routeProps) => <x.component {...props} {...routeProps}></x.component>}
-                ></Route>
-              ))}
+              <Suspense fallback={<Loader></Loader>}>
+                {Routes.map((x, i) => (
+                  <Route
+                    key={`route-${i}`}
+                    exact
+                    path={x.pathname}
+                    render={(routeProps) => <x.component {...props} {...routeProps}></x.component>}
+                  ></Route>
+                ))}
+              </Suspense>
             </div>
           </div>
         </div>

@@ -12,7 +12,6 @@ import {
   settings as initialSettings,
 } from "data";
 import NotificationsProvider from "notifications";
-import Loader from "components/Loader";
 import Dashboard from "app/index";
 
 const App = () => {
@@ -34,35 +33,34 @@ const App = () => {
     <NotificationsProvider>
       <div className="fixed left-0 top-0 w-full h-full">
         <ScreenSizeBadge></ScreenSizeBadge>
-        <Suspense fallback={<Loader></Loader>}>
-          <Switch>
-            {user ? (
-              <Dashboard
-                users={users}
-                userId={user ? user.id : -1}
-                logout={() => setUser(null)}
-                setUsers={setUsers}
-                events={events}
-                setEvents={setEvents}
-                messages={messages}
-                setMessages={setMessages}
-                settings={settings}
-                setSettings={setSettings}
-                breakoutRooms={breakoutRooms}
-                setBreakoutRooms={setBreakoutRooms}
-              ></Dashboard>
-            ) : null}
-            <Route path="/forgot-password" exact>
-              <ForgotPassword></ForgotPassword>
-            </Route>
-            <Route path="/sign-in" exact>
-              <SignIn setUser={setUser} users={users}></SignIn>
-            </Route>
-            <Route path="/sign-up" exact>
-              <SignUp setUsers={setUsers}></SignUp>
-            </Route>
-          </Switch>
-        </Suspense>
+
+        <Switch>
+          {user ? (
+            <Dashboard
+              users={users}
+              userId={user ? user.id : -1}
+              logout={() => setUser(null)}
+              setUsers={setUsers}
+              events={events}
+              setEvents={setEvents}
+              messages={messages}
+              setMessages={setMessages}
+              settings={settings}
+              setSettings={setSettings}
+              breakoutRooms={breakoutRooms}
+              setBreakoutRooms={setBreakoutRooms}
+            ></Dashboard>
+          ) : null}
+          <Route path="/forgot-password" exact>
+            <ForgotPassword></ForgotPassword>
+          </Route>
+          <Route path="/sign-in" exact>
+            <SignIn setUser={setUser} users={users}></SignIn>
+          </Route>
+          <Route path="/sign-up" exact>
+            <SignUp setUsers={setUsers}></SignUp>
+          </Route>
+        </Switch>
       </div>
     </NotificationsProvider>
   );
