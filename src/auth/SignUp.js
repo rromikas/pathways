@@ -7,8 +7,8 @@ import { ReactComponent as ProfileIcon } from "assets/input_profile.svg";
 import { ReactComponent as GoogleIcon } from "assets/google.svg";
 import { ReactComponent as FacebookIcon } from "assets/facebook.svg";
 import { ReactComponent as TwitterIcon } from "assets/twitter.svg";
-import { store } from "store";
 import { useHistory } from "react-router-dom";
+import Button from "components/Button";
 
 const SignUp = () => {
   const history = useHistory();
@@ -57,15 +57,24 @@ const SignUp = () => {
               type="password"
               icon={<PasswordIcon></PasswordIcon>}
             ></Input>
-            <ButtonBase
+            <Button
               onClick={() => {
-                store.dispatch({ type: "SET_TEMPORARY_USER", payload: true });
                 history.push("/");
               }}
-              className="bg-orange-400 h-48px rounded text-20px hover:bg-orange-500 text-white outline-none w-full transition"
+              primary
+              className="w-full text-18px mb-3"
             >
               Sign up
-            </ButtonBase>
+            </Button>
+            <Button
+              onClick={() => {
+                history.push("/sign-in");
+              }}
+              className="w-full text-18px md:hidden"
+            >
+              Sign in
+            </Button>
+
             <div className="border-b border-gray-55 h-48px relative mb-8 flex justify-end">
               <div className="absolute text-gray-700 font-medium left-0 right-0 w-72px text-center mx-auto p-1 bg-white h-32px -bottom-16px">
                 Or

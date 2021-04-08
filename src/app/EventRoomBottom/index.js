@@ -235,7 +235,6 @@ const SendMessageWidget = ({ value, setValue, onSubmit }) => {
 const AdminBottom = ({
   setShowParticipants,
   participants,
-  goToAnalyticsPage,
   event,
   sendMessage,
   createBreakoutRooms,
@@ -245,6 +244,7 @@ const AdminBottom = ({
   closeBreakoutRooms,
 }) => {
   const [message, setMessage] = useState("");
+  const history = useHistory();
   return (
     <div>
       <div className="flex py-7 border-b border-gray-700 mb-7">
@@ -292,7 +292,7 @@ const AdminBottom = ({
           <div>
             <Cell title="Breakout rooms" value={breakoutRooms.length}></Cell>
             <ButtonBase
-              onClick={() => goToAnalyticsPage(event)}
+              onClick={() => history.push("/analytics")}
               className="outline-none h-40px transition rounded-lg text-white px-12 bg-orange-300 hover:bg-orange-301"
             >
               Analytics
@@ -315,7 +315,6 @@ const ModeratorBottom = ({
   participants,
   setShowParticipants,
   event,
-  goToAnalyticsPage,
   sendMessage,
   breakoutRooms,
   breakoutRoomId,
@@ -324,6 +323,7 @@ const ModeratorBottom = ({
   setBreakoutRoomId,
 }) => {
   const [message, setMessage] = useState("");
+  const history = useHistory();
 
   return (
     <div>
@@ -372,7 +372,7 @@ const ModeratorBottom = ({
           <div>
             <Cell title="Breakout rooms" value={breakoutRooms.length}></Cell>
             <ButtonBase
-              onClick={() => goToAnalyticsPage(event)}
+              onClick={() => history.push("/analytics")}
               className="outline-none h-40px transition rounded-lg text-white px-12 bg-orange-300 hover:bg-orange-301"
             >
               Analytics
@@ -396,7 +396,6 @@ const SpeakerBottom = ({
   participants,
   setShowParticipants,
   user,
-  goToAnalyticsPage,
   sendMessage,
   breakoutRoomId,
   breakoutRooms,
@@ -404,6 +403,7 @@ const SpeakerBottom = ({
   const [message, setMessage] = useState("");
   const [assignModeratorOpen, setAssignModeratorOpen] = useState(false);
   const [moderator, setModerator] = useState(null);
+  const history = useHistory();
   return (
     <div>
       <SelectModal
@@ -469,7 +469,7 @@ const SpeakerBottom = ({
 
           <div className="mr-7">
             <ButtonBase
-              onClick={() => goToAnalyticsPage(event)}
+              onClick={() => history.push("/analytics")}
               className="outline-none h-40px transition rounded-lg text-white px-12 bg-orange-300 hover:bg-orange-301"
             >
               Analytics

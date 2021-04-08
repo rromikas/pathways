@@ -32,7 +32,7 @@ const App = () => {
   return (
     <NotificationsProvider>
       <div className="fixed left-0 top-0 w-full h-full">
-        <ScreenSizeBadge></ScreenSizeBadge>
+        {/* <ScreenSizeBadge></ScreenSizeBadge> */}
 
         <Switch>
           {user ? (

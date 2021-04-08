@@ -15,6 +15,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
 import { useNotify } from "notifications";
+import Button from "components/Button";
 
 const SignIn = ({ users, setUser }) => {
   const history = useHistory();
@@ -142,12 +143,15 @@ const SignIn = ({ users, setUser }) => {
                 name="password"
                 icon={<PasswordIcon></PasswordIcon>}
               ></Input>
-              <ButtonBase
-                type="submit"
-                className="bg-orange-400 h-48px rounded text-20px hover:bg-orange-500 text-white outline-none w-full transition"
-              >
+              <Button type="submit" primary className="w-full text-18px mb-3">
                 Sign in
-              </ButtonBase>
+              </Button>
+              <Button
+                className="w-full text-18px md:hidden"
+                onClick={() => history.push("/sign-up")}
+              >
+                Create account
+              </Button>
               <div className="border-b border-gray-550 py-3 relative mb-8 flex justify-end">
                 <div className="absolute text-gray-700 font-medium left-0 right-0 w-72px text-center mx-auto p-1 bg-white h-32px -bottom-16px">
                   Or

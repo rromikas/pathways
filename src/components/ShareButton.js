@@ -9,13 +9,10 @@ import { useState } from "react";
 import Button from "components/Button";
 import {
   FacebookShareButton,
-  InstapaperShareButton,
   LinkedinShareButton,
   TwitterShareButton,
   WhatsappShareButton,
 } from "react-share";
-
-console.log(window.location.origin);
 
 const ShareButton = ({ className = "", event }) => {
   const [open, setOpen] = useState(false);
@@ -25,14 +22,43 @@ const ShareButton = ({ className = "", event }) => {
       button: FacebookShareButton,
       icon: FacebookIcon,
       props: {
-        quote: "Event starts soon. Come here.",
+        quote: "Lorem ipsum dolor sit amet, consetetur",
         url: `${window.location.origin}/${event.id}`,
       },
     },
-    { button: InstapaperShareButton, icon: InstagramIcon },
-    { button: WhatsappShareButton, icon: WhatsappIcon },
-    { button: TwitterShareButton, icon: TwitterIcon },
-    { button: LinkedinShareButton, icon: LinkedinIcon },
+    {
+      button: (props) => <div {...props}></div>,
+      icon: InstagramIcon,
+      props: {},
+    },
+    {
+      button: WhatsappShareButton,
+      icon: WhatsappIcon,
+      props: {
+        title: "Lorem ipsum dolor sit amet, consetetur",
+        seperator: " ",
+        url: `${window.location.origin}/${event.id}`,
+      },
+    },
+    {
+      button: TwitterShareButton,
+      icon: TwitterIcon,
+      props: {
+        title: "Lorem ipsum dolor sit amet, consetetur",
+        url: `${window.location.origin}/${event.id}`,
+      },
+    },
+    {
+      button: LinkedinShareButton,
+      icon: LinkedinIcon,
+      props: {
+        source: "P2CS",
+        title: "Lorem ipsum dolor sit amet, consetetur",
+        summary:
+          "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat?",
+        url: `${window.location.origin}/${event.id}`,
+      },
+    },
     ,
     ,
   ];
@@ -43,12 +69,16 @@ const ShareButton = ({ className = "", event }) => {
         open={open}
         position="right"
         html={
-          <div className="flex bg-white rounded-md p-4 shadow-custom m-3">
+          <div className="flex bg-white rounded-md p-4 shadow-custom m-3 items-center">
             {socNetworks.map((x, i) => {
               const Icon = x.icon;
               const SocialButton = x.button;
               return (
-                <SocialButton key={`socNetwork-icon-${i}`} {...x.props} className="h-48px w-48px">
+                <SocialButton
+                  key={`socNetwork-icon-${i}`}
+                  {...x.props}
+                  className="h-48px w-48px flex items-center"
+                >
                   <Icon className="transform hover:scale-110 transition"></Icon>
                 </SocialButton>
               );

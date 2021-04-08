@@ -7,6 +7,7 @@ const EventPage = lazy(() => import("./EventPage"));
 const CreateEventPage = lazy(() => import("./CreateEventPage"));
 const EventRoomPage = lazy(() => import("./EventRoomPage"));
 const SettingsPage = lazy(() => import("./SettingsPage"));
+const AnalyticsPage = lazy(() => import("./AnalyticsPage"));
 
 export const Routes = [
   { pathname: "/", component: DashboardPage },
@@ -16,4 +17,5 @@ export const Routes = [
   { pathname: "/events", component: EventsPage },
   { pathname: "/events/:id/live", component: EventRoomPage },
   { pathname: "/settings", component: SettingsPage },
+  { pathname: "/analytics", component: AnalyticsPage },
 ];
