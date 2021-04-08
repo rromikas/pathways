@@ -2,7 +2,6 @@ import Logo from "components/Logo";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Input from "components/AuthInput";
 import { ReactComponent as EmailIcon } from "assets/input_email.svg";
-import { store } from "store";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
@@ -13,7 +12,7 @@ const ForgotPassword = () => {
 
   const SendMail = async (e) => {
     e.preventDefault();
-    let res = await fetch("/api/forgot-password", {
+    await fetch("/api/forgot-password", {
       method: "POST",
       body: JSON.stringify({ email }),
     });

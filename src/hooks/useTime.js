@@ -15,7 +15,7 @@ const useTime = () => {
     return () => {
       clearTimeout(timeoutRef.current);
     };
-  }, [time]);
+  }, [time]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { time, stopTimer: () => (!stopped ? setStopped(true) : {}) };
 };

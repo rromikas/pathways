@@ -1,10 +1,9 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import "simplebar/dist/simplebar.min.css";
 import { Switch, Route, useHistory } from "react-router-dom";
 import SignIn from "auth/SignIn";
 import SignUp from "auth/SignUp";
 import ForgotPassword from "auth/ForgotPassword";
-import ScreenSizeBadge from "components/ScreenSizeBadge";
 import {
   users as initialUsers,
   events as initialEvents,
@@ -27,12 +26,11 @@ const App = () => {
     if (!user) {
       history.push("/sign-in");
     }
-  }, [user]);
+  }, [user, history]); 
 
   return (
     <NotificationsProvider>
       <div className="fixed left-0 top-0 w-full h-full">
-        {/* <ScreenSizeBadge></ScreenSizeBadge> */}
 
         <Switch>
           {user ? (

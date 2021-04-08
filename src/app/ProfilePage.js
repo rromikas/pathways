@@ -6,7 +6,6 @@ import Input from "components/Input";
 import Textarea from "components/Textarea";
 import Fill from "assets/blue_fill.png";
 import Button from "components/Button";
-import ButtonBase from "@material-ui/core/ButtonBase";
 import { schoolTypes, jobTitles } from "data";
 
 const Label = ({ children, className = "" }) => {
@@ -15,7 +14,7 @@ const Label = ({ children, className = "" }) => {
 
 const Profile = ({ user }) => {
   const [image, setImage] = useState([]);
-  const { values, errors, handleChange, setFieldValue } = useFormik({
+  const { values, handleChange, setFieldValue } = useFormik({
     initialValues: user,
   });
 

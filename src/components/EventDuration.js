@@ -21,7 +21,7 @@ const EventDuration = ({ event, endDate }) => {
     return () => {
       clearTimeout(timeoutRef.current);
     };
-  }, [endTime]);
+  }, [endTime]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const duration = moment.duration(endTime.diff(startTime));
   return endTime.toDate() < startTime.toDate()

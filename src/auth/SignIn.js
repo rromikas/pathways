@@ -6,14 +6,12 @@ import { ReactComponent as EmailIcon } from "assets/input_email.svg";
 import { ReactComponent as GoogleIcon } from "assets/google.svg";
 import { ReactComponent as FacebookIcon } from "assets/facebook.svg";
 import { ReactComponent as TwitterIcon } from "assets/twitter.svg";
-import { store } from "store";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import Modal from "@material-ui/core/Modal";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
-import { connect } from "react-redux";
 import { useNotify } from "notifications";
 import Button from "components/Button";
 
@@ -22,7 +20,7 @@ const SignIn = ({ users, setUser }) => {
   const notify = useNotify();
   const [isSelectingProfile, setIsSelectingProfile] = useState(false);
 
-  const { values, errors, handleSubmit, handleChange, setValues } = useFormik({
+  const { values, handleSubmit, handleChange, setValues } = useFormik({
     initialValues: { email: "", password: "" },
     onSubmit: (values) => {
       const foundUser = Object.values(users).find(

@@ -6,7 +6,7 @@ import { participants } from "data";
 const EventRoomPage = ({ scrollToTop, events, ...rest }) => {
   useEffect(() => {
     scrollToTop();
-  }, []);
+  }, [scrollToTop]);
 
   const user = rest.user;
   const eventId = rest.match.params.id;

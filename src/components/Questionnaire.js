@@ -32,13 +32,13 @@ const Questionnaire = ({ questions, questionsPerStep, onSave, initialAnswers, sc
 
   useEffect(() => {
     scrollToTop();
-  }, [step]);
+  }, [step, scrollToTop]);
 
   useEffect(() => {
     if (!answers.length) {
       setAnswers(questions.map((x) => ""));
     }
-  }, [questions]);
+  }, [questions]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (initialAnswers) {
@@ -54,7 +54,7 @@ const Questionnaire = ({ questions, questionsPerStep, onSave, initialAnswers, sc
       })();
       setStep(Math.max(Math.ceil((firstNotAnsweredIndex + 1) / questionsPerStep) - 1, 0));
     }
-  }, [initialAnswers]);
+  }, [initialAnswers]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderArray = answers.slice(
     step * questionsPerStep,

@@ -9,9 +9,7 @@ const NumberInput = ({ value, setValue }) => {
         onChange={(e) => {
           const val = e.target.value;
           if (/^\d*$/.test(val)) {
-            {
-              setValue(val);
-            }
+            setValue(val);
           }
         }}
         className="outline-none w-56px h-20px"

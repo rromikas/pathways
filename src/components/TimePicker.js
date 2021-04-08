@@ -19,8 +19,6 @@ const DayPickerComponent = ({ setValue, children, value }) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <StaticTimePicker
                 ampm={false}
-                classes={{ Thumb: "bg-orange-400" }}
-                classes={{ meridiemButton: "bg-orange-400" }}
                 ampmInClock={true}
                 ToolbarComponent={(props) => {
                   return (

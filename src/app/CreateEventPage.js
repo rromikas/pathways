@@ -1,13 +1,10 @@
-import Select from "components/Select";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useFormik } from "formik";
 import Dropzone from "components/Dropzone";
 import Input from "components/Input";
 import Textarea from "components/Textarea";
-import Fill from "assets/blue_fill.png";
 import Button from "components/Button";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import { schoolTypes, jobTitles } from "data";
 import AddIcon from "@material-ui/icons/Add";
 import DateInput from "components/DateInput";
 import TimeInput from "components/TimeInput";
@@ -51,7 +48,7 @@ const CreateEventPage = ({ onCreateEvent }) => {
     if (submitCount > 0 && Object.keys(errors).length) {
       notify("Fill required values");
     }
-  }, [submitCount]);
+  }, [submitCount]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="p-12 rounded-xl" style={{ boxShadow: "0px 3px 8px 0px rgba(0,0,0,0.1)" }}>

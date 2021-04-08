@@ -59,7 +59,7 @@ const GridView = ({
     if (participantsFrame * arraySize > participants.length) {
       setParticipantsFrame(0);
     }
-  }, [currentOption]);
+  }, [currentOption]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div

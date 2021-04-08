@@ -1,15 +1,12 @@
 import { ReactComponent as BellIcon } from "assets/bell.svg";
-import { connect } from "react-redux";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Drawer from "@material-ui/core/Drawer";
 import { useState } from "react";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import { store } from "store";
 import { useHistory, useLocation } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "assets/search.svg";
 import Button from "components/Button";
 import AddIcon from "@material-ui/icons/Add";
-import Input from "components/Input";
 import BlueFill from "assets/blue_fill.png";
 
 const DashboardNavbar = ({ user, logout }) => {

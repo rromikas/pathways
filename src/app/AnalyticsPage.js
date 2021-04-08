@@ -1,5 +1,5 @@
 import ParticipantsList from "components/ParticipantsList";
-import { participants, messages, analyticsData } from "data";
+import { participants, analyticsData } from "data";
 import { ResponsiveContainer, AreaChart, Area, CartesianGrid, Tooltip } from "recharts";
 import { curveCardinal } from "d3";
 import { useEffect } from "react";
@@ -19,7 +19,7 @@ const AnalyticsPage = ({ scrollToTop }) => {
 
   useEffect(() => {
     scrollToTop();
-  }, []);
+  }, [scrollToTop]);
 
   return (
     <div>

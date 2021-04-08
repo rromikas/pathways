@@ -70,9 +70,7 @@ const EventsList = ({
 
   useEffect(() => {
     scrollToTop();
-  }, [page]);
-
-  console.log("sort functuon", sortFunction);
+  }, [page, scrollToTop]);
 
   const eventsArr = events.filter(filterFunction).sort(sortFunction);
 

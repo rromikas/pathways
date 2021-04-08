@@ -1,6 +1,6 @@
 import ConferenceView from "./ConferenceView";
 import Chat from "./Chat";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Participants from "./Participants";
 import Toolbar from "./Toolbar";
 import useTime from "hooks/useTime";

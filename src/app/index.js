@@ -1,5 +1,5 @@
 import SideMenu from "components/SideMenu";
-import { useState, useRef, Suspense } from "react";
+import { useState, useRef, Suspense, useCallback } from "react";
 import MenuNavbar from "components/MenuNavbar";
 import Drawer from "@material-ui/core/Drawer";
 import { withSize } from "react-sizeme";
@@ -33,16 +33,15 @@ const Dashboard = ({
 
   const user = userId > -1 ? users[userId] : null;
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     if (scrollContainer.current) {
       try {
-        // scrollContainer.current.getScrollElement().scrollTop = 0;
         scrollContainer.current.scrollTop = 0;
       } catch (er) {
         console.log("can't scroll to top", er);
       }
     }
-  };
+  }, []);
 
   const sendMessage = (text) => {
     setMessages((prev) => [...prev, { user, text, createdAt: Date.now() }]);

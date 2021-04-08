@@ -11,10 +11,14 @@ const MyDropzone = ({
   primary = false,
   onClick = () => {},
 }) => {
-  const onDrop = useCallback((acceptedFiles) => {
-    onFiles(acceptedFiles);
-  }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      onFiles(acceptedFiles);
+    },
+    [onFiles]
+  );
+
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept,
     multiple,

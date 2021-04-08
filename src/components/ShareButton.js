@@ -59,8 +59,6 @@ const ShareButton = ({ className = "", event }) => {
         url: `${window.location.origin}/${event.id}`,
       },
     },
-    ,
-    ,
   ];
 
   return (

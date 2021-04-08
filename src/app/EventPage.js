@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const EventPage = ({ events, scrollToTop, match }) => {
   useEffect(() => {
     scrollToTop();
-  }, []);
+  }, [scrollToTop]);
 
   const eventId = match.params.id;
   const event = events.find((x) => +x.id === +eventId);

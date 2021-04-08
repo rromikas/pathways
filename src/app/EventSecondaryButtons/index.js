@@ -1,6 +1,5 @@
 import Button from "components/Button";
 import { ReactComponent as InviteIcon } from "assets/invite.svg";
-import { ReactComponent as ShareIcon } from "assets/share.svg";
 import ConfirmInvite from "components/ConfirmInvite";
 import { useNotify } from "notifications";
 import ShareButton from "components/ShareButton";

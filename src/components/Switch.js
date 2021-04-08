@@ -1,5 +1,3 @@
-import ButtonBase from "@material-ui/core/ButtonBase";
-
 const Switch = ({ enabled, setEnabled }) => {
   return (
     <div

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Switch from "components/Switch";
 import Button from "components/Button";
 

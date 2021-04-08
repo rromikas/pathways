@@ -12,7 +12,7 @@ import PrepareScreen from "./PrepareScreen";
 const BoxRuler = withSize()(({ size, setSize }) => {
   useEffect(() => {
     setSize(size);
-  }, [size]);
+  }, [size]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <div className="h-0 w-full"></div>;
 });
@@ -36,7 +36,7 @@ const NotGridView = ({
     if (participantsPerFrame * participantsFrame >= participants.length) {
       setParticipantsFrame(0);
     }
-  }, [participantsBoxWidth]);
+  }, [participantsBoxWidth]); // eslint-disable-line react-hooks/exhaustive-deps
 
   let participantsPerFrame = Math.floor(participantsBoxWidth / 120);
   participantsPerFrame = participantsPerFrame > 0 ? participantsPerFrame - 1 : participantsPerFrame;
