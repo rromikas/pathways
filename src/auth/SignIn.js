@@ -47,9 +47,9 @@ const SignIn = ({ users, setUser }) => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="text-20px font-bold mb-5">Select pre-made profile</div>
-            <div className="row no-gutters w-full">
+            <div className="flex flex-wrap w-full">
               {Object.values(users).map((x, i) => (
-                <div key={`user-${i}`} className="flex items-center md:col-6 col-12">
+                <div key={`user-${i}`} className="flex items-center md:w-1/2 w-full">
                   <div className="p-1.5 h-full w-full">
                     <div
                       onClick={() => {
