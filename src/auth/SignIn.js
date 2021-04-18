@@ -14,6 +14,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
 import { useNotify } from "notifications";
 import Button from "components/Button";
+import firebase from "firebaseApp";
 
 const SignIn = ({ users, setUser }) => {
   const history = useHistory();
@@ -34,6 +35,48 @@ const SignIn = ({ users, setUser }) => {
       }
     },
   });
+
+  const handleSignin = (way) => {
+    let provider;
+    switch (way) {
+      case "twitter":
+        provider = new firebase.auth.TwitterAuthProvider();
+        break;
+      case "facebook":
+        provider = new firebase.auth.FacebookAuthProvider();
+        break;
+      case "google":
+        provider = new firebase.auth.GoogleAuthProvider();
+        break;
+      default:
+        return;
+    }
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        /** @type {firebase.auth.OAuthCredential} */
+        var credential = result.credential;
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        setUser(users[5]);
+        history.push("/");
+      })
+      .catch((error) => {
+        notify(error.message);
+        console.log("Error", error);
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+      });
+  };
 
   return (
     <>
@@ -163,9 +206,18 @@ const SignIn = ({ users, setUser }) => {
               </div>
               <div className="flex items-center">
                 <div className="mr-7 text-gray-550">Login with-</div>
-                <GoogleIcon className="mr-7 cursor-pointer"></GoogleIcon>
-                <FacebookIcon className="mr-7 cursor-pointer"></FacebookIcon>
-                <TwitterIcon className="cursor-pointer"></TwitterIcon>
+                <GoogleIcon
+                  onClick={() => handleSignin("google")}
+                  className="mr-7 cursor-pointer"
+                ></GoogleIcon>
+                <FacebookIcon
+                  onClick={() => handleSignin("facebook")}
+                  className="mr-7 cursor-pointer"
+                ></FacebookIcon>
+                <TwitterIcon
+                  onClick={() => handleSignin("twitter")}
+                  className="cursor-pointer"
+                ></TwitterIcon>
               </div>
             </form>
           </div>

@@ -9,6 +9,7 @@ import {
   events as initialEvents,
   messages as initialMessages,
   settings as initialSettings,
+  defaultNewUser,
 } from "data";
 import NotificationsProvider from "notifications";
 import Dashboard from "app/index";

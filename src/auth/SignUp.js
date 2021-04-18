@@ -11,11 +11,15 @@ import { useHistory } from "react-router-dom";
 import Button from "components/Button";
 import firebase from "firebaseApp";
 import { useState } from "react";
+import { useNotify } from "notifications";
 
 const SignUp = ({ setUser }) => {
   const history = useHistory();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const notify = useNotify();
 
   const handleSignup = (way) => {
     if (way !== "email-password") {
@@ -48,7 +52,8 @@ const SignUp = ({ setUser }) => {
           history.push("/");
         })
         .catch((error) => {
-          console.log("Error", error)
+          notify(error.message);
+          console.log("Error", error);
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -67,6 +72,7 @@ const SignUp = ({ setUser }) => {
           history.push("/");
         })
         .catch((error) => {
+          notify(error.message);
           var errorCode = error.code;
           var errorMessage = error.message;
         });
@@ -98,46 +104,45 @@ const SignUp = ({ setUser }) => {
       </div>
       <div className="col">
         <div className="px-7 pt-144px pb-144px flex items-center justify-center h-full">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSignup("email-password");
-            }}
-            className="w-full"
-            style={{ maxWidth: 356 }}
-          >
+          <div className="w-full" style={{ maxWidth: 356 }}>
             <div className="font-bold text-24px mb-48px text-center">Create an account</div>
-            <Input
-              required
-              placeholder="Name"
-              type="text"
-              className="mb-4"
-              icon={<ProfileIcon></ProfileIcon>}
-            ></Input>
-            <Input
-              required
-              placeholder="Email"
-              type="email"
-              className="mb-4"
-              icon={<EmailIcon></EmailIcon>}
-            ></Input>
-            <Input
-              required
-              className="mb-40px"
-              placeholder="Password"
-              type="password"
-              icon={<PasswordIcon></PasswordIcon>}
-            ></Input>
-            <Button
-              type="submit"
-              onClick={() => {
-                history.push("/");
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSignup("email-password");
               }}
-              primary
-              className="w-full text-18px mb-3"
             >
-              Sign up
-            </Button>
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                placeholder="Name"
+                type="text"
+                className="mb-4"
+                icon={<ProfileIcon></ProfileIcon>}
+              ></Input>
+              <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Email"
+                type="email"
+                className="mb-4"
+                icon={<EmailIcon></EmailIcon>}
+              ></Input>
+              <Input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="mb-40px"
+                placeholder="Password"
+                type="password"
+                icon={<PasswordIcon></PasswordIcon>}
+              ></Input>
+              <Button type="submit" primary className="w-full text-18px mb-3">
+                Sign up
+              </Button>
+            </form>
             <Button
               onClick={() => {
                 history.push("/sign-in");
@@ -167,7 +172,7 @@ const SignUp = ({ setUser }) => {
                 className="cursor-pointer"
               ></TwitterIcon>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
