@@ -131,6 +131,23 @@ export const users = {
     answers: null,
     ...eventsLists,
   },
+  5: {
+    id: 5,
+    profileFilled: false,
+    questionnaireFilled: false,
+    selectedSpeaker: null,
+    fullName: "Created User",
+    school: "",
+    schoolType: "",
+    jobTitle: "",
+    image: Person6,
+    about: loremIpsum,
+    role: "student",
+    email: "newUser@gmail.com",
+    password: "newUser",
+    answers: null,
+    ...eventsLists,
+  },
 };
 
 export const analyticsData = new Array(9).fill(0).map((_, i) => ({

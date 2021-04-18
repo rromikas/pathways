@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "simplebar/dist/simplebar.min.css";
 import { Switch, Route, useHistory } from "react-router-dom";
 import SignIn from "auth/SignIn";
@@ -26,12 +26,11 @@ const App = () => {
     if (!user) {
       history.push("/sign-in");
     }
-  }, [user, history]); 
+  }, [user, history]);
 
   return (
     <NotificationsProvider>
       <div className="fixed left-0 top-0 w-full h-full">
-
         <Switch>
           {user ? (
             <Dashboard
@@ -56,7 +55,7 @@ const App = () => {
             <SignIn setUser={setUser} users={users}></SignIn>
           </Route>
           <Route path="/sign-up" exact>
-            <SignUp setUsers={setUsers}></SignUp>
+            <SignUp setUser={() => setUser(users[5])}></SignUp>
           </Route>
         </Switch>
       </div>
